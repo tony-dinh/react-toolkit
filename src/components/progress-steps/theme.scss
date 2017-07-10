@@ -1,0 +1,117 @@
+@import "../../styles/variables";
+
+$step-inactive-text-color: hsla(0, 0%, 100%, 0.1);
+$step-incomplete-color: hsla(0, 0%, 100%, 0.2);
+$step-complete-color: hsla(0, 0%, 100%, 0.8);
+$step-active-color: $primaryColor;
+
+.td-progress-steps {
+    display: flex;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background-color: inherit;
+}
+
+.td-progress-steps__item {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+    color: $step-inactive-text-color;
+    background-color: inherit;
+    text-align: center;
+
+    &:first-child .td-progress-steps__badge::before {
+        opacity: 0;
+    }
+
+    &:last-child .td-progress-steps__badge::after {
+        opacity: 0;
+    }
+}
+
+.td-progress-steps__step {
+    display: block;
+    width: 100%;
+    background-color: inherit;
+}
+
+.td-progress-steps__title {
+    margin-top: map-get($spacing__map, small);
+    text-transform: uppercase;
+    font-size: 10px;
+    width: 100%;
+    transition: color 500ms;
+}
+
+.td-progress-steps__badge {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: inherit;
+
+    &::before,
+    &::after {
+        content: '';
+        display: block;
+        flex: 1 1 auto;
+        border-top: 1px solid $step-incomplete-color;
+        transition: border-color 500ms;
+    }
+}
+
+.td-progress-steps__icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: $min-tap-target-size;
+    width: $min-tap-target-size;
+    padding: 8px;
+
+    border: 1px solid $step-incomplete-color;
+    border-radius: 100%;
+
+    color: $step-incomplete-color;
+    background-color: inherit;
+    transition:
+        background-color 500ms,
+        border-color 500ms;
+}
+
+.td-progress-steps__item.td--completed {
+    color: $step-inactive-text-color;
+
+    .td-progress-steps__icon {
+        border-color: $step-complete-color;
+        color: $step-complete-color;
+    }
+
+    .td-progress-steps__badge {
+        &::before,
+        &::after {
+            border-color: $step-complete-color;
+        }
+    }
+}
+
+.td-progress-steps__item.td--current {
+    color: $step-active-color;
+
+    .td-progress-steps__badge {
+        &::before {
+            border-color: $step-complete-color;
+        }
+    }
+
+    .td-progress-steps__icon {
+        color: $step-active-color;
+        border-color: $step-active-color;
+    }
+}

@@ -1,0 +1,89 @@
+@import "../../styles/variables";
+
+$primaryButtonColor: #26A69A;
+$secondaryButtonColor: #EF5350;
+$tertiaryButtonColor: #0097A7;
+
+.td-button {
+    min-height: $min-tap-target-size;
+    min-width: $min-tap-target-size;
+    padding: map-get($spacing__map, medium);
+    border: 0;
+    border-radius: 2px;
+
+    color: white;
+    font-size: 15px;
+    font-weight: normal;
+    line-height: 1.2em;
+    text-align: center;
+    cursor: pointer;
+    transition:
+        color 250ms,
+        background 250ms,
+        border 250ms,
+        opacity 250ms;
+}
+
+.td-button__inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.td-button__icon {
+    height: 1.2em;
+    width: 1.2em;
+}
+
+.td-button__text {
+    text-align: center;
+    line-height: 1.2em;
+
+    &.td--icon-text {
+        margin-left: map-get($spacing__map, x-small);
+    }
+}
+
+.td-button.td--primary {
+    background-color: $primaryButtonColor;
+
+    &:hover {
+        opacity: .8;
+    }
+}
+
+.td-button.td--secondary {
+    background-color: $secondaryButtonColor;
+
+    &:hover {
+        opacity: .8;
+    }
+}
+
+.td-button.td--tertiary {
+    background-color: transparent;
+    border: 1px solid $tertiaryButtonColor;
+    color: $tertiaryButtonColor;
+
+    &:hover {
+        opacity: .8;
+    }
+}
+
+.td-button.td--button-disabled {
+    pointer-events: none;
+
+    &.td--primary {
+        background-color: $grey-80;
+    }
+
+    &.td--secondary {
+        background-color: $grey-80;
+    }
+
+    &.td--tertiary {
+        color: $grey-80;
+        border-color: $grey-80;
+    }
+}
