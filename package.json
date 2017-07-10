@@ -1,5 +1,5 @@
 {
-  "name": "react-toolkit",
+  "name": "@tonydinh/react-toolkit",
   "version": "0.0.1",
   "description": "A collection of reusable react components.",
   "scripts": {
