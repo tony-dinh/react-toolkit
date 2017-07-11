@@ -39,6 +39,26 @@ class Sandbox extends React.Component {
                             <div>Hello Content Body</div>
                         </div>
                     </AccordionItem>
+                    <AccordionItem
+                        headerContent={<div>Header Content</div>}
+                    >
+                        <div>
+                            <div>Hello Content Body2</div>
+                            <div>Hello Content Body2</div>
+                            <div>Hello Content Body2</div>
+                            <div>Hello Content Body2</div>
+                        </div>
+                    </AccordionItem>
+                    <AccordionItem
+                        headerContent={<div>Header Content</div>}
+                    >
+                        <div>
+                            <div>Hello Content Body3</div>
+                            <div>Hello Content Body3</div>
+                            <div>Hello Content Body3</div>
+                            <div>Hello Content Body3</div>
+                        </div>
+                    </AccordionItem>
                 </Accordion>
             </div>
         )

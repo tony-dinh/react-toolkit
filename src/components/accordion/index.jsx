@@ -1,10 +1,19 @@
 import React, {PropTypes} from 'react'
-import TransitionGroup from 'react-transition-group/TransitionGroup'
 import Transition from 'react-transition-group/Transition'
 import classNames from 'classnames'
 import './theme.scss'
 
 const noop = () => {}
+
+const uuid = (() => {
+    let i = 0
+    return () => {
+        return i++
+    }
+})()
+/*******************************************************************************
+                          Accordion Item Content
+*******************************************************************************/
 
 class AccordionItemContent extends React.PureComponent {
     constructor(props) {
@@ -34,6 +43,10 @@ class AccordionItemContent extends React.PureComponent {
         )
     }
 }
+
+/*******************************************************************************
+                              Accordion Item
+*******************************************************************************/
 
 class AccordionItem extends React.PureComponent {
     constructor(props) {
@@ -103,10 +116,15 @@ class AccordionItem extends React.PureComponent {
             }, resolve)
         })
 
+        const waitForAnimation = () => {
+            setTimeout(completionHandler, duration)
+        }
+
         animationFrame()
             .then(setStartState)
             .then(animationFrame)
             .then(setEndState)
+            .then(waitForAnimation)
     }
 
     getContentHeight() {
@@ -134,19 +152,22 @@ class AccordionItem extends React.PureComponent {
             children,
             duration,
             easing,
+            headerClassName,
             headerContent,
             itemId,
             open,
             onClick
         } = this.props
 
-        const classes = classNames(`td-accordion__item`, className, {
+        const classes = classNames('td-accordion__item', className, {
             'td-accordion__item--open': open
         })
 
+        const headerClasses = classNames('td-accordion__header', headerClassName)
+
         return (
             <div id={itemId} className={classes}>
-                <button className="td-accordion__header"
+                <button className={headerClasses}
                     onClick={onClick}
                     role="tab"
                     tabIndex="0"
@@ -175,12 +196,29 @@ class AccordionItem extends React.PureComponent {
     }
 }
 
-const uuid = (() => {
-    let i = 0
-    return () => {
-        return i++
-    }
-})()
+AccordionItem.propTypes = {
+    className: PropTypes.string,
+    children: PropTypes.node,
+    duration: PropTypes.number,
+    easing: PropTypes.string,
+    headerClassName: PropTypes.string,
+    headerContent: PropTypes.node,
+    itemId: PropTypes.string,
+    open: PropTypes.bool,
+    onClick: PropTypes.func,
+    onDidClose: PropTypes.func,
+    onDidOpen: PropTypes.func
+}
+
+AccordionItem.defaultProps = {
+    open: false,
+    onDidClose: noop,
+    onDidOpen: noop
+}
+
+/*******************************************************************************
+                                  Accordion
+*******************************************************************************/
 
 class Accordion extends React.Component {
     constructor(props) {
@@ -211,7 +249,7 @@ class Accordion extends React.Component {
             }
         } else {
             if (multiSelect) {
-                openItems.splice(index, 1)
+                openItems.splice(openItems.indexOf(index), 1)
             } else {
                 openItems = []
             }
@@ -251,13 +289,14 @@ class Accordion extends React.Component {
                     if (!child) {
                         return null
                     }
+
                     const childId = `${this.accordionId}__item-${index}`
                     const childProps = {
                         accordionId: this.accordionId,
-                        key: childId,
                         id: childId,
                         duration,
                         easing,
+                        key: childId,
                         open: this.state.openItems.indexOf(index) > -1,
                         onClick: this.onItemClick.bind(this, index)
                     }
@@ -292,6 +331,7 @@ Accordion.defaultProps = {
     initialOpenItems: [],
     duration: 250,
     easing: 'ease',
+    multiSelect: true,
     onItemOpen: noop,
     onItemDidOpen: noop,
     onItemClose: noop,
