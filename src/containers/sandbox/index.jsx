@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react'
 import Button from '../../components/button'
 import Icon from '../../components/icon'
+import {Accordion, AccordionItem} from '../../components/accordion'
 
 class Sandbox extends React.Component {
     constructor(props) {
@@ -26,8 +27,19 @@ class Sandbox extends React.Component {
 
         return (
             <div>
-              <Button iconName="check" disabled={true} text="Testing"/>
-
+                <Button iconName="check" disabled={true} text="Testing"/>
+                <Accordion>
+                    <AccordionItem
+                        headerContent={<div>Header Content</div>}
+                    >
+                        <div>
+                            <div>Hello Content Body</div>
+                            <div>Hello Content Body</div>
+                            <div>Hello Content Body</div>
+                            <div>Hello Content Body</div>
+                        </div>
+                    </AccordionItem>
+                </Accordion>
             </div>
         )
     }
