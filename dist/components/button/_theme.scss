@@ -5,18 +5,9 @@ $secondaryButtonColor: #EF5350;
 $tertiaryButtonColor: #0097A7;
 
 .td-button {
-    min-height: $min-tap-target-size;
-    min-width: $min-tap-target-size;
-    padding: map-get($spacing__map, medium);
-    border: 0;
     border-radius: 2px;
-
     color: white;
-    font-size: 15px;
-    font-weight: normal;
-    line-height: 1.2em;
-    text-align: center;
-    cursor: pointer;
+
     transition:
         color 250ms,
         background 250ms,
@@ -24,25 +15,8 @@ $tertiaryButtonColor: #0097A7;
         opacity 250ms;
 }
 
-.td-button__inner {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.td-button__icon {
-    height: 1.2em;
-    width: 1.2em;
-}
-
 .td-button__text {
-    text-align: center;
-    line-height: 1.2em;
-
-    &.td--icon-text {
-        margin-left: map-get($spacing__map, x-small);
-    }
+    color: white;
 }
 
 .td-button.td--primary {

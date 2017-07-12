@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react'
 import classNames from 'classnames'
 
 import Icon from '../icon'
-import './theme.scss'
+import './_base.scss'
 
 class Button extends React.PureComponent {
     constructor(props) {

@@ -3,7 +3,7 @@
 $step-inactive-text-color: hsla(0, 0%, 100%, 0.1);
 $step-incomplete-color: hsla(0, 0%, 100%, 0.2);
 $step-complete-color: hsla(0, 0%, 100%, 0.8);
-$step-active-color: $primaryColor;
+$step-active-color: $primary-color;
 
 .td-progress-steps {
     display: flex;

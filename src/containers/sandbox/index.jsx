@@ -1,7 +1,10 @@
 import React, {PropTypes} from 'react'
 import Button from '../../components/button'
+// import DatePicker from '../../components/date-picker'
 import Icon from '../../components/icon'
+import Input from '../../components/input'
 import {Accordion, AccordionItem} from '../../components/accordion'
+
 
 class Sandbox extends React.Component {
     constructor(props) {
@@ -28,11 +31,13 @@ class Sandbox extends React.Component {
         return (
             <div>
                 <Button iconName="check" disabled={true} text="Testing"/>
+                <Input label="First Name" maxLength={50}/>
                 <Accordion>
                     <AccordionItem
-                        headerContent={<div>Header Content</div>}
+                        headerContent={() => <div>Header Content</div>}
                     >
                         <div>
+                            <div>Hello Content Body</div>
                             <div>Hello Content Body</div>
                             <div>Hello Content Body</div>
                             <div>Hello Content Body</div>
@@ -40,9 +45,10 @@ class Sandbox extends React.Component {
                         </div>
                     </AccordionItem>
                     <AccordionItem
-                        headerContent={<div>Header Content</div>}
+                        headerContent={() => <div>Header Content</div>}
                     >
                         <div>
+                            <div>Hello Content Body2</div>
                             <div>Hello Content Body2</div>
                             <div>Hello Content Body2</div>
                             <div>Hello Content Body2</div>
@@ -50,9 +56,10 @@ class Sandbox extends React.Component {
                         </div>
                     </AccordionItem>
                     <AccordionItem
-                        headerContent={<div>Header Content</div>}
+                        headerContent={() => <div>Header Content</div>}
                     >
                         <div>
+                            <div>Hello Content Body3</div>
                             <div>Hello Content Body3</div>
                             <div>Hello Content Body3</div>
                             <div>Hello Content Body3</div>

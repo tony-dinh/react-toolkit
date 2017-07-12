@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react'
 import Transition from 'react-transition-group/Transition'
 import classNames from 'classnames'
-import './theme.scss'
+import './_base.scss'
 
 const noop = () => {}
 
@@ -153,7 +153,7 @@ class AccordionItem extends React.PureComponent {
             duration,
             easing,
             headerClassName,
-            headerContent,
+            headerContent: HeaderContent,
             itemId,
             open,
             onClick
@@ -174,7 +174,7 @@ class AccordionItem extends React.PureComponent {
                     type="button"
                     aria-selected={open}
                 >
-                    {headerContent}
+                    <HeaderContent />
                 </button>
 
                 <Transition
@@ -202,7 +202,7 @@ AccordionItem.propTypes = {
     duration: PropTypes.number,
     easing: PropTypes.string,
     headerClassName: PropTypes.string,
-    headerContent: PropTypes.node,
+    headerContent: PropTypes.func,
     itemId: PropTypes.string,
     open: PropTypes.bool,
     onClick: PropTypes.func,
@@ -331,7 +331,7 @@ Accordion.defaultProps = {
     initialOpenItems: [],
     duration: 250,
     easing: 'ease',
-    multiSelect: true,
+    multiSelect: false,
     onItemOpen: noop,
     onItemDidOpen: noop,
     onItemClose: noop,

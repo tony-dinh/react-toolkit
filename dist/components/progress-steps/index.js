@@ -1,1 +1,85 @@
-import React,{PropTypes}from'react';import classNames from'classnames';var ProgressStepsItem=function(a){var b=a.className,c=a.completed,d=a.current,e=a.number,f=a.icon,g=a.title,h=classNames('td-progress-steps__item',b,{"td--current":d,"td--completed":c});return React.createElement('li',{className:h},React.createElement('div',{className:'td-progress-steps__step'},React.createElement('div',{className:'td-progress-steps__badge'},React.createElement('div',{className:'td-progress-steps__icon'},f?React.createElement(f,null):e)),0<g.length&&React.createElement('div',{className:'td-progress-steps__title'},g)))};ProgressStepsItem.propTypes={className:PropTypes.string,completed:PropTypes.bool,current:PropTypes.bool,icon:PropTypes.func,number:PropTypes.number,title:PropTypes.string},ProgressStepsItem.defaultProps={current:!1};var ProgressSteps=function(a){var b=a.className,c=a.children,d=classNames('td-progress-steps',b),e=!0;return React.createElement('ol',{className:d},React.Children.map(c,function(a,b){a.props.current&&(e=!1);var c=b+1,d={number:c,icon:a.props.icon,key:'progress-step-'+c,completed:e};return React.cloneElement(a,d)}))};export{ProgressStepsItem,ProgressSteps};export default ProgressSteps;
+import React, { PropTypes } from 'react';
+import classNames from 'classnames';
+
+var ProgressStepsItem = function ProgressStepsItem(_ref) {
+    var className = _ref.className,
+        completed = _ref.completed,
+        current = _ref.current,
+        number = _ref.number,
+        Icon = _ref.icon,
+        title = _ref.title;
+
+    var classes = classNames('td-progress-steps__item', className, {
+        'td--current': current,
+        'td--completed': completed
+    });
+
+    var stepClasses = 'td-progress-steps__step';
+
+    return React.createElement(
+        'li',
+        { className: classes },
+        React.createElement(
+            'div',
+            { className: stepClasses },
+            React.createElement(
+                'div',
+                { className: 'td-progress-steps__badge' },
+                React.createElement(
+                    'div',
+                    { className: 'td-progress-steps__icon' },
+                    Icon ? React.createElement(Icon, null) : number
+                )
+            ),
+            title.length > 0 && React.createElement(
+                'div',
+                { className: 'td-progress-steps__title' },
+                title
+            )
+        )
+    );
+};
+
+ProgressStepsItem.propTypes = {
+    className: PropTypes.string,
+    completed: PropTypes.bool,
+    current: PropTypes.bool,
+    icon: PropTypes.func,
+    number: PropTypes.number,
+    title: PropTypes.string
+};
+
+ProgressStepsItem.defaultProps = {
+    current: false
+};
+
+var ProgressSteps = function ProgressSteps(_ref2) {
+    var className = _ref2.className,
+        children = _ref2.children;
+
+    var classes = classNames('td-progress-steps', className);
+    var completed = true;
+
+    return React.createElement(
+        'ol',
+        { className: classes },
+        React.Children.map(children, function (child, index) {
+            if (child.props.current) {
+                completed = false;
+            }
+
+            var progressNumber = index + 1;
+            var props = {
+                number: progressNumber,
+                icon: child.props.icon,
+                key: 'progress-step-' + progressNumber,
+                completed: completed
+            };
+
+            return React.cloneElement(child, props);
+        })
+    );
+};
+
+export { ProgressStepsItem, ProgressSteps };
+export default ProgressSteps;

@@ -1,5 +1,3 @@
-@import "../../styles/variables";
-
 .td-accordion {
     width: 100%;
 }
@@ -10,7 +8,7 @@
 
 .td-accordion__header {
     width: 100%;
-    height: $min-tap-target-size;
+    cursor: pointer;
 }
 
 .td-accordion__item-content {

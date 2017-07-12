@@ -23,17 +23,6 @@ $spacing__map: (
     x-large: $base-px-unit * 5,
 );
 
-// Colours
-// ---
-$primaryColor: #00da91;
-$secondaryColor: #ff6560;
-$tertiaryColor: #00ACC1;
-$primaryPastelColor:  #A8E7D2;
-$secondaryPastelColor: #F6D6D5;
-$tertiaryPastelColor: #60c8d6;
-$successColor: #5dc2a0;
-$darkBackgroundColor: #262626;
-
 // Neutral
 // ---
 $grey-97: hsl(0, 0%, 97%);
@@ -46,6 +35,17 @@ $grey-60: hsl(0, 0%, 50%);
 $grey-50: hsl(0, 0%, 50%);
 $grey-40: hsl(0, 0%, 40%);
 $grey-30: hsl(0, 0%, 30%);
+
+// Colours
+// ---
+$primary-color: #00da91;
+$secondaryColor: #ff6560;
+$tertiary-color: #00ACC1;
+$primary-pastel-color:  #A8E7D2;
+$secondary-pastel-color: #F6D6D5;
+$tertiary-pastel-color: #60c8d6;
+$success-color: #5dc2a0;
+$disabled-color: $grey-70;
 
 // Layers
 // ---
