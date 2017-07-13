@@ -252,7 +252,7 @@ var AccordionItem = function (_React$PureComponent2) {
 
 AccordionItem.propTypes = {
     className: PropTypes.string,
-    children: PropTypes.node,
+    children: PropTypes.element,
     duration: PropTypes.number,
     easing: PropTypes.string,
     headerClassName: PropTypes.string,

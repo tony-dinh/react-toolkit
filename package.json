@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "A collection of reusable react components.",
   "scripts": {
-    "start": "NODE_ENV='develop' && node ./dev-server/index.js",
+    "start": "styleguidist server",
     "build": "NODE_ENV='production' && ./scripts/build.sh",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build"
@@ -32,8 +32,11 @@
     "css-loader": "^0.28.4",
     "flatpickr": "^3.0.6",
     "inline-style-prefixer": "^3.0.6",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
     "node-sass": "^4.5.3",
     "proptypes": "^1.1.0",
+    "react-styleguidist": "^5.5.7",
     "react-transition-group": "^2.0.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",

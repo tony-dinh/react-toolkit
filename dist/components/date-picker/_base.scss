@@ -1,0 +1,18 @@
+@import "../../styles/variables";
+
+.td-date-picker {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.td-date-picker__label {
+    margin-bottom: map-get($spacing__map, x-small);
+    font-size: .8em;
+}
+
+.td-date-picker__input {
+    width: 100%;
+    padding: map-get($spacing__map, medium);
+    font-size: 1em;
+}

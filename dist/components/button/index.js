@@ -2,11 +2,19 @@ import _classCallCheck from 'babel-runtime/helpers/classCallCheck';
 import _createClass from 'babel-runtime/helpers/createClass';
 import _possibleConstructorReturn from 'babel-runtime/helpers/possibleConstructorReturn';
 import _inherits from 'babel-runtime/helpers/inherits';
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'proptypes';
 import classNames from 'classnames';
 
 import Icon from '../icon';
 import './_base.scss';
+
+/**
+ * ```jsx
+ * import Button from '@tonydinh/react-toolkit/dist/components/button
+ * ```
+ * A versatile button component that can be styled.
+*/
 
 var Button = function (_React$PureComponent) {
     _inherits(Button, _React$PureComponent);
@@ -80,7 +88,13 @@ var Button = function (_React$PureComponent) {
 }(React.PureComponent);
 
 Button.propTypes = {
+    /**
+     *  Adds a user-defined class to the root element.
+     */
     className: PropTypes.string,
+    /**
+     *  Sets the disable state of the button
+     */
     disabled: PropTypes.bool,
     href: PropTypes.string,
     iconName: React.PropTypes.string,

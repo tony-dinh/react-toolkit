@@ -20,7 +20,6 @@ class TimePicker extends React.PureComponent {
         super(props)
 
         this.fp = null
-        this.onChange = this.onChange.bind(this)
         this.onClose = this.onClose.bind(this)
 
         this.state = {
@@ -41,12 +40,8 @@ class TimePicker extends React.PureComponent {
             noCalendar: true,
             time_24hr: twentyFourHour,
             wrap: true,
-            onChange: this.onChange,
             onClose: this.onClose
         })
-    }
-
-    onChange(selectedDates, dateStr, instance) {
     }
 
     onClose(selectedDates, dateStr, instance) {

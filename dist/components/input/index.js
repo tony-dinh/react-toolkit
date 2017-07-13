@@ -3,6 +3,7 @@ import _createClass from 'babel-runtime/helpers/createClass';
 import _possibleConstructorReturn from 'babel-runtime/helpers/possibleConstructorReturn';
 import _inherits from 'babel-runtime/helpers/inherits';
 import React, { PropTypes } from 'react';
+import prefixAll from 'inline-style-prefixer/static';
 import classNames from 'classnames';
 
 import './_base.scss';
@@ -38,12 +39,6 @@ var Input = function (_React$Component) {
         key: 'componentDidMount',
         value: function componentDidMount() {
             this.adjustLabelTopPosition();
-            window.addEventListener('resize', this.adjustLabelTopPosition);
-        }
-    }, {
-        key: 'componentWillUnmount',
-        value: function componentWillUnmount() {
-            window.removeEventListener('resize', this.adjustLabelTopPosition);
         }
     }, {
         key: 'adjustLabelTopPosition',
@@ -147,6 +142,7 @@ var Input = function (_React$Component) {
                 'td-input--active': isFocused || value
             });
             var innerClasses = 'td-input__inner';
+            var prefixedLabelStyle = prefixAll(labelStyle);
 
             return React.createElement(
                 'div',
@@ -158,7 +154,7 @@ var Input = function (_React$Component) {
                     { className: innerClasses },
                     label && React.createElement(
                         'span',
-                        { style: labelStyle, className: 'td-input__label',
+                        { style: prefixedLabelStyle, className: 'td-input__label',
                             ref: function ref(el) {
                                 _this3._label = el;
                             }
