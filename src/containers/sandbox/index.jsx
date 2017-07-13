@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react'
 import Button from '../../components/button'
-// import DatePicker from '../../components/date-picker'
+import DatePicker from '../../components/date-picker'
 import Icon from '../../components/icon'
 import Input from '../../components/input'
 import {Accordion, AccordionItem} from '../../components/accordion'
@@ -30,6 +30,7 @@ class Sandbox extends React.Component {
 
         return (
             <div>
+                <DatePicker label={"Interview Date"} />
                 <Button iconName="check" disabled={true} text="Testing"/>
                 <Input label="First Name" maxLength={50}/>
                 <Accordion>

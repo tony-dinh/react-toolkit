@@ -17,8 +17,30 @@ var CheckIcon = function CheckIcon(_ref) {
     );
 };
 
-var TimerIcon = function TimerIcon(_ref2) {
+var ChevronLeftIcon = function ChevronLeftIcon(_ref2) {
     var className = _ref2.className;
+
+    return React.createElement(
+        'svg',
+        { className: className, viewBox: '0 0 24 24', preserveAspectRatio: 'xMidYMid meet' },
+        React.createElement('path', { d: 'M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z' }),
+        React.createElement('path', { d: 'M0 0h24v24H0z', fill: 'none' })
+    );
+};
+
+var ChevronRightIcon = function ChevronRightIcon(_ref3) {
+    var className = _ref3.className;
+
+    return React.createElement(
+        'svg',
+        { className: className, viewBox: '0 0 24 24', preserveAspectRatio: 'xMidYMid meet' },
+        React.createElement('path', { d: 'M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z' }),
+        React.createElement('path', { d: 'M0 0h24v24H0z', fill: 'none' })
+    );
+};
+
+var TimerIcon = function TimerIcon(_ref4) {
+    var className = _ref4.className;
 
     return React.createElement(
         'svg',
@@ -30,7 +52,9 @@ var TimerIcon = function TimerIcon(_ref2) {
 
 var ICONS = {
     'check': CheckIcon,
-    'timer': TimerIcon
+    'timer': TimerIcon,
+    'chevron-left': ChevronRightIcon,
+    'chevron-right': ChevronRightIcon
 };
 
 var Icon = function (_React$PureComponent) {
@@ -61,7 +85,7 @@ var Icon = function (_React$PureComponent) {
 
 Icon.propTypes = {
     className: PropTypes.string,
-    name: PropTypes.oneOf(['check', 'timer']).isRequired
+    name: PropTypes.oneOf(['check', 'timer', 'chevron-left', 'chevron-right']).isRequired
 };
 
 export default Icon;

@@ -1,0 +1,42 @@
+$flex-prefix: u-flex;
+$flex-directions: (row, column);
+
+@each $direction in $flex-directions {
+    .#{$flex-prefix}-#{$direction} {
+        display: flex !important;
+        flex-direction: #{$direction} !important;
+    }
+
+    .#{$flex-prefix}-#{$direction}.u--flex-center {
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .#{$flex-prefix}-#{$direction}.u--flex-center-main {
+        justify-content: center !important;
+    }
+
+    .#{$flex-prefix}-#{$direction}.u--flex-center-cross {
+        align-items: center !important;
+    }
+
+    .#{$flex-prefix}-#{$direction}.u--flex-start {
+        justify-content: flex-start !important;
+    }
+
+    .#{$flex-prefix}-#{$direction}.u--flex-end {
+        justify-content: flex-end !important;
+    }
+}
+
+.u-flex-grow {
+    flex-grow: 1 !important;
+}
+
+.u-flex-start {
+    justify-content: flex-start !important;
+}
+
+.u-flex-end {
+    justify-content: flex-end !important;
+}

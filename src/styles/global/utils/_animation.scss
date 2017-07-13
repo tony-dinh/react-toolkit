@@ -1,0 +1,23 @@
+.u-animation__fade-out {
+    animation: fadeOut;
+    animation-timing-function: ease-in-out;
+    animation-duration: $default-animation-duration;
+    animation-fill-mode: forwards;
+}
+
+.u-animation__fade-in {
+    animation: fadeIn;
+    animation-timing-function: ease-in-out;
+    animation-duration: $default-animation-duration;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

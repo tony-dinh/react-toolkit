@@ -1,9 +1,16 @@
-import React, {PropTypes} from 'react'
+import React from 'react'
+import PropTypes from 'proptypes'
 import classNames from 'classnames'
 
 import Icon from '../icon'
 import './_base.scss'
 
+/**
+ * ```jsx
+ * import Button from '@tonydinh/react-toolkit/dist/components/button
+ * ```
+ * A versatile button component that can be styled.
+*/
 class Button extends React.PureComponent {
     constructor(props) {
         super(props)
@@ -57,7 +64,13 @@ class Button extends React.PureComponent {
 }
 
 Button.propTypes = {
+    /**
+     *  Adds a user-defined class to the root element.
+     */
     className: PropTypes.string,
+    /**
+     *  Sets the disable state of the button
+     */
     disabled: PropTypes.bool,
     href: PropTypes.string,
     iconName: React.PropTypes.string,

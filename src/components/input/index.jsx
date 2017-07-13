@@ -1,4 +1,5 @@
 import React, {PropTypes} from 'react'
+import prefixAll from 'inline-style-prefixer/static'
 import classNames from 'classnames'
 
 import './_base.scss'
@@ -27,11 +28,6 @@ class Input extends React.Component {
 
     componentDidMount() {
         this.adjustLabelTopPosition()
-        window.addEventListener('resize', this.adjustLabelTopPosition)
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.adjustLabelTopPosition)
     }
 
     adjustLabelTopPosition() {
@@ -129,12 +125,13 @@ class Input extends React.Component {
             'td-input--active': isFocused || value
         })
         const innerClasses = 'td-input__inner'
+        const prefixedLabelStyle = prefixAll(labelStyle)
 
         return (
             <div className={classes} ref={(el) => { this._component = el }}>
                 <div className={innerClasses}>
                     {label &&
-                        <span style={labelStyle} className='td-input__label'
+                        <span style={prefixedLabelStyle} className='td-input__label'
                             ref={(el) => { this._label = el }}
                         >
                             {label}
