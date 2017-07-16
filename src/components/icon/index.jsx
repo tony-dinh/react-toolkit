@@ -2,6 +2,15 @@ import React, {PropTypes} from 'react'
 import classNames from 'classnames'
 import './theme.scss'
 
+const CalendarIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
+    )
+}
+
 const CheckIcon = ({className}) => {
     return (
         <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
@@ -29,6 +38,16 @@ const ChevronRightIcon = ({className}) => {
     )
 }
 
+const TimeIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12.5 7H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+        </svg>
+    )
+}
+
 const TimerIcon = ({className}) => {
     return (
         <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
@@ -39,14 +58,15 @@ const TimerIcon = ({className}) => {
 }
 
 const ICONS = {
+    'calendar': CalendarIcon,
     'check': CheckIcon,
+    'time': TimeIcon,
     'timer': TimerIcon,
     'chevron-left': ChevronRightIcon,
     'chevron-right': ChevronRightIcon
 }
 
 class Icon extends React.PureComponent {
-
     constructor(props) {
         super(props)
     }
@@ -65,12 +85,7 @@ class Icon extends React.PureComponent {
 
 Icon.propTypes = {
     className: PropTypes.string,
-    name: PropTypes.oneOf([
-        'check',
-        'timer',
-        'chevron-left',
-        'chevron-right'
-    ]).isRequired
+    name: PropTypes.oneOf(Object.keys(ICONS)).isRequired
 }
 
 export default Icon

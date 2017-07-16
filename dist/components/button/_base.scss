@@ -13,6 +13,10 @@
     cursor: pointer;
 }
 
+.td-button.td--button-disabled {
+    pointer-events: none;
+}
+
 .td-button__inner {
     display: flex;
     flex-direction: row;
@@ -28,6 +32,7 @@
 .td-button__text {
     text-align: center;
     line-height: 1.2em;
+    color: inherit;
 
     &.td--icon-text {
         margin-left: map-get($spacing__map, x-small);

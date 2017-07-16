@@ -8,11 +8,39 @@
 
 .td-time-picker__label {
     margin-bottom: map-get($spacing__map, x-small);
-    font-size: .7em;
+    font-size: .8em;
+}
+
+.td-time-picker__input-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: white;
+    border: 1px solid $grey-92;
 }
 
 .td-time-picker__input {
+    flex-grow: 1;
     width: 100%;
     padding: map-get($spacing__map, medium);
+
+    font-family: inherit;
     font-size: 1em;
+    color: inherit;
+    background-color: transparent;
+    border: none;
+}
+
+.td-time-picker__input.td--icon-left {
+    padding-left: 0;
+}
+
+.td-time-picker__icon-wrapper {
+    flex-shrink: 0;
+    padding: map-get($spacing__map, medium);
+
+    color: inherit;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }

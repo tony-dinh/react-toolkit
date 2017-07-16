@@ -1,6 +1,9 @@
-import React, {PropTypes} from 'react'
-import Transition from 'react-transition-group/Transition'
+import React  from 'react'
+import PropTypes from 'proptypes'
 import classNames from 'classnames'
+
+import AccordionItem from './partials/accordion-item'
+
 import './_base.scss'
 
 const noop = () => {}
@@ -12,214 +15,12 @@ const uuid = (() => {
     }
 })()
 
-/*******************************************************************************
-                          Accordion Item Content
-*******************************************************************************/
-
-class AccordionItemContent extends React.PureComponent {
-    constructor(props) {
-        super(props)
-        this.getContentHeight = this.getContentHeight.bind(this)
-    }
-
-    getContentHeight() {
-        return this._content.children.length ? this._content.children[0].offsetHeight : 0
-    }
-
-    render() {
-        const {
-            children,
-            style
-        } = this.props
-
-        const classes = classNames('td-accordion__item-content')
-
-        return (
-            <div className={classes}
-                style={style}
-                ref={(_content) => { this._content = _content }}
-            >
-                {children}
-            </div>
-        )
-    }
-}
-
-/*******************************************************************************
-                              Accordion Item
-*******************************************************************************/
-
-class AccordionItem extends React.PureComponent {
-    constructor(props) {
-        super(props)
-
-        this.animate = this.animate.bind(this)
-        this.animateOpen = this.animateOpen.bind(this)
-        this.animateClose = this.animateClose.bind(this)
-        this.getContentHeight = this.getContentHeight.bind(this)
-        this.onAnimationComplete = this.onAnimationComplete.bind(this)
-
-        this.state = {
-            style: {
-                maxHeight: '0',
-                transition: 'none'
-            }
-        }
-    }
-
-    animateOpen() {
-        const completionHandler = () => {
-            this.setState({
-                style: {
-                    maxHeight: 'initial',
-                    transition: 'none'
-                }
-            })
-            this.onAnimationComplete()
-        }
-
-        this.animate(0, this.getContentHeight(), completionHandler)
-    }
-
-    animateClose() {
-        const completionHandler = () => {
-            this.onAnimationComplete()
-        }
-
-        this.animate(this.getContentHeight(), 0, completionHandler)
-    }
-
-    animate(startHeight, endHeight, completionHandler) {
-        const {
-            duration,
-            easing
-        } = this.props
-
-        const animationFrame = () => new Promise((resolve) => {
-            window.requestAnimationFrame(resolve)
-        })
-
-        const setStartState = () => new Promise((resolve) => {
-            this.setState({
-                style: {
-                    maxHeight: `${startHeight}px`,
-                    transition: 'none'
-                }
-            }, resolve)
-        })
-
-        const setEndState = () => new Promise((resolve) => {
-            this.setState({
-                style: {
-                    maxHeight: `${endHeight}px`,
-                    transition: `max-height ${duration}ms ${easing}`
-                }
-            }, resolve)
-        })
-
-        const waitForAnimation = () => {
-            setTimeout(completionHandler, duration)
-        }
-
-        animationFrame()
-            .then(setStartState)
-            .then(animationFrame)
-            .then(setEndState)
-            .then(waitForAnimation)
-    }
-
-    getContentHeight() {
-        return this._content.getContentHeight()
-    }
-
-    onAnimationComplete() {
-        const {
-            open,
-            onDidOpen,
-            onDidClose,
-            itemId
-        } = this.props
-
-        if (open) {
-            onDidOpen(itemId)
-        } else {
-            onDidClose(itemId)
-        }
-    }
-
-    render() {
-        const {
-            className,
-            children,
-            duration,
-            easing,
-            headerClassName,
-            headerContent: HeaderContent,
-            itemId,
-            open,
-            onClick
-        } = this.props
-
-        const classes = classNames('td-accordion__item', className, {
-            'td-accordion__item--open': open
-        })
-
-        const headerClasses = classNames('td-accordion__header', headerClassName)
-
-        return (
-            <div id={itemId} className={classes}>
-                <button className={headerClasses}
-                    onClick={onClick}
-                    role="tab"
-                    tabIndex="0"
-                    type="button"
-                    aria-selected={open}
-                >
-                    <HeaderContent />
-                </button>
-
-                <Transition
-                    in={open}
-                    timeout={duration}
-                    onEnter={this.animateOpen}
-                    onExit={this.animateClose}
-                    unmountOnExit={true}
-                >
-                    <AccordionItemContent
-                        style={this.state.style}
-                        ref={(el) => {this._content = el}}
-                    >
-                        {children}
-                    </AccordionItemContent>
-                </Transition>
-            </div>
-        )
-    }
-}
-
-AccordionItem.propTypes = {
-    className: PropTypes.string,
-    children: PropTypes.element,
-    duration: PropTypes.number,
-    easing: PropTypes.string,
-    headerClassName: PropTypes.string,
-    headerContent: PropTypes.func,
-    itemId: PropTypes.string,
-    open: PropTypes.bool,
-    onClick: PropTypes.func,
-    onDidClose: PropTypes.func,
-    onDidOpen: PropTypes.func
-}
-
-AccordionItem.defaultProps = {
-    open: false,
-    onDidClose: noop,
-    onDidOpen: noop
-}
-
-/*******************************************************************************
-                                  Accordion
-*******************************************************************************/
+/**
+ * ```jsx
+ * import Accordion, {AccordionItem} from '@tonydinh/react-toolkit/dist/components/accordion
+ * ```
+ * Accordion is the container for expandable content. It is used to expand and collapse the content by clicking its header.
+ */
 
 class Accordion extends React.Component {
     constructor(props) {
@@ -282,7 +83,6 @@ class Accordion extends React.Component {
         } = this.props
 
         const classes = classNames('td-accordion', className)
-
         return (
             <div className={classes} id={this.accordionId} aria-multiselectable={multiSelect} role="tablist">
                 {React.Children.map(children, (child, index) => {
@@ -316,15 +116,66 @@ class Accordion extends React.Component {
 }
 
 Accordion.propTypes = {
+    /**
+     * AccordionItem Components to display in the accordion
+     */
     children: PropTypes.node,
+
+    /**
+     *  Adds a user-defined class to the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Specifies the animation duration in milliseconds for expanding/collapsing accordion cells.
+     */
     duration: PropTypes.number,
+
+    /**
+     * Specifies the animation timing function for expanding/collapsing accordion cells.
+     */
     easing: PropTypes.string,
+
+    /**
+     * Specifies which accordion cells are open by default
+     */
     initialOpenItems: PropTypes.arrayOf(PropTypes.number),
+
+    /**
+     * Enables multiple accordion cells to be expanded at a time
+     */
     multiSelect: PropTypes.bool,
+
+    /**
+     * User-defined function which triggers when an accordion cell is opening.
+     * ```jsx
+     * function(itemId) {...}
+     * ```
+     */
     onItemOpen: PropTypes.func,
+
+    /**
+     * User-defined function which triggers after an accordion cell has opened.
+     * ```jsx
+     * function(itemId) {...}
+     * ```
+     */
     onItemDidOpen: PropTypes.func,
+
+    /**
+     * User-defined function which triggers when an accordion cell is closing.
+     * ```jsx
+     * function(itemId) {...}
+     * ```
+     */
     onItemClose: PropTypes.func,
+
+    /**
+     * User-defined function which triggers after an accordion cell has closed.
+     * ```jsx
+     * function(itemId) {...}
+     * ```
+     */
     onItemDidClose: PropTypes.func
 }
 
@@ -339,5 +190,5 @@ Accordion.defaultProps = {
     onItemDidClose: noop
 }
 
-export {Accordion, AccordionItem}
+export {AccordionItem}
 export default Accordion

@@ -1,0 +1,43 @@
+@import "../../styles/variables";
+
+.td-rect-loader {
+    margin: auto;
+    height: 40px;
+    text-align: center;
+}
+
+.td-rect-loader__rect {
+    display: inline-block;
+    height: 100%;
+    width: 6px;
+    background-color: black;
+
+    -webkit-animation: td-stretch;
+    -webkit-animation-duration: 1.2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: ease-in-out;
+
+    animation: td-stretch;
+    animation-duration: 1.2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.td-rect-loader__rect + .td-rect-loader__rect {
+    margin-left: map-get($spacing__map, x-small);
+}
+
+@-webkit-keyframes td-stretch {
+  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }
+  20% { -webkit-transform: scaleY(1.0) }
+}
+
+@keyframes td-stretch {
+  0%, 40%, 100% {
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }  20% {
+    transform: scaleY(1.0);
+    -webkit-transform: scaleY(1.0);
+  }
+}

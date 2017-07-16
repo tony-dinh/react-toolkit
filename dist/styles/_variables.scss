@@ -35,6 +35,7 @@ $grey-60: hsl(0, 0%, 50%);
 $grey-50: hsl(0, 0%, 50%);
 $grey-40: hsl(0, 0%, 40%);
 $grey-30: hsl(0, 0%, 30%);
+$grey-20: hsl(0, 0%, 20%);
 
 // Colours
 // ---
@@ -44,7 +45,9 @@ $tertiary-color: #00ACC1;
 $primary-pastel-color:  #A8E7D2;
 $secondary-pastel-color: #F6D6D5;
 $tertiary-pastel-color: #60c8d6;
+
 $success-color: #5dc2a0;
+$dark-overlay-color: hsla(0, 0%, 0%, 0.6);
 $disabled-color: $grey-70;
 
 // Layers

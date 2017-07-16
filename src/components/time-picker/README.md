@@ -1,4 +1,11 @@
 ### Props
+
+#### `minTime` / `maxTime`
+
+```
+<TimePicker minTime="1:00" maxTime="13:00" />
+```
+
 #### `label`
 
 ```

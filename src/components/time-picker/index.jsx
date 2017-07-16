@@ -2,6 +2,9 @@ import React from 'react'
 import PropTypes from 'proptypes'
 import classNames from 'classnames'
 import flatpickr from 'flatpickr'
+import moment from 'moment'
+
+import Icon from '../icon'
 
 import '../../vendor/styles/flatpickr.min.css'
 import './_base.scss'
@@ -20,31 +23,79 @@ class TimePicker extends React.PureComponent {
         super(props)
 
         this.fp = null
-        this.onClose = this.onClose.bind(this)
+        this.timeFormat = 'HH:mm'
+        this.TimeSelected = this.TimeSelected.bind(this)
+        this.showPicker = this.showPicker.bind(this)
+        this.onPickerClose = this.onPickerClose.bind(this)
+        this.onPickerOpen = this.onPickerOpen.bind(this)
+        this.validDefaultTime = this.validDefaultTime.bind(this)
 
         this.state = {
+            iconDimension: 0,
             value: this.props.defaultTime
         }
+    }
+
+    validDefaultTime(defaultTime, minTime, maxTime) {
+        const defaultDate = moment(defaultTime, this.timeFormat)
+        const minDate = minTime
+            ? moment(minTime, this.timeFormat)
+            : undefined
+
+        const maxDate = maxTime
+            ? moment(maxTime, this.timeFormat)
+            : undefined
+
+        return defaultDate < minDate || defaultDate > maxDate
+            ? minTime ? minTime : maxTime
+            : defaultTime
     }
 
     componentDidMount() {
         const {
             defaultTime,
+            maxTime,
+            minTime,
+            showIcon,
             twentyFourHour
         } = this.props
 
-        this.fp = flatpickr(this._container, {
+        const flatPickrOptions = {
             altInput: !twentyFourHour,
-            defaultDate: defaultTime,
             enableTime: true,
             noCalendar: true,
             time_24hr: twentyFourHour,
             wrap: true,
-            onClose: this.onClose
-        })
+            onClose: this.onPickerClose,
+            onOpen: this.onPickerOpen
+        }
+
+        flatPickrOptions.defaultDate = maxTime || minTime
+            ? this.validDefaultTime(defaultTime, minTime, maxTime)
+            : defaultTime
+
+        if (maxTime) {
+            flatPickrOptions.maxDate = maxTime
+        }
+
+        if (minTime) {
+            flatPickrOptions.minDate = minTime
+        }
+
+        this.fp = flatpickr(this._container, flatPickrOptions)
+
+        if (showIcon) {
+            this.setState({
+                iconDimension: this._input.clientHeight
+            })
+        }
     }
 
-    onClose(selectedDates, dateStr, instance) {
+    showPicker() {
+        this.fp.open()
+    }
+
+    TimeSelected(selectedDates, dateStr, instance) {
         if (dateStr !== this.state.value) {
             this.props.onChange(dateStr)
             this.setState({
@@ -53,23 +104,51 @@ class TimePicker extends React.PureComponent {
         }
     }
 
+    onPickerOpen() {
+        this.props.onFocus()
+    }
+
+    onPickerClose(selectedDates, dateStr, instance) {
+        this.TimeSelected(selectedDates, dateStr, instance)
+        this.props.onBlur()
+    }
+
     render() {
         const {
             className,
+            iconName,
+            iconPosition,
+            iconClassName,
             inputClassName,
+            inputWrapperClassName,
             label,
             labelClassName,
             placeholder,
-            required
+            required,
+            showIcon
         } = this.props
 
         const classes = classNames('td-time-picker', className)
-        const inputClasses = classNames('td-time-picker__input', inputClassName)
-        const inputWrapperClasses = classNames('td-time-picker__input-wrapper')
+        const inputClasses = classNames('td-time-picker__input', inputClassName, {
+            'td--icon-left': showIcon && iconPosition === 'left',
+            'td--icon-right': showIcon && iconPosition === 'right',
+        })
+        const inputWrapperClasses = classNames('td-time-picker__input-wrapper', inputWrapperClassName)
+
         let labelClasses
+        let iconClasses
+        let iconStyle
 
         if (label) {
             labelClasses = classNames('td-time-picker__label', labelClassName)
+        }
+
+        if (showIcon) {
+            iconClasses = classNames('td-time-picker__icon-wrapper', iconClassName)
+            iconStyle = {
+                height: `${this.state.iconDimension}px`,
+                width: `${this.state.iconDimension}px`
+            }
         }
 
         return (
@@ -81,12 +160,32 @@ class TimePicker extends React.PureComponent {
                         {label}
                     </span>
                 }
-                <div className={inputWrapperClasses}>
+                <div className={inputWrapperClasses}
+                    ref={(el) => { this._input = el }}
+                >
+                    {showIcon && iconPosition === 'left' &&
+                        <div className={iconClasses}
+                            style={iconStyle}
+                            onClick={this.showPicker}
+                        >
+                            <Icon name={iconName} />
+                        </div>
+                    }
+
                     <input className={inputClasses}
                         placeholder={placeholder}
                         required={required}
                         data-input
                     />
+
+                    {showIcon && iconPosition === 'right' &&
+                        <div className={iconClasses}
+                            style={iconStyle}
+                            onClick={this.showPicker}
+                        >
+                            <Icon name={iconName} />
+                        </div>
+                    }
                 </div>
             </div>
         )
@@ -94,7 +193,12 @@ class TimePicker extends React.PureComponent {
 }
 
 const DateFormatPropType = (props, propName, componentName) => {
+    if (props[propName] == null) {
+        return
+    }
+
     if (!/^\d{1,2}:\d{1,2}$/.test(props[propName])) {
+        debugger
       return new Error(
         'Invalid prop `' + propName + '` supplied to' +
         ' `' + componentName + '`. Validation failed.'
@@ -103,6 +207,7 @@ const DateFormatPropType = (props, propName, componentName) => {
 }
 
 const now = new Date()
+const nextHour = (now.getHours() + 1) % 24
 
 TimePicker.propTypes = {
     /**
@@ -111,9 +216,27 @@ TimePicker.propTypes = {
     className: PropTypes.string,
 
     /**
-     * User-defined default selected time with the format `HH:mm`.
+     * User-defined default selected time with the 24-hour format `HH:mm`.
      */
     defaultTime: DateFormatPropType,
+
+    /**
+     * Adds a user-defined class to the icon wrapper element.
+     */
+    iconClassName: PropTypes.string,
+
+    /**
+     * Specifies which icon to display.
+     */
+    iconName: PropTypes.string,
+
+    /**
+     * Specifies which side of the input the icon should appear.
+     */
+    iconPosition: PropTypes.oneOf([
+        'left',
+        'right'
+    ]),
 
     /**
      *  Adds a user-defined class to the input element.
@@ -131,6 +254,16 @@ TimePicker.propTypes = {
     labelClassName: PropTypes.string,
 
     /**
+     * User-defined maximum time with the 24-hour format `HH:mm`.
+     */
+    maxTime: DateFormatPropType,
+
+    /**
+     * User-defined minimum time with the 24-hour format `HH:mm`.
+     */
+    minTime: DateFormatPropType,
+
+    /**
      *  Specifies the placeholder text to be displayed in the input field.
      */
     placeholder: PropTypes.string,
@@ -141,21 +274,42 @@ TimePicker.propTypes = {
     required: PropTypes.bool,
 
     /**
+     *  Specifies whether display an icon.
+     */
+    showIcon: PropTypes.bool,
+
+    /**
      *  Specifies whether to display times in a 24-hour clock format.
      */
     twentyFourHour: PropTypes.bool,
+
+    /**
+     *  User-defined function which triggers when the picker dismisses.
+     */
+    onBlur: PropTypes.func,
 
     /**
      *  User-defined function which triggers when the selected time has changed.
      *  `function(timeString) {...}`
      */
     onChange: PropTypes.func,
+
+    /**
+     *  User-defined function which triggers when the picker appears.
+     */
+    onFocus: PropTypes.func
+
 }
 
 TimePicker.defaultProps = {
-    defaultTime: `${now.getHours() + 1}:00`,
+    defaultTime: `${nextHour}:00`,
+    iconName: 'time',
+    iconPosition: 'left',
     required: false,
-    onChange: noop
+    showIcon: false,
+    onBlur: noop,
+    onChange: noop,
+    onFocus: noop
 }
 
 export default TimePicker

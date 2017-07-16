@@ -11,8 +11,36 @@
     font-size: .8em;
 }
 
+.td-date-picker__input-wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    border: 1px solid $grey-92;
+    background-color: white;
+}
+
 .td-date-picker__input {
+    flex-grow: 1;
     width: 100%;
     padding: map-get($spacing__map, medium);
+
     font-size: 1em;
+    font-family: inherit;
+    border: none;
+    color: inherit;
+    background-color: transparent;
+}
+
+.td-date-picker__input.td--icon-left {
+    padding-left: 0;
+}
+
+.td-date-picker__icon-wrapper {
+    flex-shrink: 0;
+    padding: map-get($spacing__map, medium);
+
+    border: none;
+    color: inherit;
+    background-color: transparent;
+    cursor: pointer;
 }

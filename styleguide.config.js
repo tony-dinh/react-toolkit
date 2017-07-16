@@ -11,4 +11,5 @@ module.exports = {
     ],
     webpackConfig: webpackConfig,
     skipComponentsWithoutExample: false,
+    previewDelay: 500
 }

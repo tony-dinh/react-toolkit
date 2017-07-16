@@ -46,8 +46,6 @@ $tertiaryButtonColor: #0097A7;
 }
 
 .td-button.td--button-disabled {
-    pointer-events: none;
-
     &.td--primary {
         background-color: $grey-80;
     }

@@ -11,6 +11,7 @@ import './_base.scss'
  * ```
  * A versatile button component that can be styled.
 */
+
 class Button extends React.PureComponent {
     constructor(props) {
         super(props)
