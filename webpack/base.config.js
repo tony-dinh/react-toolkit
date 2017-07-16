@@ -40,11 +40,7 @@ const config = {
             }
         ]
     },
-    plugins: [
-        new CopyPlugin([
-            {from: path.resolve(ROOT_DIR, 'src/static'), to: outputPath},
-        ])
-    ]
+    plugins: []
 }
 
 module.exports = config

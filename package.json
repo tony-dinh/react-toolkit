@@ -30,14 +30,9 @@
     "babel-preset-react": "^6.24.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.4",
-    "flatpickr": "^3.0.6",
-    "inline-style-prefixer": "^3.0.6",
     "lodash": "^4.17.4",
-    "moment": "^2.18.1",
     "node-sass": "^4.5.3",
-    "proptypes": "^1.1.0",
     "react-styleguidist": "^5.5.7",
-    "react-transition-group": "^2.0.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "webpack": "3.0.0",
@@ -47,9 +42,14 @@
     "babel-cli": "^6.24.1",
     "babel-runtime": "^6.23.0",
     "classnames": "^2.2.5",
+    "flatpickr": "^3.0.6",
+    "inline-style-prefixer": "^3.0.6",
+    "moment": "^2.18.1",
+    "proptypes": "^1.1.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
-    "react-router": "^4.1.1"
+    "react-router": "^4.1.1",
+    "react-transition-group": "^2.0.2"
   },
   "engines": {
     "node": "6.9.0"
