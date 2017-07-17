@@ -20,9 +20,13 @@ class Alert extends React.PureComponent {
 
     alertDidMount() {
         const iconHeight = this._icon ? parseInt(getComputedStyle(this._icon).height) : 0
-        const innerPadding = parseInt(getComputedStyle(this._innerContainer).paddingBottom)
+        const innerPadding = parseInt(getComputedStyle(this._innerContainer).paddingLeft)
         const innerStyle = {
             paddingTop: `${(iconHeight / 2) + innerPadding}px`
+        }
+
+        if (!this.props.showButton) {
+            innerStyle.paddingBottom = `${(iconHeight / 2) + innerPadding}px`
         }
 
         this.setState({
@@ -69,7 +73,7 @@ class Alert extends React.PureComponent {
 
         const style = {
             animationDuration: `${animationDuration}ms`,
-            cursor: tapOutsideToDismiss ? 'pointer' : 'initial'
+            cursor: onDismiss && tapOutsideToDismiss ? 'pointer' : 'initial'
         }
 
         const themeStyle = {
