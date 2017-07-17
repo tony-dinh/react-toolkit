@@ -24,6 +24,7 @@ class Button extends React.PureComponent {
             href,
             iconName,
             role,
+            style,
             title,
             type,
             text,
@@ -39,14 +40,14 @@ class Button extends React.PureComponent {
             'td--icon-text': !!iconName
         })
 
-        const ButtonWrapper = ({children}) => {
+        const ButtonWrapper = ({children, style}) => {
             return href
-            ? <a className={classes} href={href} onClick={onClick}>{children}</a>
-            : <button className={classes} title={title} onClick={onClick} type={type}>{children}</button>
+            ? <a className={classes} style={style} href={href} onClick={onClick}>{children}</a>
+            : <button className={classes} style={style} title={title} onClick={onClick} type={type}>{children}</button>
         }
 
         return (
-            <ButtonWrapper>
+            <ButtonWrapper style={style}>
                 <div className={innerClasses}>
                     {!!iconName &&
                         <div className={iconClasses}>
@@ -80,6 +81,7 @@ Button.propTypes = {
         'secondary',
         'tertiary'
     ]).isRequired,
+    style: PropTypes.object,
     type: PropTypes.oneOf([
         'button',
         'submit'

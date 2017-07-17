@@ -17,6 +17,7 @@ class LoadingContainer extends React.PureComponent {
             animationDuration,
             className,
             children,
+            loader: LoaderElement,
             loaderColor,
             loading,
             showContentWhileLoading,
@@ -36,12 +37,16 @@ class LoadingContainer extends React.PureComponent {
                     timeout={250}
                     unmountOnExit={true}
                 >
-                    <div className={innerClasses}>
-                        <Loader color={loaderColor} duration={animationDuration} />
-                    </div>
+                    {LoaderElement ?
+                        LoaderElement
+                    :
+                        <div className={innerClasses}>
+                            <Loader color="white" duration={1200} />
+                        </div>
+                    }
                 </Transition>
 
-                {showContentWhileLoading &&
+                {((showContentWhileLoading && loading) || !loading) &&
                     children
                 }
             </div>
@@ -52,16 +57,13 @@ class LoadingContainer extends React.PureComponent {
 LoadingContainer.propTypes = {
     className: PropTypes.string,
     children: PropTypes.element,
-    animationDuration: PropTypes.number,
-    loaderColor: PropTypes.string,
+    loader: PropTypes.element,
     loading: PropTypes.bool,
     showContentWhileLoading: PropTypes.bool,
     style: PropTypes.object
 }
 
 LoadingContainer.defaultProps = {
-    animationDuration: 1200,
-    loaderColor: "white",
     loading: true,
     showContentWhileLoading: true
 }

@@ -7,44 +7,44 @@ $spacing-sizes: (x-small, small, medium, large, x-large);
 @each $size in $spacing-sizes {
     @each $direction in $spacing-directions {
         .#{$margin-prefix}-#{$direction}-#{$size} {
-            margin-#{$direction}: map-get($spacing__map, $size) !important;
+            margin-#{$direction}: map-get($spacing-map, $size) !important;
         }
 
         .#{$padding-prefix}-#{$direction}-#{$size} {
-            padding-#{$direction}: map-get($spacing__map, $size) !important;
+            padding-#{$direction}: map-get($spacing-map, $size) !important;
         }
     }
 
     // Margin
     // ---
     .#{$margin-prefix}-#{$size} {
-        margin: map-get($spacing__map, $size) !important;
+        margin: map-get($spacing-map, $size) !important;
     }
 
     .#{$margin-prefix}-h-#{$size} {
-        margin-left: map-get($spacing__map, $size) !important;
-        margin-right: map-get($spacing__map, $size) !important;
+        margin-left: map-get($spacing-map, $size) !important;
+        margin-right: map-get($spacing-map, $size) !important;
     }
 
     .#{$margin-prefix}-v-#{$size} {
-        margin-top: map-get($spacing__map, $size) !important;
-        margin-bottom: map-get($spacing__map, $size) !important;
+        margin-top: map-get($spacing-map, $size) !important;
+        margin-bottom: map-get($spacing-map, $size) !important;
     }
 
     // Padding
     // ---
     .#{$padding-prefix}-#{$size} {
-        padding: map-get($spacing__map, $size) !important;
+        padding: map-get($spacing-map, $size) !important;
     }
 
     .#{$padding-prefix}-h-#{$size} {
-        padding-left: map-get($spacing__map, $size) !important;
-        padding-right: map-get($spacing__map, $size) !important;
+        padding-left: map-get($spacing-map, $size) !important;
+        padding-right: map-get($spacing-map, $size) !important;
     }
 
     .#{$padding-prefix}-v-#{$size} {
-        padding-top: map-get($spacing__map, $size) !important;
-        padding-bottom: map-get($spacing__map, $size) !important;
+        padding-top: map-get($spacing-map, $size) !important;
+        padding-bottom: map-get($spacing-map, $size) !important;
     }
 }
 

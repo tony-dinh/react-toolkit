@@ -2,7 +2,7 @@ Example:
 
 ```
 const imgStyle = {
-    width: '150px'
+    width: '100%'
 };
 
 <LoadingContainer loading={true}>

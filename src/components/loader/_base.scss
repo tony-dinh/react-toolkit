@@ -24,7 +24,7 @@
 }
 
 .td-rect-loader__rect + .td-rect-loader__rect {
-    margin-left: map-get($spacing__map, x-small);
+    margin-left: map-get($spacing-map, x-small);
 }
 
 @-webkit-keyframes td-stretch {

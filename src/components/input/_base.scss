@@ -1,6 +1,6 @@
 @import "../../styles/variables";
 
-$inputVerticalPadding: map-get($spacing__map, large);
+$inputVerticalPadding: map-get($spacing-map, large);
 
 .td-input {
     position: relative;
@@ -27,7 +27,7 @@ $inputVerticalPadding: map-get($spacing__map, large);
 
 .td-input__field {
     width: 100%;
-    padding: map-get($spacing__map, medium) 0;
+    padding: map-get($spacing-map, medium) 0;
 
     border: none;
     border-bottom: 0.5px solid $grey-85;

@@ -15,7 +15,7 @@ $media-breakpoints: (
 
 // Spacing Units
 // ---
-$spacing__map: (
+$spacing-map: (
     x-small: $base-px-unit,
     small: $base-px-unit * 2,
     medium: $base-px-unit * 3,
@@ -39,14 +39,15 @@ $grey-20: hsl(0, 0%, 20%);
 
 // Colours
 // ---
-$primary-color: #00da91;
-$secondaryColor: #ff6560;
+$primary-color: #00DA91;
+$secondaryColor: #FF6560;
 $tertiary-color: #00ACC1;
 $primary-pastel-color:  #A8E7D2;
 $secondary-pastel-color: #F6D6D5;
-$tertiary-pastel-color: #60c8d6;
+$tertiary-pastel-color: #60C8D6;
 
-$success-color: #5dc2a0;
+$success-color: #5DC2A0;
+$fail-color: #E67773;
 $dark-overlay-color: hsla(0, 0%, 0%, 0.6);
 $disabled-color: $grey-70;
 

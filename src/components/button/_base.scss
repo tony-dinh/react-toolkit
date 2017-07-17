@@ -1,9 +1,12 @@
 @import "../../styles/variables";
 
+// Button Styles
+// 1. Ensure that the button element is the one triggering events.
+
 .td-button {
     min-height: $min-tap-target-size;
     min-width: $min-tap-target-size;
-    padding: map-get($spacing__map, medium);
+    padding: map-get($spacing-map, medium);
     border: 0;
 
     font-size: 15px;
@@ -22,6 +25,8 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+
+    pointer-events: none; // 1
 }
 
 .td-button__icon {
@@ -35,6 +40,6 @@
     color: inherit;
 
     &.td--icon-text {
-        margin-left: map-get($spacing__map, x-small);
+        margin-left: map-get($spacing-map, x-small);
     }
 }

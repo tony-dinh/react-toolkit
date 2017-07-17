@@ -7,7 +7,7 @@
 }
 
 .td-time-picker__label {
-    margin-bottom: map-get($spacing__map, x-small);
+    margin-bottom: map-get($spacing-map, x-small);
     font-size: .8em;
 }
 
@@ -22,7 +22,7 @@
 .td-time-picker__input {
     flex-grow: 1;
     width: 100%;
-    padding: map-get($spacing__map, medium);
+    padding: map-get($spacing-map, medium);
 
     font-family: inherit;
     font-size: 1em;
@@ -37,7 +37,7 @@
 
 .td-time-picker__icon-wrapper {
     flex-shrink: 0;
-    padding: map-get($spacing__map, medium);
+    padding: map-get($spacing-map, medium);
 
     color: inherit;
     background-color: transparent;

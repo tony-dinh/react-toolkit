@@ -42,7 +42,7 @@ $step-active-color: $primary-color;
 }
 
 .td-progress-steps__title {
-    margin-top: map-get($spacing__map, small);
+    margin-top: map-get($spacing-map, small);
     text-transform: uppercase;
     font-size: 10px;
     width: 100%;
