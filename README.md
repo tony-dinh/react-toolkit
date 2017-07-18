@@ -5,7 +5,7 @@
 
 React Toolkit is a collection of re-useable [React](https://facebook.github.io/react/) components.
 
-The documentation below is how one might integrate this module using [webpack](https://webpack.github.io/) as a module bundler.
+The documentation below explains how one might integrate this module using [webpack](https://webpack.github.io/) as a module bundler.
 
 ## Installation
 ```
