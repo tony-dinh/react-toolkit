@@ -11,6 +11,11 @@
     cursor: pointer;
 }
 
+.td-accordion__header-inner {
+    width: 100%;
+    pointer-events: none;
+}
+
 .td-accordion__item-content {
     width: 100%;
     overflow: hidden;

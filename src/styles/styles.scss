@@ -1,17 +1,9 @@
 @import "variables";
 @import "global/base";
 
-@import "global/utils/animation";
-@import "global/utils/color";
-@import "global/utils/flex";
-@import "global/utils/general";
-@import "global/utils/position";
-@import "global/utils/size";
-@import "global/utils/spacing";
-@import "global/utils/text";
-// // Themes
-// @import "../components/accordion/theme";
-// @import "../components/button/theme";
-// @import "../components/date-picker/theme";
-// @import "../components/time-picker/theme";
-// @import "../components/input/theme";
+// Themes
+@import "../components/accordion/theme";
+@import "../components/button/theme";
+@import "../components/date-picker/theme";
+@import "../components/time-picker/theme";
+@import "../components/input/theme";

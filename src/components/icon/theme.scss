@@ -1,4 +1,8 @@
 .td-icon {
+    flex-shrink: 0;
+}
+
+.td-icon__svg {
     fill: currentColor;
     height: 100%;
     width: 100%;

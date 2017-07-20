@@ -8,7 +8,7 @@ $default-animation-duration: 500ms;
 
 // Media Query Breakpoints
 $media-breakpoints: (
-    phone: 640px,
+    phone: 480px,
     tablet: 768px,
     desktop: 1024px
 ) !default;
@@ -26,7 +26,9 @@ $spacing-map: (
 // Neutral
 // ---
 $grey-97: hsl(0, 0%, 97%);
+$grey-95: hsl(0, 0%, 95%);
 $grey-92: hsl(0, 0%, 92%);
+$grey-90: hsl(0, 0%, 90%);
 $grey-85: hsl(0, 0%, 85%);
 $grey-80: hsl(0, 0%, 80%);
 $grey-75: hsl(0, 0%, 75%);

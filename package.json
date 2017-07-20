@@ -1,6 +1,6 @@
 {
   "name": "@tonydinh/react-toolkit",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A collection of reusable react components.",
   "scripts": {
     "start": "styleguidist server",

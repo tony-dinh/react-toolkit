@@ -13,6 +13,7 @@
     font-weight: normal;
     line-height: 1.2em;
     text-align: center;
+    pointer-events: initial;
     cursor: pointer;
 }
 
@@ -25,6 +26,8 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    height: 100%;
+    width: 100%;
 
     pointer-events: none; // 1
 }

@@ -164,12 +164,11 @@ class TimePicker extends React.PureComponent {
                     ref={(el) => { this._input = el }}
                 >
                     {showIcon && iconPosition === 'left' &&
-                        <div className={iconClasses}
+                        <Icon className={iconClasses}
+                            name={iconName}
                             style={iconStyle}
                             onClick={this.showPicker}
-                        >
-                            <Icon name={iconName} />
-                        </div>
+                        />
                     }
 
                     <input className={inputClasses}

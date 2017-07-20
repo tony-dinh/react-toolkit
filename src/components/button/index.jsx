@@ -22,7 +22,9 @@ class Button extends React.PureComponent {
             className,
             disabled,
             href,
+            iconClassName,
             iconName,
+            iconPosition,
             role,
             style,
             title,
@@ -35,29 +37,31 @@ class Button extends React.PureComponent {
             'td--button-disabled': disabled
         })
         const innerClasses = 'td-button__inner'
-        const iconClasses = 'td-button__icon'
+        const iconClasses = classNames('td-button__icon', iconClassName)
         const textClasses = classNames('td-button__text', {
             'td--icon-text': !!iconName
         })
 
         const ButtonWrapper = ({children, style}) => {
             return href
-            ? <a className={classes} style={style} href={href} onClick={onClick}>{children}</a>
-            : <button className={classes} style={style} title={title} onClick={onClick} type={type}>{children}</button>
+            ? <a className={classes} style={style} title={title || text} href={href} onClick={onClick}>{children}</a>
+            : <button className={classes} style={style} title={title || text} onClick={onClick} type={type}>{children}</button>
         }
 
         return (
             <ButtonWrapper style={style}>
                 <div className={innerClasses}>
-                    {!!iconName &&
-                        <div className={iconClasses}>
-                            <Icon name={iconName} />
-                        </div>
+                    {!!iconName && iconPosition === 'start' &&
+                        <Icon className={iconClasses} name={iconName} />
                     }
-                    {(text || title) &&
+                    {text &&
                         <span className={textClasses}>
-                            {text || title}
+                            {text}
                         </span>
+                    }
+
+                    {!!iconName && iconPosition === 'end' &&
+                        <Icon className={iconClasses} name={iconName} />
                     }
                 </div>
             </ButtonWrapper>
@@ -75,13 +79,19 @@ Button.propTypes = {
      */
     disabled: PropTypes.bool,
     href: PropTypes.string,
-    iconName: React.PropTypes.string,
+    iconClassName: PropTypes.string,
+    iconName: PropTypes.string,
+    iconPosition: PropTypes.oneOf([
+        'start',
+        'end'
+    ]),
     role: PropTypes.oneOf([
         'primary',
         'secondary',
         'tertiary'
     ]).isRequired,
     style: PropTypes.object,
+    title: PropTypes.string,
     type: PropTypes.oneOf([
         'button',
         'submit'
@@ -91,9 +101,10 @@ Button.propTypes = {
 }
 
 Button.defaultProps = {
-    type: 'button',
+    disabled: false,
+    iconPosition: 'start',
     role: 'primary',
-    disabled: false
+    type: 'button',
 }
 
 export default Button

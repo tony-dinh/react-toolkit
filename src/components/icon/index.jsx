@@ -1,4 +1,5 @@
-import React, {PropTypes} from 'react'
+import React from 'react'
+import PropTypes from 'proptypes'
 import classNames from 'classnames'
 import './theme.scss'
 
@@ -67,6 +68,15 @@ const ErrorCircleIcon = ({className}) => {
     )
 }
 
+const FileIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M6 2c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
+    )
+}
+
 const TimeIcon = ({className}) => {
     return (
         <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
@@ -92,6 +102,7 @@ const ICONS = {
     'check-circle': CheckCircleIcon,
     'close': CloseIcon,
     'error-circle': ErrorCircleIcon,
+    'file': FileIcon,
     'time': TimeIcon,
     'timer': TimerIcon,
     'chevron-left': ChevronRightIcon,
@@ -106,12 +117,20 @@ class Icon extends React.PureComponent {
     render() {
         const {
             className,
-            name
+            name,
+            ref,
+            style
         } = this.props
 
         const classes = classNames('td-icon', className)
+        const svgClasses = 'td-icon__svg'
+
         const Icon = ICONS[name]
-        return <Icon className={classes} />
+        return (
+            <div ref={ref} style={style} className={classes}>
+                <Icon className={svgClasses} />
+            </div>
+        )
     }
 }
 

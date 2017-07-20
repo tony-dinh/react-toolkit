@@ -16,6 +16,7 @@ class AccordionItem extends React.PureComponent {
         this.animateClose = this.animateClose.bind(this)
         this.getContentHeight = this.getContentHeight.bind(this)
         this.onAnimationComplete = this.onAnimationComplete.bind(this)
+        this.onClick = this.onClick.bind(this)
 
         this.state = {
             style: {
@@ -23,6 +24,14 @@ class AccordionItem extends React.PureComponent {
                 transition: 'none'
             }
         }
+    }
+
+    onClick(e) {
+        if (e.currentTarget !== e.target) {
+            return
+        }
+
+        this.props.onClick()
     }
 
     animateOpen() {
@@ -126,8 +135,7 @@ class AccordionItem extends React.PureComponent {
             headerClassName,
             headerContent: HeaderContent,
             itemId,
-            open,
-            onClick
+            open
         } = this.props
 
         const classes = classNames('td-accordion__item', className, {
@@ -135,18 +143,20 @@ class AccordionItem extends React.PureComponent {
         })
 
         const headerClasses = classNames('td-accordion__header', headerClassName)
+        const headerInnerClasses = 'td-accordion__header-inner'
 
         return (
             <div id={itemId} className={classes}>
-                <button className={headerClasses}
-                    onClick={onClick}
+                <div className={headerClasses}
                     role="tab"
                     tabIndex="0"
-                    type="button"
                     aria-selected={open}
+                    onClick={this.onClick}
                 >
-                    <HeaderContent />
-                </button>
+                    <div className={headerInnerClasses}>
+                        <HeaderContent />
+                    </div>
+                </div>
 
                 <Transition
                     in={open}

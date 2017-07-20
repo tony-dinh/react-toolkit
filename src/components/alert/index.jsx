@@ -93,12 +93,11 @@ class Alert extends React.PureComponent {
                         ref={(el) => { this._innerContainer = el }}
                     >
                         {alertIconName &&
-                            <div className={iconClasses}
+                            <Icon className={iconClasses}
                                 style={themeStyle}
+                                name={alertIconName}
                                 ref={(el) => { this._icon = el }}
-                            >
-                                <Icon name={alertIconName}/>
-                            </div>
+                            />
                         }
 
                         {header &&
