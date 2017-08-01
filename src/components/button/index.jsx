@@ -7,7 +7,7 @@ import './_base.scss'
 
 /**
  * ```jsx
- * import Button from '@tonydinh/react-toolkit/dist/components/button
+ * import Button from '@tonydinh/react-toolkit/dist/components/button'
  * ```
  * A versatile button component that can be styled.
 */

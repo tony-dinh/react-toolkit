@@ -33,19 +33,7 @@ const Content = () => (
 <div>
     <Button text="Open Drawer" onClick={() => { setState({open: true}) }}/>
     <Drawer
-        duration={100}
-        open={state.open}
-        onClose={() => { setState({open: false}) }} />
-</div>
-```
-
-#### width
-
-```
-<div>
-    <Button text="Open Drawer" onClick={() => { setState({open: true}) }}/>
-    <Drawer
-        width="30vw"
+        duration={1000}
         open={state.open}
         onClose={() => { setState({open: false}) }} />
 </div>

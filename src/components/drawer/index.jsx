@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'proptypes'
 import classNames from 'classnames'
+import prefixAll from 'inline-style-prefixer/static'
 
 import Transition from 'react-transition-group/Transition'
 
@@ -12,7 +13,6 @@ class Drawer extends React.PureComponent {
         super(props)
 
         this.close = this.close.bind(this)
-        this.adjustDrawerWidth = this.adjustDrawerWidth.bind(this)
         this.animate = this.animate.bind(this)
         this.animateOpen = this.animateOpen.bind(this)
         this.animateClose = this.animateClose.bind(this)
@@ -31,47 +31,25 @@ class Drawer extends React.PureComponent {
         }
     }
 
-    componentDidMount() {
-        this.adjustDrawerWidth()
-        window.addEventListener('resize', this.adjustDrawerWidth)
-    }
-
-    adjustDrawerWidth() {
-        if (!this._drawer) {
-            return
-        }
-
-        const width = getComputedStyle(this._drawer).width
-        this.width = parseInt(width)
-        this.setState({
-            style: null
-        })
-    }
-
     animateOpen() {
-        // Adjust the drawer width when it mounts
-        this.adjustDrawerWidth()
-
         const completionHandler = () => {
             this.setState({
                 style: {
-                    width: `${this.width}px`,
-                    transform: 'translateX(0)',
+                    transform: 'translate3d(0, 0, 0)',
                     transition: 'none'
                 }
             })
             this.onAnimationComplete()
         }
 
-        this.animate(-this.width, 0, completionHandler)
+        this.animate(-100, 0, completionHandler)
     }
 
     animateClose() {
         const completionHandler = () => {
             this.onAnimationComplete()
         }
-
-        this.animate(0, -this.width, completionHandler)
+        this.animate(0, -100, completionHandler)
     }
 
     animate(startOffset, endOffset, completionHandler) {
@@ -80,10 +58,6 @@ class Drawer extends React.PureComponent {
             easing
         } = this.props
 
-        const {
-            widthStyle
-        } = this.state
-
         const animationFrame = () => new Promise((resolve) => {
             window.requestAnimationFrame(resolve)
         })
@@ -91,8 +65,7 @@ class Drawer extends React.PureComponent {
         const setStartState = () => new Promise((resolve) => {
             this.setState({
                 style: {
-                    width: widthStyle,
-                    transform: `translateX(${startOffset}px)`,
+                    transform: `translate3d(${startOffset}%, 0, 0)`,
                     transition: 'none'
                 }
             }, resolve)
@@ -101,8 +74,7 @@ class Drawer extends React.PureComponent {
         const setEndState = () => new Promise((resolve) => {
             this.setState({
                 style: {
-                    width: widthStyle,
-                    transform: `translateX(${endOffset}px)`,
+                    transform: `translate3d(${endOffset}%, 0, 0)`,
                     transition: `transform ${duration}ms ${easing}`
                 }
             }, resolve)
@@ -166,19 +138,22 @@ class Drawer extends React.PureComponent {
             style
         } = this.state
 
+        const prefixedOuterStyle = prefixAll(outerStyle)
+        const prefixedStyle = prefixAll(style)
+
         // Allow props to drive the state otherwise let it manage its own
         const open = this.props.open != null
             ? this.props.open
             : this.state.open
 
         const classes = classNames('td-drawer', className, {
-            'td--drawer-open': open,
-            'td--drawer-closed': !open
+            'td-drawer--open': open,
+            'td-drawer--closed': !open
         })
         const innerClasses = classNames('td-drawer__inner', innerClassName)
         const outerClasses = classNames('td-drawer__outer', outerClassName, {
-            'td--drawer__outer-fade-in': open,
-            'td--drawer__outer-fade-out': !open
+            'td-drawer--fade-in': open,
+            'td-drawer--fade-out': !open
         })
 
         return (
@@ -191,12 +166,12 @@ class Drawer extends React.PureComponent {
             >
                 {/* Overlay */}
                 <div className={outerClasses}
-                    style={outerStyle}
+                    style={prefixedOuterStyle}
                     onClick={this.close}
                 >
                     {/* Drawer */}
                     <div className={classes}
-                        style={style}
+                        style={prefixedStyle}
                         ref={(el) => { this._drawer = el }}
                     >
                         {/* Drawer Content Container*/}

@@ -154,7 +154,7 @@ class AccordionItem extends React.PureComponent {
                     onClick={this.onClick}
                 >
                     <div className={headerInnerClasses}>
-                        <HeaderContent />
+                        {HeaderContent}
                     </div>
                 </div>
 
@@ -183,7 +183,7 @@ AccordionItem.propTypes = {
     duration: PropTypes.number,
     easing: PropTypes.string,
     headerClassName: PropTypes.string,
-    headerContent: PropTypes.func,
+    headerContent: PropTypes.element,
     itemId: PropTypes.string,
     open: PropTypes.bool,
     onClick: PropTypes.func,
@@ -195,6 +195,8 @@ AccordionItem.propTypes = {
 
 AccordionItem.defaultProps = {
     open: false,
+    duration: 250,
+    easing: 'ease',
     onClose: noop,
     onOpen: noop,
     onDidClose: noop,

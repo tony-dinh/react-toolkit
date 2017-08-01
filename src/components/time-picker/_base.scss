@@ -15,8 +15,8 @@
     display: flex;
     flex-direction: row;
     width: 100%;
-    background-color: white;
     border: 1px solid $grey-92;
+    background-color: white;
 }
 
 .td-time-picker__input {
@@ -24,11 +24,11 @@
     width: 100%;
     padding: map-get($spacing-map, medium);
 
-    font-family: inherit;
     font-size: 1em;
+    font-family: inherit;
+    border: none;
     color: inherit;
     background-color: transparent;
-    border: none;
 }
 
 .td-time-picker__input.td--icon-left {
@@ -39,8 +39,8 @@
     flex-shrink: 0;
     padding: map-get($spacing-map, medium);
 
+    border: none;
     color: inherit;
     background-color: transparent;
-    border: none;
     cursor: pointer;
 }

@@ -32,7 +32,11 @@ class Input extends React.Component {
     }
 
     adjustLabelTopPosition() {
-        const initialTop = window.getComputedStyle(this._label).top
+        if (!this._label) {
+            return
+        }
+
+        const initialTop = getComputedStyle(this._label).top
         this.setState({
             initialTop: initialTop
         })

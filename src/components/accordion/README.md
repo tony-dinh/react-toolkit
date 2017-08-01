@@ -16,19 +16,19 @@ const Content = () => (
 );
 
 <Accordion>
-    <AccordionItem headerContent={() => <div>Accordion 1</div>}>
+    <AccordionItem headerContent={<div>Accordion 1</div>}>
         <Content />
     </AccordionItem>
 
-    <AccordionItem headerContent={() => <div>Accordion 2</div>}>
+    <AccordionItem headerContent={<div>Accordion 2</div>}>
         <Content />
     </AccordionItem>
 
-    <AccordionItem headerContent={() => <div>Accordion 3</div>}>
+    <AccordionItem headerContent={<div>Accordion 3</div>}>
         <Content />
     </AccordionItem>
 
-    <AccordionItem headerContent={() => <div>Accordion 4</div>}>
+    <AccordionItem headerContent={<div>Accordion 4</div>}>
         <Content />
     </AccordionItem>
 </Accordion>

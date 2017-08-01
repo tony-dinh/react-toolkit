@@ -96,7 +96,7 @@ class Alert extends React.PureComponent {
                             <Icon className={iconClasses}
                                 style={themeStyle}
                                 name={alertIconName}
-                                ref={(el) => { this._icon = el }}
+                                reference={(el) => { this._icon = el }}
                             />
                         }
 

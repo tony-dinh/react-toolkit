@@ -12,6 +12,15 @@ const CalendarIcon = ({className}) => {
     )
 }
 
+const ChartIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="2 2 20 20" preserveAspectRatio="xMidYMid meet">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M10 20h4V4h-4v16zm-6 0h4v-8H4v8zM16 9v11h4V9h-4z"/>
+        </svg>
+    )
+}
+
 const CheckCircleIcon = ({className}) => {
     return (
         <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
@@ -48,7 +57,6 @@ const ChevronRightIcon = ({className}) => {
     )
 }
 
-
 const CloseIcon = ({className}) => {
     return (
         <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
@@ -58,6 +66,14 @@ const CloseIcon = ({className}) => {
     )
 }
 
+const EditIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
+    )
+}
 
 const ErrorCircleIcon = ({className}) => {
     return (
@@ -72,6 +88,33 @@ const FileIcon = ({className}) => {
     return (
         <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
             <path d="M6 2c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6H6zm7 7V3.5L18.5 9H13z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
+    )
+}
+
+const MenuIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+    )
+}
+
+const PdfIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8.5 7.5c0 .83-.67 1.5-1.5 1.5H9v2H7.5V7H10c.83 0 1.5.67 1.5 1.5v1zm5 2c0 .83-.67 1.5-1.5 1.5h-2.5V7H15c.83 0 1.5.67 1.5 1.5v3zm4-3H19v1h1.5V11H19v2h-1.5V7h3v1.5zM9 9.5h1v-1H9v1zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm10 5.5h1v-3h-1v3z"/>
+        </svg>
+    )
+}
+
+const PlayIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="3 3 18 18" preserveAspectRatio="xMidYMid meet">
+            <path d="M8 5v14l11-7z"/>
             <path d="M0 0h24v24H0z" fill="none"/>
         </svg>
     )
@@ -98,15 +141,20 @@ const TimerIcon = ({className}) => {
 
 const ICONS = {
     'calendar': CalendarIcon,
+    'chart': ChartIcon,
     'check': CheckIcon,
     'check-circle': CheckCircleIcon,
+    'chevron-left': ChevronRightIcon,
+    'chevron-right': ChevronRightIcon,
     'close': CloseIcon,
+    'edit': EditIcon,
     'error-circle': ErrorCircleIcon,
     'file': FileIcon,
+    'menu': MenuIcon,
+    'pdf': PdfIcon,
+    'play': PlayIcon,
     'time': TimeIcon,
-    'timer': TimerIcon,
-    'chevron-left': ChevronRightIcon,
-    'chevron-right': ChevronRightIcon
+    'timer': TimerIcon
 }
 
 class Icon extends React.PureComponent {
@@ -118,17 +166,17 @@ class Icon extends React.PureComponent {
         const {
             className,
             name,
-            ref,
+            reference,
             style
         } = this.props
 
         const classes = classNames('td-icon', className)
         const svgClasses = 'td-icon__svg'
 
-        const Icon = ICONS[name]
+        const Svg = ICONS[name]
         return (
-            <div ref={ref} style={style} className={classes}>
-                <Icon className={svgClasses} />
+            <div ref={reference} style={style} className={classes}>
+                <Svg className={svgClasses} />
             </div>
         )
     }
@@ -136,7 +184,8 @@ class Icon extends React.PureComponent {
 
 Icon.propTypes = {
     className: PropTypes.string,
-    name: PropTypes.oneOf(Object.keys(ICONS)).isRequired
+    name: PropTypes.oneOf(Object.keys(ICONS)).isRequired,
+    reference: PropTypes.func
 }
 
 export default Icon

@@ -1,0 +1,15 @@
+@import '../../styles/variables';
+
+.td-badge {
+    display: inline-block;
+    flex: 0 0 auto;
+
+    margin: 0;
+    padding: map-get($spacing-map, small);
+
+    text-align: center;
+    text-transform: uppercase;
+
+    color: white;
+    background-color: $primary-color;
+}
