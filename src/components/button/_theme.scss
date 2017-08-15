@@ -1,8 +1,8 @@
 @import "../../styles/variables";
 
-$primaryButtonColor: #26A69A;
-$secondaryButtonColor: #EF5350;
-$tertiaryButtonColor: #0097A7;
+$primaryButtonColor: $primary-color;
+$secondaryButtonColor: $secondary-color;
+$tertiaryButtonColor: $tertiary-color;
 
 .td-button {
     border-radius: 2px;

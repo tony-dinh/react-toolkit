@@ -1,0 +1,50 @@
+$primaryThemeColor: $primary-color;
+$secondaryThemeColor: white;
+
+.td-multi-state-switch {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    width: 100%;
+
+    padding: 0;
+    margin: 0;
+}
+
+.td-multi-state-switch__switch {
+    flex: 0 0 auto;
+    height: 30px;
+    width: 33.33%;
+
+    border: none;
+    color: $primaryThemeColor;
+    background-color: $secondaryThemeColor;
+    transition: background-color 250ms ease;
+}
+
+.td-multi-state-switch__switch {
+    border-width: 1px 1px 1px 0;
+    border-style: solid;
+    border-color: $primaryThemeColor;
+}
+
+.td-multi-state-switch__switch {
+    &:first-of-type {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-width: 1px;
+    }
+
+    &:last-of-type {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+}
+
+.td-multi-state-switch__switch.td-multi-state-switch--on {
+    background-color: $primaryThemeColor;
+    color: $secondaryThemeColor;
+}

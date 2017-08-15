@@ -1,0 +1,71 @@
+@import "../../styles/variables";
+
+.td-dropdown {
+    position: relative;
+    height: $min-tap-target-size;
+    width: $min-tap-target-size;
+
+    color: $grey-60;
+    border: none;
+    background-color: transparent;
+    font-size: 1em;
+    outline: none;
+}
+
+.td-dropdown__icon {
+    transition: transform 250ms ease;
+}
+
+.td-dropdown.td-dropdown--collapsed {
+    .td-dropdown__icon {
+        transform: rotate3d(0, 0, 0, 0);
+    }
+}
+
+.td-dropdown.td-dropdown--expanded {
+    .td-dropdown__icon {
+        transform: rotate3d(0, 0, 1, 180deg);
+    }
+}
+
+.td-dropdown .td-dropdown__list {
+    position: absolute;
+    left: 0;
+
+    min-width: 250px;
+    max-width: 90vw;
+
+    animation-duration: 250ms;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+    box-shadow: 0 1px 6px rgba(0,0,0,.12), 0 1px 4px rgba(0,0,0,.24);
+    z-index: $z-3;
+}
+
+.td-dropdown .td-dropdown__list.td-dropdown--fade-in {
+    animation-name: fadeIn;
+}
+
+.td-dropdown .td-dropdown__list.td-dropdown--fade-out {
+    animation-name: fadeOut;
+}
+
+@-webkit-keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@-webkit-keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

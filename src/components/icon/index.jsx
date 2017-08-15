@@ -1,7 +1,25 @@
 import React from 'react'
 import PropTypes from 'proptypes'
 import classNames from 'classnames'
-import './theme.scss'
+import './_base.scss'
+
+const ArrowDropdownIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M7 10l5 5 5-5z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
+    )
+}
+
+const ArrowDropupIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M7 14l5-5 5 5z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
+    )
+}
 
 const CalendarIcon = ({className}) => {
     return (
@@ -75,6 +93,23 @@ const EditIcon = ({className}) => {
     )
 }
 
+const EmailIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
+    )
+}
+
+const EqualizerIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 32 32" preserveAspectRatio="xMidYMid meet">
+            <path d="M14 4v-0.5c0-0.825-0.675-1.5-1.5-1.5h-5c-0.825 0-1.5 0.675-1.5 1.5v0.5h-6v4h6v0.5c0 0.825 0.675 1.5 1.5 1.5h5c0.825 0 1.5-0.675 1.5-1.5v-0.5h18v-4h-18zM8 8v-4h4v4h-4zM26 13.5c0-0.825-0.675-1.5-1.5-1.5h-5c-0.825 0-1.5 0.675-1.5 1.5v0.5h-18v4h18v0.5c0 0.825 0.675 1.5 1.5 1.5h5c0.825 0 1.5-0.675 1.5-1.5v-0.5h6v-4h-6v-0.5zM20 18v-4h4v4h-4zM14 23.5c0-0.825-0.675-1.5-1.5-1.5h-5c-0.825 0-1.5 0.675-1.5 1.5v0.5h-6v4h6v0.5c0 0.825 0.675 1.5 1.5 1.5h5c0.825 0 1.5-0.675 1.5-1.5v-0.5h18v-4h-18v-0.5zM8 28v-4h4v4h-4z"></path>
+        </svg>
+    )
+}
+
 const ErrorCircleIcon = ({className}) => {
     return (
         <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
@@ -93,11 +128,56 @@ const FileIcon = ({className}) => {
     )
 }
 
+const FilterListIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M10 18h4v-2h-4v2zM3 6v2h18V6H3zm3 7h12v-2H6v2z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
+    )
+}
+
+const LanguageIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/>
+        </svg>
+    )
+}
+
+const LocationIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
+    )
+}
+
 const MenuIcon = ({className}) => {
     return (
         <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
             <path d="M0 0h24v24H0z" fill="none"/>
             <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </svg>
+    )
+}
+
+const MoreHorizontalIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+        </svg>
+    )
+}
+
+const MoreVerticalIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M0 0h24v24H0z" fill="none"/>
+            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
         </svg>
     )
 }
@@ -111,10 +191,28 @@ const PdfIcon = ({className}) => {
     )
 }
 
+const PersonIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
+    )
+}
+
 const PlayIcon = ({className}) => {
     return (
         <svg className={className} viewBox="3 3 18 18" preserveAspectRatio="xMidYMid meet">
             <path d="M8 5v14l11-7z"/>
+            <path d="M0 0h24v24H0z" fill="none"/>
+        </svg>
+    )
+}
+
+const SearchIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
             <path d="M0 0h24v24H0z" fill="none"/>
         </svg>
     )
@@ -140,6 +238,8 @@ const TimerIcon = ({className}) => {
 }
 
 const ICONS = {
+    'arrow-dropdown': ArrowDropdownIcon,
+    'arrow-dropup': ArrowDropupIcon,
     'calendar': CalendarIcon,
     'chart': ChartIcon,
     'check': CheckIcon,
@@ -148,11 +248,20 @@ const ICONS = {
     'chevron-right': ChevronRightIcon,
     'close': CloseIcon,
     'edit': EditIcon,
+    'equalizer': EqualizerIcon,
+    'email': EmailIcon,
     'error-circle': ErrorCircleIcon,
     'file': FileIcon,
+    'filter-list': FilterListIcon,
+    'language': LanguageIcon,
+    'location': LocationIcon,
     'menu': MenuIcon,
+    'more-horizontal': MoreHorizontalIcon,
+    'more-vertical': MoreVerticalIcon,
     'pdf': PdfIcon,
+    'person': PersonIcon,
     'play': PlayIcon,
+    'search': SearchIcon,
     'time': TimeIcon,
     'timer': TimerIcon
 }

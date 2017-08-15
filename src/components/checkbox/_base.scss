@@ -1,0 +1,26 @@
+@import "../../styles/variables";
+
+.td-checkbox {
+    min-width: 44px;
+    min-height: 44px;
+    height: 100%;
+    width: 100%;
+    padding: map-get($spacing-map, x-large);
+    cursor: pointer;
+}
+
+.td-checkbox__input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+
+    padding: 0;
+    margin: 0;
+}
+
+.td-checkbox__icon {
+    color: white;
+    height: 100%;
+    width: 100%;
+}

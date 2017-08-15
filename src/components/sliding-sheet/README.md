@@ -1,6 +1,4 @@
-
 ### Example
-
 ```
 const Content = () => (
     <div>
@@ -16,11 +14,11 @@ const Content = () => (
     </div>
 );
 
-<Accordion lazy>
-    {Array(5).fill().map((_, index)=>
-        <AccordionItem key={index} headerContent={<div>{`Accordion ${index}`}</div>}>
-            <Content />
-        </AccordionItem>
-    )}
-</Accordion>
+<div>
+    <Button text="Show Sliding Sheet" onClick={() => { setState({showing: true}) }} />
+    <SlidingSheet showing={state.showing} onDismiss={ () => { setState({showing: false}) }}>
+        <Content />
+    </SlidingSheet>
+</div>
+
 ```

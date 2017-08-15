@@ -1,0 +1,14 @@
+.td-checkbox__input {
+    border-radius: 3px;
+    border: 1px solid ;
+    border-color: $grey-60;
+    background-color: rgba(white, .8);
+    transition:
+        background-color ease 250ms,
+        border-color ease 250ms;
+}
+
+.td-checkbox__input.td--checkbox-checked {
+    background-color: rgba($primary-color, .8);
+    border-color: $primary-color;
+}

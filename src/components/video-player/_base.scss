@@ -1,0 +1,54 @@
+@import '../../styles/variables';
+
+.td-video-player {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+
+    background-color: $dark-overlay-color;
+
+    animation-duration: 250ms;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+    z-index: $z-4;
+}
+
+.td-video-player.td-video-player--fade-out {
+    animation: fadeOut;
+}
+
+.td-video-player.td-video-player--fade-in {
+    animation: fadeIn;
+}
+
+.td-video-player__video {
+    max-height: 100vh;
+    max-width: 100vw;
+}
+
+@-webkit-keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@-webkit-keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

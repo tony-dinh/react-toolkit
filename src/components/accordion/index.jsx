@@ -1,4 +1,5 @@
 import React  from 'react'
+import ReactList from 'react-list'
 import PropTypes from 'proptypes'
 import classNames from 'classnames'
 
@@ -29,6 +30,7 @@ class Accordion extends React.Component {
         this.accordionId = `accordion-${uuid()}`
         this.onItemClick = this.onItemClick.bind(this)
         this.updateItem = this.updateItem.bind(this)
+        this.renderItem = this.renderItem.bind(this)
 
         this.state = {
             openItems: [...this.props.initialOpenItems]
@@ -69,47 +71,65 @@ class Accordion extends React.Component {
         this.updateItem(index, isOpening)
     }
 
-    render() {
+    closeAll() {
+        this.setState({
+            openItems: []
+        })
+    }
+
+    renderItem(index, key) {
+        const child = this.AccordionItems[index]
+
+        if (!child) {
+            return null
+        }
+
         const {
-            className,
-            children,
             duration,
             easing,
-            multiSelect,
             onItemOpen,
             onItemDidOpen,
             onItemClose,
             onItemDidClose,
         } = this.props
 
+        const childProps = {
+            accordionId: this.accordionId,
+            id: key,
+            duration,
+            easing,
+            open: this.state.openItems.indexOf(index) > -1,
+            onClick: this.onItemClick.bind(this, index)
+        }
+
+        // Allow event hooks to be overridden
+        childProps.onOpen = childProps.onOpen || onItemOpen
+        childProps.onDidOpen = childProps.onDidOpen || onItemDidOpen
+        childProps.onClose = childProps.onClose || onItemClose
+        childProps.onDidClose = childProps.onDidClose || onItemDidClose
+
+        return React.cloneElement(child, {...childProps, key: key})
+    }
+
+    render() {
+        const {
+            className,
+            children,
+            multiSelect
+        } = this.props
+
         const classes = classNames('td-accordion', className)
+        this.AccordionItems = React.Children.toArray(children)
         return (
-            <div className={classes} id={this.accordionId} aria-multiselectable={multiSelect} role="tablist">
-                {React.Children.map(children, (child, index) => {
-                    // Children can be undefined if they are conditionally rendered
-                    if (!child) {
-                        return null
-                    }
-
-                    const childId = `${this.accordionId}__item-${index}`
-                    const childProps = {
-                        accordionId: this.accordionId,
-                        id: childId,
-                        duration,
-                        easing,
-                        key: childId,
-                        open: this.state.openItems.indexOf(index) > -1,
-                        onClick: this.onItemClick.bind(this, index)
-                    }
-
-                    // Allow event hooks to be overridden
-                    childProps.onOpen = childProps.onOpen || onItemOpen
-                    childProps.onDidOpen = childProps.onDidOpen || onItemDidOpen
-                    childProps.onClose = childProps.onClose || onItemClose
-                    childProps.onDidClose = childProps.onDidClose || onItemDidClose
-
-                    return React.cloneElement(child, childProps)
-                })}
+            <div className={classes}
+                id={this.accordionId}
+                aria-multiselectable={multiSelect}
+                role="tablist"
+            >
+                <ReactList
+                    length={this.AccordionItems.length}
+                    itemRenderer={this.renderItem}
+                />
             </div>
         )
     }

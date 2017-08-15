@@ -14,13 +14,13 @@
 }
 
 .td-drawer__outer.td-drawer--fade-in {
-    animation: overlayFadeIn;
+    animation-name: overlayFadeIn;
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
 }
 
 .td-drawer__outer.td-drawer--fade-out {
-    animation: overlayFadeOut;
+    animation-name: overlayFadeOut;
     animation-timing-function: ease-in-out;
     animation-fill-mode: forwards;
 }

@@ -19,6 +19,7 @@ class Button extends React.PureComponent {
 
     render() {
         const {
+            children,
             className,
             disabled,
             href,
@@ -44,32 +45,38 @@ class Button extends React.PureComponent {
 
         const ButtonWrapper = ({children, style}) => {
             return href
-            ? <a className={classes} style={style} title={title || text} href={href} onClick={onClick}>{children}</a>
-            : <button className={classes} style={style} title={title || text} onClick={onClick} type={type}>{children}</button>
+            ? <a className={classes} style={style} title={title || text} href={href} tabIndex={disabled ? '-1' : '0'} onClick={onClick}>{children}</a>
+            : <button className={classes} style={style} title={title || text} tabIndex={disabled ? '-1' : '0'} onClick={onClick} type={type}>{children}</button>
         }
 
         return (
             <ButtonWrapper style={style}>
-                <div className={innerClasses}>
-                    {!!iconName && iconPosition === 'start' &&
-                        <Icon className={iconClasses} name={iconName} />
-                    }
-                    {text &&
-                        <span className={textClasses}>
-                            {text}
-                        </span>
-                    }
+                {!children ?
+                    <div className={innerClasses}>
+                        {!!iconName && iconPosition === 'start' &&
+                            <Icon className={iconClasses} name={iconName} />
+                        }
 
-                    {!!iconName && iconPosition === 'end' &&
-                        <Icon className={iconClasses} name={iconName} />
-                    }
-                </div>
+                        {text &&
+                            <span className={textClasses}>
+                                {text}
+                            </span>
+                        }
+
+                        {!!iconName && iconPosition === 'end' &&
+                            <Icon className={iconClasses} name={iconName} />
+                        }
+                    </div>
+                :
+                    children
+                }
             </ButtonWrapper>
         )
     }
 }
 
 Button.propTypes = {
+    children: PropTypes.element,
     /**
      *  Adds a user-defined class to the root element.
      */

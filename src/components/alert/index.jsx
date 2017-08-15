@@ -25,10 +25,6 @@ class Alert extends React.PureComponent {
             paddingTop: `${(iconHeight / 2) + innerPadding}px`
         }
 
-        if (!this.props.showButton) {
-            innerStyle.paddingBottom = `${(iconHeight / 2) + innerPadding}px`
-        }
-
         this.setState({
             innerStyle
         })
@@ -37,15 +33,11 @@ class Alert extends React.PureComponent {
     render() {
         const {
             animationDuration,
-            bodyLine1,
-            bodyLine2,
+            children,
             className,
-            header,
-            iconColor,
             iconName,
             innerClassName,
             showing,
-            showButton,
             tapOutsideToDismiss,
             type,
             onDismiss
@@ -57,18 +49,16 @@ class Alert extends React.PureComponent {
         })
         const innerClasses = classNames('td-alert__inner', innerClassName)
         const iconClasses = 'td-alert__icon'
-        const headerClasses = 'td-alert__header'
-        const bodyClasses = 'td-alert__body'
-        const buttonClasses = 'td-alert__button'
-        let themeColor
-        let alertIconName
+
+        let themeColor = this.props.themeColor
+        let alertIconName = iconName
 
         if (type === 'fail') {
-            alertIconName = iconName || 'close'
-            themeColor = iconColor || '#e67773'
+            alertIconName = alertIconName || 'close'
+            themeColor = themeColor || '#e67773'
         } else if (type === 'success') {
-            alertIconName = iconName || 'check'
-            themeColor = iconColor || '#5dc2a0'
+            alertIconName = alertIconName || 'check'
+            themeColor = themeColor || '#5dc2a0'
         }
 
         const style = {
@@ -84,7 +74,8 @@ class Alert extends React.PureComponent {
             <Transition
                 in={showing}
                 timeout={animationDuration}
-                onEnter={this.alertDidMount}
+                onEntering={this.alertDidMount}
+                mountOnEnter={true}
                 unmountOnExit={true}
             >
                 <div className={classes} style={style} onClick={tapOutsideToDismiss ? onDismiss : null}>
@@ -100,27 +91,8 @@ class Alert extends React.PureComponent {
                             />
                         }
 
-                        {header &&
-                            <h2 className={headerClasses}>
-                                {header}
-                            </h2>
-                        }
+                        {children}
 
-                        {(bodyLine1 || bodyLine2) &&
-                            <p className={bodyClasses}>
-                                {bodyLine1 ? bodyLine1 : bodyLine2}
-                            </p>
-                        }
-
-                        {(bodyLine1 && bodyLine2) &&
-                            <p className={bodyClasses}>
-                                {bodyLine2}
-                            </p>
-                        }
-
-                        {showButton && onDismiss &&
-                            <Button className={buttonClasses} style={themeStyle} onClick={onDismiss} text="Dismiss" />
-                        }
                     </div>
                 </div>
             </Transition>
@@ -130,14 +102,19 @@ class Alert extends React.PureComponent {
 
 Alert.propTypes = {
     /**
-     *  Adds a user-defined class to the root element.
+     * The body of the alert modal.
      */
-    className: PropTypes.string,
+    children: PropTypes.element,
 
     /**
      * Specifies the duration (milliseconds) of the fade-in/out animation.
      */
     animationDuration: PropTypes.number,
+
+    /**
+     *  Adds a user-defined class to the root element.
+     */
+    className: PropTypes.string,
 
     /**
      *  Adds a user-defined class to the inner card element.
@@ -155,29 +132,9 @@ Alert.propTypes = {
     iconName: PropTypes.string,
 
     /**
-     *  Defines the header content text.
-     */
-    header: PropTypes.string,
-
-    /**
-     *  Defines the first line of the body content text.
-     */
-    bodyLine1: PropTypes.string,
-
-    /**
-     *  Defines the second line of the body content text.
-     */
-    bodyLine2: PropTypes.string,
-
-    /**
      *  Specifies whether the alert is showing or not.
      */
     showing: PropTypes.bool,
-
-    /**
-     *  Specifies whether to show a button.
-     */
-    showButton: PropTypes.bool,
 
     /**
      * Specifies whether to bind the dismiss handler to the overlay.
@@ -200,7 +157,6 @@ Alert.propTypes = {
 
 Alert.defaultProps = {
     animationDuration: 250,
-    showButton: true,
     tapOutsideToDismiss: true
 }
 
