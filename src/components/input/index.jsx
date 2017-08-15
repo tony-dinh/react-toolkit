@@ -143,7 +143,7 @@ class Input extends React.Component {
                         </span>
                     }
                     <input className='td-input__field'
-                        type="text"
+                        type={type}
                         value={value}
                         name={name}
                         autoFocus={autoFocus}
@@ -169,11 +169,18 @@ Input.propTypes = {
     autoFocus: PropTypes.bool,
     name: PropTypes.string,
     maxLength: PropTypes.number,
+    type: PropTypes.oneOf([
+        'text',
+        'email',
+        'number',
+        'telephone'
+    ]),
     onValueChanged: PropTypes.func
 }
 
 Input.defaultProps = {
     autoFocus: false,
+    type: 'text',
     onValueChanged: noop
 }
 
