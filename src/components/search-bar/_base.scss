@@ -67,7 +67,9 @@
 .td-search-bar__input-label {
     width: 100%;
     padding: map-get($spacing-map, small) 0;
+    margin: 0;
     font-size: 1em;
+    text-align: start;
 }
 
 .td-search-bar__input,

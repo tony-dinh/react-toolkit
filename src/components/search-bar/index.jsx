@@ -84,7 +84,8 @@ class SearchBar extends React.PureComponent {
     render() {
         const {
             focus,
-            height
+            height,
+            wrapperHeight
         } = this.state
 
         const {
@@ -127,15 +128,19 @@ class SearchBar extends React.PureComponent {
             animationDuration: `${animationDuration}ms`
         }
 
+        const labelStyle = {
+            height: `${height}px`,
+        }
+
         return (
             <div className={classes} aria-disabled={disabled}>
                 {/* Search Icon */}
                 <Icon className={iconClasses} name="search" style={iconStyle} />
 
-                <div className={inputWrapperClasses}>
+                <div className={inputWrapperClasses} ref={el => this._inputWrapper = el}>
                     {/* Placeholder Label */}
                     <div className={inputAccessoryWrapperClasses}>
-                        <label className={inputLabelClasses} htmlFor={name}>
+                        <label className={inputLabelClasses} style={labelStyle} htmlFor={name}>
                             {placeholder}
                         </label>
                     </div>
@@ -143,7 +148,7 @@ class SearchBar extends React.PureComponent {
                     {/* Input Field */}
                     <input className={inputClasses}
                         name={name}
-                        type="search"
+                        type="text"
                         value={value}
                         onBlur={this.onBlur}
                         onChange={this.onChange}
@@ -151,7 +156,7 @@ class SearchBar extends React.PureComponent {
                         ref={el => this._input = el}
                     />
 
-                    {/* <Transition
+                     <Transition
                         in={value.length !== 0}
                         timeout={animationDuration}
                         unmountOnExit={true}
@@ -166,7 +171,7 @@ class SearchBar extends React.PureComponent {
                                 name="close"
                             />
                         </button>
-                    </Transition> */}
+                    </Transition>
                 </div>
             </div>
         )

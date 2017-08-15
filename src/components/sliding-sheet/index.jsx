@@ -154,18 +154,49 @@ class SlidingSheet extends React.PureComponent {
 }
 
 SlidingSheet.propTypes = {
+    /**
+     * A single JSX element which defines the content of the sheet.
+     */
     children: PropTypes.element,
+
+    /**
+     * Adds a user-defined class to the root element.
+     */
     className: PropTypes.string,
+
+    /**
+     * Specifies the direction which the sheet slides in from.
+     */
     direction: PropTypes.oneOf([
         'up',
         'down',
         'left',
         'right'
     ]),
+
+    /**
+     * Specifies the duration of the sliding animation.
+     */
     duration: PropTypes.number,
+
+    /**
+     * Specifies the timing-function of the sliding animation.
+     */
     easing: PropTypes.string,
+
+    /**
+     * Defines whether the sheet is showing or not.
+     */
     showing: PropTypes.bool,
+
+    /**
+     * Enables users to dismiss the sheet by clicking/tapping outside.
+     */
     tapOutsideToDismiss: PropTypes.bool,
+
+    /**
+     * User-defined function which should set the showing flag to false.
+     */
     onDismiss: PropTypes.func
 }
 
