@@ -6,10 +6,14 @@ const validate = ({name, value}) => {
             if (/\d/.test(value)) {
                 return 'Non-digit inputs only'
             }
+            break
+
         case 'digitInput':
             if (/\D/.test(value)) {
                 return 'Digit inputs only'
             }
+            break
+
         default:
             return null
     }

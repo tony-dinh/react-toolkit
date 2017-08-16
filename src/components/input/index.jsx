@@ -93,6 +93,7 @@ class Input extends React.Component {
             autoFocus,
             className,
             disabled,
+            error,
             formId,
             label,
             name,
@@ -113,15 +114,18 @@ class Input extends React.Component {
             'td-input--disabled': disabled,
             'td-input--blur': !focus,
             'td-input--focus': focus,
+            'td-input--error': error
         })
         const innerClasses = 'td-input__inner'
         const inputClasses = 'td-input__input'
-        const inputCountClasses = classNames('td-input__count', {
+        const countClasses = classNames('td-input__count', {
             'td-input--invisible': maxLength == null
         })
+        const errorClasses = 'td-input__error'
         const labelClasses = 'td-input__label'
         const phantomInputClasses = 'td-input__phantom-input'
-        const inputAccessoryWrapperClasses = 'td-input__input-accessories'
+        const accessoryWrapperClasses = 'td-input__input-accessories'
+        const decorationWrapper = 'td-input__decorations'
 
         const accessoryWrapperStyles = {
             height: `${componentHeight}px`
@@ -137,8 +141,8 @@ class Input extends React.Component {
             <div className={classes} aria-disabled={disabled} ref={el => this._component = el}>
                 <div className={innerClasses}>
 
-                    {/* Placeholder Label & Highlight */}
-                    <div className={inputAccessoryWrapperClasses}
+                    {/* Input, Error, MaxLength Labels */}
+                    <div className={accessoryWrapperClasses}
                         style={accessoryWrapperStyles}
                     >
                         {label &&
@@ -147,9 +151,18 @@ class Input extends React.Component {
                             </label>
                         }
                         <div className={phantomInputClasses} style={inputStyles}></div>
-                        <span className={inputCountClasses}>
-                            {`${value.length}/${maxLength}`}
-                        </span>
+
+                        <div className={decorationWrapper}>
+                            {error && error.length &&
+                                <span title={error} className={errorClasses}>
+                                    {error}
+                                </span>
+                            }
+
+                            <span className={countClasses}>
+                                {`${value.length}/${maxLength}`}
+                            </span>
+                        </div>
                     </div>
 
                     <input className={inputClasses}
@@ -185,6 +198,11 @@ Input.propTypes = {
      *  Sets the disable state of the input.
      */
     disabled: PropTypes.bool,
+
+    /**
+     * Provide an error message to display under the input.
+     */
+    error: PropTypes.string,
 
     /**
      * Specifies the ID of form the input belongs to if any.

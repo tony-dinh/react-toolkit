@@ -125,13 +125,34 @@ $transitions-label-height: 1.2rem;
     }
 }
 
+.td-input__decorations {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    width: 100%;
+    height: $transitions-label-height;
+}
+
+.td-input__error {
+    flex: 1 0 auto;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: default;
+    pointer-events: initial;
+}
+
+.td-input__count {
+    text-align: right;
+}
+
+.td-input__error,
 .td-input__count {
     display: inline-block;
     padding: 0;
     margin: 0;
-    width: 100%;
     height: $transitions-label-height;
-    text-align: right;
     line-height: $transitions-label-height;
     font-size: $transitions-label-height * .65;
 }

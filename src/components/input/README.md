@@ -20,7 +20,12 @@ const onUpdate = (value) => {
 
 #### `disabled`
 ```
-<Input label="Disabled Input" disabled/>
+<Input label="Disabled Input" disabled />
+```
+
+#### `error`
+```
+<Input label="Error" error="Error!!" />
 ```
 
 #### `label`

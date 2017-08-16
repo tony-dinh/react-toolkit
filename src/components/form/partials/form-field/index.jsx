@@ -36,7 +36,7 @@ class FormField extends React.PureComponent {
         return (
             <Component
                 {...rest}
-                error={{message: error}}
+                error={error}
                 onUpdate={this.update}
             />
         )
