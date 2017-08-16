@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactList from 'react-list'
-import PropTypes from 'proptypes'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 import './_base.scss'

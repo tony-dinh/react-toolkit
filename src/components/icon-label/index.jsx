@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import PropTypes from 'proptypes'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 import Icon from '../icon'

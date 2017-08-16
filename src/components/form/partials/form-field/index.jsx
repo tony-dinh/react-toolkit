@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes from 'proptypes'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 class FormField extends React.PureComponent {
@@ -18,7 +18,14 @@ class FormField extends React.PureComponent {
     }
 
     update(value) {
-        this.props.onUpdate({[this.props.name]: value })
+        const {
+            name
+        } = this.props
+
+        const error = this.props.validate({name, value})
+
+        this.props.onValidate({name, error})
+        this.props.onUpdate({name, value})
     }
 
     touch() {
@@ -34,12 +41,12 @@ class FormField extends React.PureComponent {
         const {
             error
         } = this.state
-        
+
         const componentError = touched && error ? {message: error} : null
-        
+
         return (
-            <Component 
-                error={componentError} 
+            <Component
+                error={componentError}
                 onUpdate={this.update}
                 onFocus={this.touch}
             />
