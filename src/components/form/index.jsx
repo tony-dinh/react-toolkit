@@ -106,30 +106,46 @@ class Form extends React.PureComponent {
         const classes = classNames('td-form', className)
 
         this.FormFields = React.Children.map(children, (field, index) => {
-            const inputName = input.props.name
-            const inputProps = {
-                ...input.props,
-                key: `${name}-${this.id}__${inputName}`,
-                error: error && error[inputName] || null,
+            const fieldName = field.props.name
+            const fieldProps = {
+                ...field.props,
+                key: `${name}-${this.id}__${fieldName}`,
+                error: error && error[fieldName] || null,
                 validate,
                 onValidate: this.onValidateField,
                 onUpdate: this.update,
             }
-            return React.cloneElement(input, inputProps)
+
+            return React.cloneElement(field, fieldProps)
         })
 
         return (
             <form className={classes} onSubmit={this.submit}>
-                {FormFields}
+                {this.FormFields}
             </form>
         )
     }
 }
 
+const FormFieldType = (props, propName, componentName) => {
+    const allowedTypes = [
+        FormField
+    ]
+
+    const isValid = React.Children
+        .toArray(props[propName])
+        .every((child) => allowedTypes.includes(child.type))
+
+    if (isValid) {
+        return null
+    }
+
+    return new Error(`Invalid prop ${propName} supplied to ${componentName}.`);
+}
+
 Form.propTypes = {
-    children: PropTypes.node,
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string,
+    children: FormFieldType,
+    name: PropTypes.string.isRequired,
     validate: PropTypes.func,
     onSubmit: PropTypes.func
 }

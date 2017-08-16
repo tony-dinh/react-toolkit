@@ -2,53 +2,38 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-class FormField extends React.PureComponent {
+const noop = () => {}
 
+class FormField extends React.PureComponent {
     constructor(props){
         super(props)
-
         this.update = this.update.bind(this)
-        this.touch = this.touch.bind(this)
-        this.state = {
-            error: '',
-            dirty: false,
-            touched: false,
-            valid: !props.required
-        }
     }
 
     update(value) {
         const {
-            name
+            name,
+            validate,
+            onUpdate,
+            onValidate
         } = this.props
 
-        const error = this.props.validate({name, value})
+        const error = validate({name, value})
 
-        this.props.onValidate({name, error})
-        this.props.onUpdate({name, value})
-    }
-
-    touch() {
-        this.setState({touched: true})
+        onValidate({name, error})
+        onUpdate({name, value})
     }
 
     render() {
-
         const {
-            component: Component
-        } = this.props
-
-        const {
+            component: Component,
             error
-        } = this.state
-
-        const componentError = touched && error ? {message: error} : null
+        } = this.props
 
         return (
             <Component
-                error={componentError}
+                error={{message: error}}
                 onUpdate={this.update}
-                onFocus={this.touch}
             />
         )
     }
@@ -56,13 +41,17 @@ class FormField extends React.PureComponent {
 
 FormField.PropTypes = {
     component: PropTypes.func.isRequired,
-    onUpdate: PropTypes.func,
+    error: PropTypes.string,
     name: PropTypes.string.isRequired,
     required: PropTypes.bool,
+    validate: PropTypes.func,
+    onUpdate: PropTypes.func
 }
 
 FormField.defaultProps = {
-    required: false
+    required: false,
+    validate: noop,
+    onUpdate: noop
 }
 
 export default FormField

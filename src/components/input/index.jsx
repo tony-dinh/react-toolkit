@@ -44,7 +44,7 @@ class Input extends React.Component {
 
     onChange(e) {
         const value = e.currentTarget.value
-        this.props.onValueChanged(value)
+        this.props.onUpdate(value)
         this.setState({value})
     }
 
@@ -175,13 +175,13 @@ Input.propTypes = {
         'number',
         'telephone'
     ]),
-    onValueChanged: PropTypes.func
+    onUpdate: PropTypes.func
 }
 
 Input.defaultProps = {
     autoFocus: false,
     type: 'text',
-    onValueChanged: noop
+    onUpdate: noop
 }
 
 export default Input
