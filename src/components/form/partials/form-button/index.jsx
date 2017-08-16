@@ -11,7 +11,7 @@ class FormButton extends React.PureComponent {
 
     render() {
         return (
-            <Button />
+            <Button {...this.props} />
         )
     }
 }

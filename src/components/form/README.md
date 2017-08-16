@@ -28,5 +28,7 @@ const validate = ({name, value}) => {
         maxLength={10}
         component={(props) => <Input {...props} />}
     />
+
+    <FormButton type="submit" text="Submit" />
 </Form>
 ```

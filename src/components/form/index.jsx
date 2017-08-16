@@ -30,7 +30,9 @@ class Form extends React.PureComponent {
         }
     }
 
-    submit() {
+    submit(e) {
+        e.preventDefault()
+
         if (!this.validate()) {
             return
         }
@@ -59,14 +61,18 @@ class Form extends React.PureComponent {
             data
         } = this.state
 
-        // Check that data required form fields have values
         let error = {...this.state.error}
         let newError = false
-        this.FormFields.forEach((field) => {
-            const fieldName = field.props.name
-            if (field.props.isRequired && !data[fieldName]) {
-                error[fieldName] = 'Required'
-                newError = true
+        this.FormElements.forEach((element) => {
+            // Do requirement validation on form fields (ignore buttons)
+            // by checking if we have the data for that field name in our state.
+            // TODO: support default values
+            if (element && element.type === FormField) {
+                const fieldName = element.props.name
+                if (element.props.required && !data[fieldName]) {
+                    error[fieldName] = 'Required'
+                    newError = true
+                }
             }
         })
 
@@ -106,19 +112,32 @@ class Form extends React.PureComponent {
 
         const classes = classNames('td-form', className)
 
-        this.FormFields = React.Children.map(children, (field, index) => {
-            const fieldName = field.props.name
-            const fieldProps = {
-                ...field.props,
-                key: `${name}-${this.id}__${fieldName}`,
-                error: error && error[fieldName] || null,
-                formId: this.id,
-                validate,
-                onValidate: this.onValidateField,
-                onUpdate: this.update,
-            }
+        this.FormElements = React.Children.map(children, (element, index) => {
+            switch(element.type) {
+                case FormField:
+                    const fieldName = element.props.name
+                    const fieldProps = {
+                        ...element.props,
+                        key: `${name}-${this.id}__${fieldName}`,
+                        error: error && error[fieldName] || null,
+                        formId: this.id,
+                        validate,
+                        onValidate: this.onValidateField,
+                        onUpdate: this.update,
+                    }
+                    return React.cloneElement(element, fieldProps)
 
-            return React.cloneElement(field, fieldProps)
+                case FormButton:
+                    const buttonProps = {
+                        ...element.props,
+                        key: `${name}-${this.id}__button-${index}`
+                    }
+
+                    return React.cloneElement(element, buttonProps)
+
+                default:
+                    return null
+            }
         })
 
         return (
@@ -126,7 +145,7 @@ class Form extends React.PureComponent {
                 name={name}
                 onSubmit={this.submit}
             >
-                {this.FormFields}
+                {this.FormElements}
             </form>
         )
     }
