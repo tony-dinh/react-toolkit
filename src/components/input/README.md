@@ -1,13 +1,31 @@
 Example:
 ```
-<Input />
+const onChange = (value) => {
+    console.log(`Input changed: ${value}`)
+};
+
+const onUpdate = (value) => {
+    console.log(`Input updated: ${value}`)
+};
+
+<Input
+    label="Enter Text"
+    maxLength={10}
+    onChange={onChange}
+    onUpdate={onUpdate}
+/>
 ```
 
 ### props
 
+#### `disabled`
+```
+<Input label="Disabled Input" disabled/>
+```
+
 #### `label`
 ```
-<Input label="Label Text"/>
+<Input label="Label Text" maxLength={50} />
 ```
 
 #### `maxLength`

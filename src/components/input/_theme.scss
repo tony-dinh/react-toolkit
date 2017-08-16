@@ -1,22 +1,20 @@
-$defaultColor: $primary-color;
+.td-input__input-accessories {
+    color: $primary-color;
+    transition: color 250ms ease;
+}
 
-.td-input__label {
+.td-input__input {
+    border-color: $grey-70;
+}
+
+.td-input__label,
+.td-input__count {
     color: $grey-70;
 }
 
-.td-input__field {
-    background-color: inherit;
-    color: $grey-30;
-}
-
-.td-input__highlight-bar {
-    background-color: $defaultColor;
-}
-
-.td-input__input-count {
-    color: $grey-70;
-}
-
-.td-input.td-input--active .td-input__label {
-    color: $defaultColor;
+.td-input.td-input--active {
+    .td-input__label,
+    .td-input__count {
+        color: $primary-color;
+    }
 }
