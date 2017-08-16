@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
 
 const noop = () => {}
 
@@ -27,11 +26,16 @@ class FormField extends React.PureComponent {
     render() {
         const {
             component: Component,
-            error
+            error,
+            validate,
+            onUpdate,
+            onValidate,
+            ...rest
         } = this.props
 
         return (
             <Component
+                {...rest}
                 error={{message: error}}
                 onUpdate={this.update}
             />
@@ -42,6 +46,7 @@ class FormField extends React.PureComponent {
 FormField.PropTypes = {
     component: PropTypes.func.isRequired,
     error: PropTypes.string,
+    formId: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     required: PropTypes.bool,
     validate: PropTypes.func,

@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
+import FormButton from './partials/form-button'
 import FormField from './partials/form-field'
 
 const noop = () => {}
@@ -17,7 +18,7 @@ class Form extends React.PureComponent {
     constructor(props) {
         super(props)
 
-        this.id = uuid()
+        this.id = `form-${uuid()}`
         this.submit = this.submit.bind(this)
         this.update = this.update.bind(this)
         this.validate = this.validate.bind(this)
@@ -111,6 +112,7 @@ class Form extends React.PureComponent {
                 ...field.props,
                 key: `${name}-${this.id}__${fieldName}`,
                 error: error && error[fieldName] || null,
+                formId: this.id,
                 validate,
                 onValidate: this.onValidateField,
                 onUpdate: this.update,
@@ -120,7 +122,10 @@ class Form extends React.PureComponent {
         })
 
         return (
-            <form className={classes} onSubmit={this.submit}>
+            <form id={this.id} className={classes}
+                name={name}
+                onSubmit={this.submit}
+            >
                 {this.FormFields}
             </form>
         )
@@ -129,7 +134,8 @@ class Form extends React.PureComponent {
 
 const FormFieldType = (props, propName, componentName) => {
     const allowedTypes = [
-        FormField
+        FormField,
+        FormButton
     ]
 
     const isValid = React.Children
@@ -154,5 +160,5 @@ Form.defaultProps = {
     onSubmit: noop
 }
 
-export {FormField}
+export {FormField, FormButton}
 export default Form
