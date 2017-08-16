@@ -1,69 +1,141 @@
 @import "../../styles/variables";
 
-$inputVerticalPadding: map-get($spacing-map, large);
+$transitions-label-height: 1.2rem;
 
 .td-input {
     position: relative;
     width: 100%;
-    padding: $inputVerticalPadding 0;
-    font-size: 16px;
+    padding: $transitions-label-height 0;
+    margin: 0;
 }
 
-.td-input__inner {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+.td-input.td-input--disabled {
+    cursor: not-allowed;
 
-.td-input__label {
-    position: absolute;
-    font-size: 1em;
-    pointer-events: none;
-
-    transition-property: top, font-size, color;
-    transition-duration: 350ms;
-    transition-timing-function: cubitd-bezier(.4,0,.2,1);
-}
-
-.td-input__field {
-    width: 100%;
-    padding: map-get($spacing-map, medium) 0;
-
-    border: none;
-    border-bottom: 0.5px solid $grey-85;
-
-    font-size: 1em;
-    cursor: pointer;
-
-    &:focus {
-        outline-style: none;
+    .td-input__input {
+        pointer-events: none;
     }
 }
 
-.td-input__highlight-bar {
-    display: block;
-    position: relative;
-    height: 2px;
-    width: 0;
-    bottom: 1px;
+.td-input__input {
+    padding: map-get($spacing-map, small) 0;
 
-    transition-property: width;
-    transition-duration: 200ms;
-    transition-timing-function: cubitd-bezier(.4,0,.2,1);
+    border-width: 0 0 1px 0;
+    border-style: solid;
+
+    cursor: pointer;
+    z-index: $z-2;
+
+    &:focus {
+        outline: none;
+        cursor: text;
+    }
 }
 
-.td-input__input-count {
+.td-input__input-accessories {
     position: absolute;
-    right: 0;
-    bottom: 0;
-    font-size: $inputVerticalPadding * .8;
-}
+    top: 0;
+    left: 0;
 
-.td-input__highlight-bar.td--focus {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     width: 100%;
+    pointer-events: none;
 }
 
-.td-input.td-input--active .td-input__label {
-    font-size: $inputVerticalPadding * .8;
+.td-input__phantom-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
 }
 
+.td-input__phantom-input::after {
+    content: '';
+    display: inline-block;
+    border-color: currentColor;
+    border-style: solid;
+    border-width: 0 0 2px 0;
+    transform: translate(0, 1px);
+
+    width: 100%;
+    padding: 0;
+    z-index: $z-1;
+    transition: width 250ms ease-in-out;
+}
+
+.td-input.td-input--focus {
+    .td-input__phantom-input::after {
+        width: 100%;
+    }
+}
+
+.td-input.td-input--blur {
+    .td-input__phantom-input::after {
+        width: 0%;
+    }
+}
+
+.td-input__label {
+    padding: 0;
+    transition-duration: 250ms;
+    transition-property: font-size;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+
+    font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
+}
+
+.td-input__phantom-input {
+    position: relative;
+    padding: 0;
+    height: map-get($spacing-map, small);
+
+    pointer-events: none;
+
+    transition-duration: 250ms;
+    transition-property: height;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+
+.td-input__label,
+.td-input__phantom-input,
+.td-input__count {
+    flex: 0 0 auto;
+    border: 0;
+}
+
+.td-input__input,
+.td-input__phantom-input,
+.td-input__label {
+    width: 100%;
+    margin: 0;
+
+    outline: none;
+    font-size: 1em;
+    text-align: start;
+}
+
+.td-input.td-input--active {
+    .td-input__label {
+        line-height: $transitions-label-height;
+        height: $transitions-label-height;
+        font-size: $transitions-label-height * .65;
+    }
+}
+
+.td-input__count {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: $transitions-label-height;
+    text-align: right;
+    line-height: $transitions-label-height;
+    font-size: $transitions-label-height * .65;
+}
+
+.td-input__count.td-input--invisible {
+    opacity: 0;
+}

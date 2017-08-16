@@ -11,109 +11,89 @@ class Input extends React.Component {
     constructor(props) {
         super(props)
 
-        this.adjustLabelTopPosition = this.adjustLabelTopPosition.bind(this)
-        this.animateLabel = this.animateLabel.bind(this)
-        this.onBlur = this.onBlur.bind(this)
-        this.onChange = this.onChange.bind(this)
-        this.onFocus = this.onFocus.bind(this)
+        this.setInitialBounds = this.setInitialBounds.bind(this)
+        this.blur = this.blur.bind(this)
+        this.change = this.change.bind(this)
+        this.focus = this.focus.bind(this)
+
+        this.getValue = this.getValue.bind(this)
+        this.setValue = this.setValue.bind(this)
 
         this.state = {
-            isFocused: false,
-            value: '',
-            initialTop: 'initial',
-            labelStyle: {
-                top: 'initial'
-            }
+            focus: false,
+            height: 0,
+            value: typeof props.value === 'undefined' ? '' : props.value
         }
     }
 
     componentDidMount() {
-        this.adjustLabelTopPosition()
+        this.setInitialBounds()
     }
 
-    adjustLabelTopPosition() {
-        if (!this._label) {
+    setInitialBounds() {
+        if (!this._input || !this._component) {
             return
         }
 
-        const initialTop = getComputedStyle(this._label).top
+        const componentHeight = this._component.getBoundingClientRect().height
+        const inputHeight = this._input.getBoundingClientRect().height
+        const verticalPadding = this._input.style.paddingTop
+
         this.setState({
-            initialTop: initialTop
+            componentHeight,
+            inputHeight,
         })
     }
 
-    onChange(e) {
-        const value = e.currentTarget.value
-        this.props.onUpdate(value)
-        this.setState({value})
+    getValue() {
+        return typeof this.props.value === 'undefined'
+            ? this.state.value
+            : this.props.value
     }
 
-    onFocus(e) {
-        e.currentTarget.scrollIntoViewIfNeeded(true)
-        this.animateLabel('up')
+    setValue(value) {
+        this.props.onChange(value)
+
+        if (typeof this.props.value !== 'undefined') {
+            return
+        }
+
         this.setState({
-            isFocused: true
-        })
-    }
-
-    onBlur(e) {
-        this.animateLabel('down')
-        this.setState({
-            isFocused: false
-        })
-    }
-
-    animateLabel(direction) {
-        const {
-            initialTop,
             value
-        } = this.state
+        })
+    }
 
-        // Don't animate if there is already text
-        if (value) {
-            return
-        }
+    blur(e) {
+        const {
+            onBlur,
+            onUpdate
+        } = this.props
 
-        const isUp = direction === 'up'
-        const startTop = isUp
-            ? initialTop
-            : '0px'
-
-        const endTop = isUp
-            ? '0px'
-            : initialTop
-
-
-        const animationFrame = () => new Promise((resolve) => {
-            window.requestAnimationFrame(resolve)
+        this.setState({
+            focus: false
         })
 
-        const setStartState = () => new Promise((resolve) => {
-            this.setState({
-                labelStyle: {
-                    top: startTop
-                }
-            }, resolve)
-        })
+        onBlur()
+        onUpdate(this.getValue())
+    }
 
-        const setEndState = () => new Promise((resolve) => {
-            this.setState({
-                labelStyle: {
-                    top: endTop
-                }
-            }, resolve)
-        })
+    change(e) {
+        this.setValue(e.currentTarget.value)
+    }
 
-        animationFrame()
-            .then(setStartState)
-            .then(animationFrame)
-            .then(setEndState)
+    focus(e) {
+        e.currentTarget.scrollIntoViewIfNeeded(true)
+        this.setState({
+            focus: true
+        })
     }
 
     render() {
         const {
-            className,
             autoFocus,
+            className,
+            disabled,
+            formId,
             label,
             name,
             maxLength,
@@ -121,66 +101,154 @@ class Input extends React.Component {
         } = this.props
 
         const {
-            isFocused,
-            value,
-            labelStyle
+            componentHeight,
+            focus,
+            inputHeight,
+            value
         } = this.state
 
+        const active = focus || value
         const classes = classNames('td-input', className, {
-            'td-input--active': isFocused || value
+            'td-input--active': active,
+            'td-input--disabled': disabled,
+            'td-input--blur': !focus,
+            'td-input--focus': focus,
         })
         const innerClasses = 'td-input__inner'
-        const prefixedLabelStyle = prefixAll(labelStyle)
+        const inputClasses = 'td-input__input'
+        const inputCountClasses = classNames('td-input__count', {
+            'td-input--invisible': maxLength == null
+        })
+        const labelClasses = 'td-input__label'
+        const phantomInputClasses = 'td-input__phantom-input'
+        const inputAccessoryWrapperClasses = 'td-input__input-accessories'
+
+        const accessoryWrapperStyles = {
+            height: `${componentHeight}px`
+        }
+
+        const inputStyles = active
+        ? {
+            height: `${inputHeight}px`
+        }
+        : null
 
         return (
-            <div className={classes} ref={(el) => { this._component = el }}>
+            <div className={classes} aria-disabled={disabled} ref={el => this._component = el}>
                 <div className={innerClasses}>
-                    {label &&
-                        <span style={prefixedLabelStyle} className='td-input__label'
-                            ref={(el) => { this._label = el }}
-                        >
-                            {label}
+
+                    {/* Placeholder Label & Highlight */}
+                    <div className={inputAccessoryWrapperClasses}
+                        style={accessoryWrapperStyles}
+                    >
+                        {label &&
+                            <label className={labelClasses} htmlFor={name}>
+                                {label}
+                            </label>
+                        }
+                        <div className={phantomInputClasses} style={inputStyles}></div>
+                        <span className={inputCountClasses}>
+                            {`${value.length}/${maxLength}`}
                         </span>
-                    }
-                    <input className='td-input__field'
+                    </div>
+
+                    <input className={inputClasses}
+                        form={formId}
                         type={type}
                         value={value}
                         name={name}
                         autoFocus={autoFocus}
                         maxLength={maxLength}
-                        onFocus={this.onFocus}
-                        onBlur={this.onBlur}
-                        onChange={this.onChange}
+                        onFocus={this.focus}
+                        onBlur={this.blur}
+                        onChange={this.change}
+                        ref={el => this._input = el}
                     />
                 </div>
-                <span className={`td-input__highlight-bar ${isFocused ? 'td--focus' : ''}`}></span>
-
-                {maxLength &&
-                    <span className='td-input__input-count'>
-                        {`${value.length}/${maxLength}`}
-                    </span>
-                }
             </div>
         )
     }
 }
 
 Input.propTypes = {
+    /**
+     * Specifies whether or not the input should auto focus when present on screen.
+     */
     autoFocus: PropTypes.bool,
+
+    /**
+     *  Adds a user-defined class to the root element.
+     */
+    className: PropTypes.string,
+
+    /**
+     *  Sets the disable state of the input.
+     */
+    disabled: PropTypes.bool,
+
+    /**
+     * Specifies the ID of form the input belongs to if any.
+     */
+    formId: PropTypes.string,
+
+    /**
+     * Defines the text for the input's label.
+     */
+    label: PropTypes.string,
+
+    /**
+     * Defines the name of the input.
+     */
     name: PropTypes.string,
+
+    /**
+     * Defines a maximum length for the input.
+     */
     maxLength: PropTypes.number,
+
+    /**
+     * Specifies the role of the text input.
+     */
     type: PropTypes.oneOf([
         'text',
         'email',
         'number',
         'telephone'
     ]),
+
+    /**
+     * Specifies the value of the input
+     */
+    value: PropTypes.string,
+
+    /**
+     * User-defined function which triggers when the input loses focus.
+     */
+    onBlur: PropTypes.func,
+
+    /**
+     * User-defined function which triggers upon every input change.
+     */
+    onChange: PropTypes.func,
+
+    /**
+     * User-defined function which triggers when the input focuses.
+     */
+    onFocus: PropTypes.func,
+
+    /**
+     * User-defined function which triggers when the input value has been set.
+     */
     onUpdate: PropTypes.func
 }
 
 Input.defaultProps = {
     autoFocus: false,
+    disabled: false,
     type: 'text',
+    onBlur: noop,
+    onChange: noop,
+    onFocus: noop,
     onUpdate: noop
 }
 

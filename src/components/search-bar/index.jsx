@@ -190,7 +190,7 @@ SearchBar.propTypes = {
     className: PropTypes.string,
 
     /**
-     *  Sets the disable state of the button.
+     *  Sets the disable state of the input.
      */
     disabled: PropTypes.bool,
 
