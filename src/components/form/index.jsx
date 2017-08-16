@@ -30,28 +30,27 @@ class Form extends React.PureComponent {
     }
 
     submit() {
-        if (this.validate()) {
+        if (!this.validate()) {
             return
         }
 
         if (!Object.keys(this.state.data).length) {
-            console.warn('[ Form ] Submitting a form with no data.')
+            console.warn('[ Form ] Submitting a form without data.')
         }
 
         this.props.onSubmit(this.state.data)
     }
 
     update({name, value}) {
-        const {
-            onSubmit
-        } = this.props
+        const data = {...this.state.data}
 
-        this.setState({
-            data: {
-                ...this.state.data,
-                [name]: value
-            }
-        })
+        if (!value) {
+            delete data[name]
+        } else {
+            data[name] = value
+        }
+
+        this.setState({data})
     }
 
     validate() {
@@ -62,7 +61,6 @@ class Form extends React.PureComponent {
         // Check that data required form fields have values
         let error = {...this.state.error}
         let newError = false
-
         this.FormFields.forEach((field) => {
             const fieldName = field.props.name
             if (field.props.isRequired && !data[fieldName]) {
@@ -89,7 +87,7 @@ class Form extends React.PureComponent {
         }
 
         this.setState({
-            error
+            error: newError
         })
     }
 
