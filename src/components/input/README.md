@@ -37,3 +37,8 @@ const onUpdate = (value) => {
 ```
 <Input maxLength={50} />
 ```
+
+#### `readOnly`
+```
+<Input label="Read-only" readOnly />
+```
