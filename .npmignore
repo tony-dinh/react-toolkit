@@ -1,7 +1,7 @@
-dev-server
-webpack
-src
+docs
 scripts
+src
+webpack
 
 ### macOS ###
 *.DS_Store

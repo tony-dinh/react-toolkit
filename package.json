@@ -6,7 +6,7 @@
     "start": "styleguidist server",
     "build": "NODE_ENV='production' && ./scripts/build.sh",
     "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build"
+    "build:docs": "styleguidist build"
   },
   "repository": {
     "type": "git",
