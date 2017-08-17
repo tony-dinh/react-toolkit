@@ -1,7 +1,8 @@
-
 ### Example
 
 ```
+const AccordionItem = require('./partials/accordion-item').default;
+
 const Content = () => (
     <div>
         Lorem ipsum ut tristique himenaeos porttitor tortor enim orci, dictumst amet leo molestie praesent ad leo egestas nunc sem bibendum fames mollis.

@@ -125,21 +125,19 @@ class Input extends React.Component {
         const countClasses = classNames('td-input__count', {
             'td-input--invisible': maxLength == null
         })
+        const accessoryWrapperClasses = 'td-input__input-accessories'
+        const decorationWrapperClasses = 'td-input__decorations'
         const errorClasses = 'td-input__error'
         const labelClasses = 'td-input__label'
         const phantomInputClasses = 'td-input__phantom-input'
-        const accessoryWrapperClasses = 'td-input__input-accessories'
-        const decorationWrapper = 'td-input__decorations'
 
         const accessoryWrapperStyles = {
             height: `${componentHeight}px`
         }
 
         const inputStyles = active
-        ? {
-            height: `${inputHeight}px`
-        }
-        : null
+            ? {height: `${inputHeight}px`}
+            : null
 
         return (
             <div className={classes} aria-disabled={disabled} ref={el => this._component = el}>
@@ -156,7 +154,7 @@ class Input extends React.Component {
                         }
                         <div className={phantomInputClasses} style={inputStyles}></div>
 
-                        <div className={decorationWrapper}>
+                        <div className={decorationWrapperClasses}>
                             {error && error.length &&
                                 <span title={error} className={errorClasses}>
                                     {error}

@@ -1,5 +1,8 @@
 ### Example
 ```
+const FormField = require('./partials/form-field').default
+const FormButton = require('./partials/form-button').default
+
 const validate = ({name, value}) => {
     switch(name) {
         case 'nonDigitInput':

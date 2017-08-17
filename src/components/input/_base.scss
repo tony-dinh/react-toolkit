@@ -23,6 +23,7 @@ $transitions-label-height: 1.2rem;
     border-width: 0 0 1px 0;
     border-style: solid;
 
+    background: none;
     cursor: pointer;
     z-index: $z-2;
 
@@ -113,7 +114,7 @@ $transitions-label-height: 1.2rem;
     margin: 0;
 
     outline: none;
-    font-size: 1em;
+    font-size: 1rem;
     text-align: start;
 }
 
