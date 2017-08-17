@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import prefixAll from 'inline-style-prefixer/static'
 import classNames from 'classnames'
 
 import './_base.scss'
@@ -45,6 +44,10 @@ class Input extends React.Component {
         })
     }
 
+    getInput() {
+        return this._input
+    }
+
     getValue() {
         return typeof this.props.value === 'undefined'
             ? this.state.value
@@ -82,7 +85,7 @@ class Input extends React.Component {
     }
 
     focus(e) {
-        e.currentTarget.scrollIntoViewIfNeeded(true)
+        e && e.currentTarget.scrollIntoViewIfNeeded(true)
         this.setState({
             focus: true
         })
@@ -98,16 +101,17 @@ class Input extends React.Component {
             label,
             name,
             maxLength,
+            readOnly,
             type,
         } = this.props
 
         const {
             componentHeight,
             focus,
-            inputHeight,
-            value
+            inputHeight
         } = this.state
 
+        const value = this.getValue()
         const active = focus || value
         const classes = classNames('td-input', className, {
             'td-input--active': active,
@@ -167,6 +171,7 @@ class Input extends React.Component {
 
                     <input className={inputClasses}
                         form={formId}
+                        readOnly={readOnly}
                         type={type}
                         value={value}
                         name={name}
@@ -225,6 +230,11 @@ Input.propTypes = {
     maxLength: PropTypes.number,
 
     /**
+     * Specifies whether the input is read-only
+     */
+    readOnly: PropTypes.bool,
+
+    /**
      * Specifies the role of the text input.
      */
     type: PropTypes.oneOf([
@@ -263,6 +273,7 @@ Input.propTypes = {
 Input.defaultProps = {
     autoFocus: false,
     disabled: false,
+    readOnly: false,
     type: 'text',
     onBlur: noop,
     onChange: noop,
