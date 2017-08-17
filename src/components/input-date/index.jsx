@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
 import flatpickr from 'flatpickr'
-import moment from 'moment'
 
 import Input from '../input'
 
@@ -13,10 +12,6 @@ class InputDate extends React.PureComponent {
     constructor(props) {
         super(props)
 
-        // Since flatpickr date format has odd behavior, we'll use this format
-        // internally to keep it consistent with momentJS
-        this.dateFormat = 'YYYY-MM-DD'
-
         this.fp = null
         this.getValue = this.getValue.bind(this)
         this.setValue = this.setValue.bind(this)
@@ -24,16 +19,15 @@ class InputDate extends React.PureComponent {
         this.focus = this.focus.bind(this)
 
         this.state = {
-            valueString: '',
             value: []
         }
     }
 
     componentDidMount() {
         const {
+            dateFormat,
             defaultDate,
             disabledDates,
-            humanReadable,
             maxDate,
             minDate,
             mode,
@@ -41,7 +35,7 @@ class InputDate extends React.PureComponent {
         } = this.props
 
         this.fp = flatpickr(this._inputComponent.getInput(), {
-            altInput: humanReadable,
+            dateFormat,
             disable: disabledDates,
             enableTime: false,
             maxDate,
@@ -53,7 +47,9 @@ class InputDate extends React.PureComponent {
     }
 
     getValue() {
-        return this.state.valueString
+        return this.fp && this.state.value.length
+            ? this.fp.formatDate(this.state.value[0], this.props.dateFormat)
+            : ''
     }
 
     setValue(value, valueString, instance) {
@@ -65,21 +61,30 @@ class InputDate extends React.PureComponent {
     }
 
     blur(selectedDates, dateString, instance) {
+        const {
+            onBlur,
+            onUpdate
+        } = this.props
+
         this.setValue(selectedDates, dateString, instance)
-        this.props.onBlur()
+        this._inputComponent.blur()
+
+        onBlur()
+        onUpdate(selectedDates)
     }
 
     focus() {
+        this._inputComponent.focus()
         this.props.onFocus()
     }
 
     render() {
         const {
             className,
+            dateFormat,
             defaultDate,
             disabled,
             disabledDates,
-            humanReadable,
             maxDate,
             minDate,
             mode,
@@ -125,6 +130,12 @@ InputDate.propTypes = {
     ]),
 
     /**
+     * Specifies the date format that will be displayed in the input.
+     * [Check supported formats](https://chmln.github.io/flatpickr/formatting/)
+     */
+    dateFormat: PropTypes.string,
+
+    /**
      *  Sets the disable state of the input.
      */
     disabled: PropTypes.bool,
@@ -138,11 +149,6 @@ InputDate.propTypes = {
      * Specifies the ID of form the input belongs to if any.
      */
     formId: PropTypes.string,
-
-    /**
-     * Specifies whether to display the date in human readable format (e.g. January 1, 2017)
-     */
-    humanReadable: PropTypes.bool,
 
     /**
      * Defines the text for the input's label.
@@ -201,7 +207,7 @@ InputDate.propTypes = {
 
 InputDate.defaultProps = {
     disabledDates: [],
-    humanReadable: true,
+    dateFormat: 'Y-m-d',
     mode: 'single',
     onBlur: noop,
     onChange: noop,

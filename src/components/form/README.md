@@ -24,13 +24,19 @@ const validate = ({name, value}) => {
         label="Enter non-digits"
         maxLength={10}
         component={(props) => <Input {...props} />}
-        required
     />
 
     <FormField name="digitInput"
         label="Enter digits"
         maxLength={10}
         component={(props) => <Input {...props} />}
+    />
+
+    <FormField name="date"
+        label="Select a Date"
+        dateFormat="F Y"
+        component={(props) => <InputDate {...props} />}
+        required
     />
 
     <FormButton type="submit" text="Submit" />

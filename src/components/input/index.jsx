@@ -85,7 +85,7 @@ class Input extends React.Component {
     }
 
     focus(e) {
-        e.currentTarget.scrollIntoViewIfNeeded(true)
+        e && e.currentTarget.scrollIntoViewIfNeeded(true)
         this.setState({
             focus: true
         })
