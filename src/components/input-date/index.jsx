@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-
 import flatpickr from 'flatpickr'
 
 import Input from '../input'
+
+import '../../vendor/styles/flatpickr.min.css'
 
 const noop = () => {}
 
@@ -41,36 +42,57 @@ class InputDate extends React.PureComponent {
             maxDate,
             minDate,
             mode,
+            onChange: this.setValue,
             onClose: this.blur,
             onOpen: this.focus
         })
     }
 
     getValue() {
-        return this.fp && this.state.value.length
-            ? this.fp.formatDate(this.state.value[0], this.props.dateFormat)
-            : ''
+        const {
+            value: selectedDates
+        } = this.state
+
+        let value = ''
+
+        if (this.fp && selectedDates.length) {
+            // Parse dates based on mode
+            if (this.props.mode === 'single') {
+                value = this.fp.formatDate(selectedDates[0], this.props.dateFormat)
+
+            } else if (this.props.mode === 'range') {
+                const earliestDate = this.fp.formatDate(selectedDates[0], this.props.dateFormat)
+                const latestDate = this.fp.formatDate(selectedDates[selectedDates.length - 1], this.props.dateFormat)
+
+                value = earliestDate !== latestDate
+                    ? `${earliestDate} to ${latestDate}`
+                    : earliestDate
+
+            } else if (this.props.mode === 'multiple') {
+                const formattedDates = selectedDates.map((date) => {
+                    return this.fp.formatDate(date, this.props.dateFormat)
+                })
+
+                value = formattedDates.join('; ')
+            }
+        }
+
+        return value
     }
 
     setValue(value, valueString, instance) {
-        this.props.onChange(value)
         this.setState({
             value,
             valueString
+        }, () => {
+            this.props.onChange(value)
+            this.props.onUpdate(value)
         })
     }
 
     blur(selectedDates, dateString, instance) {
-        const {
-            onBlur,
-            onUpdate
-        } = this.props
-
-        this.setValue(selectedDates, dateString, instance)
         this._inputComponent.blur()
-
-        onBlur()
-        onUpdate(selectedDates)
+        this.props.onBlur()
     }
 
     focus() {
@@ -95,17 +117,17 @@ class InputDate extends React.PureComponent {
         } = this.props
 
         const value = this.getValue()
+        const classes = classNames('td-input-date', className)
 
         return (
-            <div>
-                <Input
-                    {...rest}
-                    disabled={disabled}
-                    value={value}
-                    readonly
-                    ref={el => this._inputComponent = el}
-                />
-            </div>
+            <Input
+                {...rest}
+                className={classes}
+                disabled={disabled}
+                value={value}
+                readonly
+                ref={el => this._inputComponent = el}
+            />
         )
     }
 }
@@ -170,8 +192,8 @@ InputDate.propTypes = {
      */
     maxDate: PropTypes.instanceOf(Date),
 
-        /**
-     *  Specifies the date selection mode.
+    /**
+     * Specifies the date selection mode.
      */
     mode: PropTypes.oneOf([
         'single',

@@ -25,7 +25,7 @@ const onUpdate = (value) => {
 
 #### `error`
 ```
-<Input label="Error" error="Error!!" />
+<Input error="Error!!" />
 ```
 
 #### `label`
