@@ -13,6 +13,7 @@ $transitions-label-height: 1.2rem;
     cursor: not-allowed;
 
     .td-input__input {
+        border-style: dashed;
         pointer-events: none;
     }
 }

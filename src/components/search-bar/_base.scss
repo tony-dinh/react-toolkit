@@ -12,6 +12,10 @@
     .td-search-bar__input {
         pointer-events: none;
     }
+
+    .td-search-bar__input-wrapper {
+        border-style: dashed;
+    }
 }
 
 .td-search-bar__icon,
