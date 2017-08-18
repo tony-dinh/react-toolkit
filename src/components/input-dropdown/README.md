@@ -6,6 +6,5 @@ const source = [
     {value: 'pen', label: 'pen'}
 ];
 
-
    <InputDropdown source={source} />
 ```

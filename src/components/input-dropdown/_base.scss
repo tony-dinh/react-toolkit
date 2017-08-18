@@ -7,14 +7,13 @@
 }
 
 .td-input-dropdown__selection {
-    cursor: default;
-    pointer-events: none;
+    cursor: pointer;
 }
 
 .td-input-dropdown__list {
     position: absolute;
     left: 0;
-    bottom: -100%;
+    bottom: -70%;
     width: 100%;
 }
 

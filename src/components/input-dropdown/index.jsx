@@ -7,7 +7,6 @@ import Dropdown from '../dropdown'
 
 import './_base.scss'
 
-
 class InputDropdown extends React.PureComponent {
     constructor(props) {
         super(props)
@@ -30,7 +29,9 @@ class InputDropdown extends React.PureComponent {
             })
         }
         
-        this.props.onUpdate(selectedItem)
+        if(this.props.onUpdate) {
+            this.props.onUpdate(selectedItem)
+        }
     }
 
     render() {
