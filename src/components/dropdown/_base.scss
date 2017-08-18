@@ -6,10 +6,11 @@
     width: $min-tap-target-size;
 
     color: $grey-60;
-    border: none;
+    border: 0;
     background-color: transparent;
     font-size: 1em;
     outline: none;
+    cursor: pointer;
 }
 
 .td-dropdown__icon {
