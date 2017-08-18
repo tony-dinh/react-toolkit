@@ -29,6 +29,8 @@ class InputDropdown extends React.PureComponent {
                 value: ''
             })
         }
+        
+        this.props.onUpdate(selectedItem)
     }
 
     render() {
@@ -64,9 +66,11 @@ class InputDropdown extends React.PureComponent {
 }
 
 InputDropdown.PropTypes = {
+    autoFocus: PropTypes.bool,
     className: PropTypes.string,
     error: PropTypes.string,
-    source: PropTypes.array
+    source: PropTypes.array,
+    onUpdate: PropTypes.func
 }
 
 export default InputDropdown
