@@ -48,6 +48,7 @@ class Dropdown extends React.PureComponent {
         const {
             animationDuration,
             className,
+            listClassName,
             source
         } = this.props
 
@@ -56,7 +57,7 @@ class Dropdown extends React.PureComponent {
             'td-dropdown--expanded': !collapsed,
         })
         const iconClasses = 'td-dropdown__icon'
-        const listClasses = classNames('td-dropdown__list', {
+        const listClasses = classNames('td-dropdown__list', listClassName, {
             'td-dropdown--fade-in': !collapsed,
             'td-dropdown--fade-out': collapsed,
         })
