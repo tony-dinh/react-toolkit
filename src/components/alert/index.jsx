@@ -39,7 +39,7 @@ class Alert extends React.PureComponent {
             innerClassName,
             showing,
             tapOutsideToDismiss,
-            type,
+            themeColor,
             onDismiss
         } = this.props
 
@@ -49,17 +49,9 @@ class Alert extends React.PureComponent {
         })
         const innerClasses = classNames('td-alert__inner', innerClassName)
         const iconClasses = 'td-alert__icon'
+        const iconWrapperClasses = 'td-alert__icon-wrapper'
 
-        let themeColor = this.props.themeColor
         let alertIconName = iconName
-
-        if (type === 'fail') {
-            alertIconName = alertIconName || 'close'
-            themeColor = themeColor || '#e67773'
-        } else if (type === 'success') {
-            alertIconName = alertIconName || 'check'
-            themeColor = themeColor || '#5dc2a0'
-        }
 
         const style = {
             animationDuration: `${animationDuration}ms`,
@@ -67,7 +59,7 @@ class Alert extends React.PureComponent {
         }
 
         const themeStyle = {
-            backgroundColor: themeColor || 'hsl(0, 0%, 30%)'
+            backgroundColor: themeColor
         }
 
         return (
@@ -84,11 +76,13 @@ class Alert extends React.PureComponent {
                         ref={(el) => { this._innerContainer = el }}
                     >
                         {alertIconName &&
-                            <Icon className={iconClasses}
-                                style={themeStyle}
-                                name={alertIconName}
-                                reference={(el) => { this._icon = el }}
-                            />
+                            <div className={iconWrapperClasses}>
+                                <Icon className={iconClasses}
+                                    style={themeStyle}
+                                    name={alertIconName}
+                                    reference={(el) => { this._icon = el }}
+                                />
+                            </div>
                         }
 
                         {children}
@@ -142,12 +136,9 @@ Alert.propTypes = {
     tapOutsideToDismiss: PropTypes.bool,
 
     /**
-     *  Applies predefined alert styles.
+     * Applies color styles on the icon
      */
-    type: PropTypes.oneOf([
-        'success',
-        'fail'
-    ]),
+    themeColor: PropTypes.string,
 
     /**
      *  User-defined function for dismissing the alert
@@ -157,7 +148,8 @@ Alert.propTypes = {
 
 Alert.defaultProps = {
     animationDuration: 250,
-    tapOutsideToDismiss: true
+    tapOutsideToDismiss: true,
+    themeColor: 'hsl(0, 0%, 30%)'
 }
 
 export default Alert
