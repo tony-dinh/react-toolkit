@@ -13,6 +13,7 @@ class Input extends React.Component {
         this.setInitialBounds = this.setInitialBounds.bind(this)
         this.blur = this.blur.bind(this)
         this.change = this.change.bind(this)
+        this.click = this.click.bind(this)
         this.focus = this.focus.bind(this)
 
         this.getValue = this.getValue.bind(this)
@@ -84,11 +85,17 @@ class Input extends React.Component {
         this.setValue(e.currentTarget.value)
     }
 
+    click(e) {
+        this.props.onClick()
+    }
+
     focus(e) {
         e && e.currentTarget.scrollIntoViewIfNeeded(true)
         this.setState({
             focus: true
         })
+
+        this.props.onFocus()
     }
 
     render() {
@@ -178,6 +185,7 @@ class Input extends React.Component {
                         onFocus={this.focus}
                         onBlur={this.blur}
                         onChange={this.change}
+                        onClick={this.click}
                         ref={el => this._input = el}
                     />
                 </div>
@@ -258,6 +266,11 @@ Input.propTypes = {
     onChange: PropTypes.func,
 
     /**
+     * User-defined function which triggers when the input is clicked.
+     */
+    onClick: PropTypes.func,
+
+    /**
      * User-defined function which triggers when the input focuses.
      */
     onFocus: PropTypes.func,
@@ -275,6 +288,7 @@ Input.defaultProps = {
     type: 'text',
     onBlur: noop,
     onChange: noop,
+    onClick: noop,
     onFocus: noop,
     onUpdate: noop
 }

@@ -7,18 +7,26 @@ import Dropdown from '../dropdown'
 
 import './_base.scss'
 
+const noop = () => {}
+
 class InputDropdown extends React.PureComponent {
     constructor(props) {
         super(props)
 
-        this.onChange = this.onChange.bind(this)
+        this.blur = this.blur.bind(this)
+        this.change = this.change.bind(this)
+        this.click = this.click.bind(this)
 
         this.state = {
             value: ''
         }
     }
 
-    onChange(selectedItem) {
+    blur(e) {
+        this._dropdownComponent.click()
+    }
+
+    change(selectedItem) {
         if(selectedItem) {
             this.setState({
                 value: selectedItem.value
@@ -29,9 +37,11 @@ class InputDropdown extends React.PureComponent {
             })
         }
         
-        if(this.props.onUpdate) {
             this.props.onUpdate(selectedItem)
-        }
+    }
+
+    click(e) {
+        this._dropdownComponent.click()
     }
 
     render() {
@@ -54,14 +64,17 @@ class InputDropdown extends React.PureComponent {
             <div className={classes}>
                 <Input className="td-input-dropdown__selection"
                     error={error}
+                    onClick={this.click}
+                    onBlur={this.blur}
                     readOnly
                     value={value}
                 />
 
                 <Dropdown className={dropDownClasses}
                     listClassName={listClasses}
+                    onItemSelected={this.change}
                     source={source}
-                    onItemSelected={this.onChange}
+                    ref={el => this._dropdownComponent = el}
                 />
             </div>
         )
@@ -73,7 +86,15 @@ InputDropdown.PropTypes = {
     className: PropTypes.string,
     error: PropTypes.string,
     source: PropTypes.array,
+    onBlur: PropTypes.func,
+    onFocus: PropTypes.func,
     onUpdate: PropTypes.func
+}
+
+InputDropdown.defaultProps = {
+    onBlur: noop,
+    onFocus: noop,
+    onUpdate: noop
 }
 
 export default InputDropdown
