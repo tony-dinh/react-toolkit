@@ -94,7 +94,8 @@ class SearchBar extends React.PureComponent {
             disabled,
             inputClassName,
             name,
-            placeholder
+            placeholder,
+            tabIndex
         } = this.props
 
         const value = this.getValue()
@@ -148,6 +149,7 @@ class SearchBar extends React.PureComponent {
                     {/* Input Field */}
                     <input className={inputClasses}
                         name={name}
+                        tabIndex={tabIndex}
                         type="text"
                         value={value}
                         onBlur={this.onBlur}
@@ -205,6 +207,11 @@ SearchBar.propTypes = {
     name: PropTypes.string,
 
     /**
+     * Specifies the tab index of the input
+     */
+    tabIndex: PropTypes.number,
+
+    /**
      * User-defined function which triggers when the search input loses focus.
      */
     onBlur: PropTypes.func,
@@ -225,6 +232,7 @@ SearchBar.defaultProps = {
     disabled: false,
     placeholder: 'Search',
     name: 'search',
+    tabIndex: 0,
     onBlur: noop,
     onChange: noop,
     onFocus: noop

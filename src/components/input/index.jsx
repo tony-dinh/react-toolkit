@@ -102,6 +102,7 @@ class Input extends React.Component {
             name,
             maxLength,
             readOnly,
+            tabIndex,
             type,
         } = this.props
 
@@ -170,6 +171,7 @@ class Input extends React.Component {
                     <input className={inputClasses}
                         form={formId}
                         readOnly={readOnly}
+                        tabIndex={tabIndex}
                         type={type}
                         value={value}
                         name={name}
@@ -233,6 +235,11 @@ Input.propTypes = {
     readOnly: PropTypes.bool,
 
     /**
+     * Specifies the tab index of the input
+     */
+    tabIndex: PropTypes.number,
+
+    /**
      * Specifies the role of the text input.
      */
     type: PropTypes.oneOf([
@@ -272,6 +279,7 @@ Input.defaultProps = {
     autoFocus: false,
     disabled: false,
     readOnly: false,
+    tabIndex: 0,
     type: 'text',
     onBlur: noop,
     onChange: noop,

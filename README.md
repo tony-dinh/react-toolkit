@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/@tonydinh/react-toolkit.svg?)](https://www.npmjs.com/package/@tonydinh/react-toolkit)
 [![npm downloads](https://img.shields.io/npm/dt/@tonydinh/react-toolkit.svg)](https://www.npmjs.com/package/@tonydinh/react-toolkit)
 
-React Toolkit is a collection of re-useable [React](https://facebook.github.io/react/) components. [Check out the docs](https://tony-dinh.github.io/react-toolkit/).
+React Toolkit is a collection of re-useable [React](https://facebook.github.io/react/) components. See the documentation [here](https://tony-dinh.github.io/react-toolkit/).
 
 The guide below explains how one might integrate this module using [webpack](https://webpack.github.io/) as a module bundler.
 

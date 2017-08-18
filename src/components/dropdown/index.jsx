@@ -48,7 +48,8 @@ class Dropdown extends React.PureComponent {
         const {
             animationDuration,
             className,
-            source
+            source,
+            tabIndex
         } = this.props
 
         const classes = classNames('td-dropdown', className, {
@@ -68,6 +69,7 @@ class Dropdown extends React.PureComponent {
         return (
             <button className={classes}
                 aria-expanded={!collapsed}
+                tabIndex={tabIndex}
                 onClick={this.onClick}
                 onBlur={this.onBlur}
                 type="button"
@@ -95,6 +97,12 @@ Dropdown.propTypes = {
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         label: PropTypes.string
     })),
+
+    /**
+     * Specifies the tab index of the button
+     */
+    tabIndex: PropTypes.number,
+
     onBlur: PropTypes.func,
     onItemSelected: PropTypes.func
 }
@@ -102,6 +110,7 @@ Dropdown.propTypes = {
 Dropdown.defaultProps = {
     animationDuration: 250,
     source: [],
+    tabIndex: 0,
     onBlur: noop,
     onItemSelected: noop
 }
