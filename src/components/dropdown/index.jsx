@@ -14,8 +14,8 @@ class Dropdown extends React.PureComponent {
     constructor(props) {
         super(props)
 
-        this.onBlur = this.onBlur.bind(this)
-        this.onClick = this.onClick.bind(this)
+        this.blur = this.blur.bind(this)
+        this.click = this.click.bind(this)
         this.onItemSelected = this.onItemSelected.bind(this)
 
         this.state = {
@@ -23,17 +23,17 @@ class Dropdown extends React.PureComponent {
         }
     }
 
-    onClick() {
+    click() {
         this.setState({
             collapsed: !this.state.collapsed
         })
     }
 
-    onBlur() {
+    blur(e) {
         this.setState({
             collapsed: true
         })
-        this.props.onBlur()
+        this.props.onBlur(e)
     }
 
     onItemSelected(index, value) {
@@ -69,8 +69,8 @@ class Dropdown extends React.PureComponent {
         return (
             <button className={classes}
                 aria-expanded={!collapsed}
-                onClick={this.onClick}
-                onBlur={this.onBlur}
+                onClick={this.click}
+                onBlur={this.blur}
                 type="button"
             >
                 <Icon className={iconClasses} name="arrow-dropdown" />
