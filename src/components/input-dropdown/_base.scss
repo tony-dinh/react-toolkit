@@ -1,0 +1,21 @@
+.td-input-dropdown {
+    position: relative;
+}
+
+.td-input-dropdown__selection {
+    cursor: default;
+    pointer-events: none;
+}
+
+.td-input-dropdown__list {
+    position: absolute;
+    right: 0;
+    top: 0;    
+}
+
+.td-input-dropdown .td-dropdown__list {
+    left: unset;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
