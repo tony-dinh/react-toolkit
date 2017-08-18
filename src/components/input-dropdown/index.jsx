@@ -13,7 +13,7 @@ class InputDropdown extends React.PureComponent {
         super(props)
 
         this.onChange = this.onChange.bind(this)
-        
+
         this.state = {
             value: ''
         }
@@ -44,17 +44,19 @@ class InputDropdown extends React.PureComponent {
         } = this.state
 
         const classes = classNames('td-input-dropdown', className)
+        const dropDownClasses = 'td-input-dropdown__dropdown'
+        const listClasses = 'td-input-dropdown__list'
 
         return (
             <div className={classes}>
-                <Input 
-                    className="td-input-dropdown__selection"
+                <Input className="td-input-dropdown__selection"
                     error={error}
                     readOnly
                     value={value}
                 />
-                <Dropdown 
-                    className="td-input-dropdown__list" 
+
+                <Dropdown className={dropDownClasses}
+                    listClassName={listClasses}
                     source={source}
                     onItemSelected={this.onChange}
                 />
