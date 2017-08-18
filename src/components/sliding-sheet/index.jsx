@@ -90,8 +90,7 @@ class SlidingSheet extends React.PureComponent {
             setTimeout(completionHandler, duration)
         }
 
-        animationFrame()
-            .then(setStartState)
+        setStartState()
             .then(animationFrame)
             .then(setEndState)
             .then(waitForAnimation)
@@ -126,9 +125,11 @@ class SlidingSheet extends React.PureComponent {
             'td-sliding-sheet--fade-out': !showing
         })
 
-        const innerClasses = classNames('td-sliding-sheet__sheet', sheetClassName, {
+        const innerClasses = classNames('td-sliding-sheet__sheet-wrapper', {
             [`td-sliding-sheet--slide-${direction}`]: showing
         })
+
+        const sheetClasses = classNames('td-sliding-sheet__sheet', sheetClassName)
 
         const overlayStyle = {
             animationDuration: duration,
@@ -141,11 +142,14 @@ class SlidingSheet extends React.PureComponent {
                 timeout={duration}
                 onEntering={this.show}
                 onExiting={this.hide}
+                mountOnEnter={true}
                 unmountOnExit={true}
             >
                 <div className={classes} style={overlayStyle} onClick={tapOutsideToDismiss ? this.onDismiss : null}>
                     <div className={innerClasses} style={sheetStyle}>
-                        {children}
+                        <div className={sheetClasses}>
+                            {children}
+                        </div>
                     </div>
                 </div>
             </Transition>

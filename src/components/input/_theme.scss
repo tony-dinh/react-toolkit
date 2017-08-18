@@ -32,3 +32,15 @@
         color: $fail-color;
     }
 }
+
+.td-input.td-input--disabled {
+    .td-input__label,
+    .td-input__count,
+    .td-input__input {
+        color: $grey-70;
+    }
+
+    .td-input__input {
+        border-color: $grey-70;
+    }
+}

@@ -112,7 +112,7 @@ class Input extends React.Component {
         } = this.state
 
         const value = this.getValue()
-        const active = focus || value
+        const active = focus || value || error || disabled
         const classes = classNames('td-input', className, {
             'td-input--active': active,
             'td-input--disabled': disabled,
