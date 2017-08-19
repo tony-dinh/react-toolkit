@@ -13,6 +13,7 @@ class Input extends React.Component {
         this.setInitialBounds = this.setInitialBounds.bind(this)
         this.blur = this.blur.bind(this)
         this.change = this.change.bind(this)
+        this.click = this.click.bind(this)
         this.focus = this.focus.bind(this)
 
         this.getValue = this.getValue.bind(this)
@@ -82,6 +83,14 @@ class Input extends React.Component {
 
     change(e) {
         this.setValue(e.currentTarget.value)
+    }
+
+    click(e) {
+        // the component is intended to be in a focus state
+        // after being clicked. Some browsers don't trigger focus on a click
+        !this.state.focus && this.focus()
+
+        this.props.onClick(e)
     }
 
     focus(e) {
@@ -180,6 +189,7 @@ class Input extends React.Component {
                         onFocus={this.focus}
                         onBlur={this.blur}
                         onChange={this.change}
+                        onClick={this.click}
                         ref={el => this._input = el}
                     />
                 </div>

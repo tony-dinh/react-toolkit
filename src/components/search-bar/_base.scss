@@ -120,12 +120,20 @@
 }
 
 .td-search-bar.td-search-bar--focus {
+    .td-search-bar__input {
+        cursor: text;
+    }
+
     .td-search-bar__input-accessories::after {
         width: 100%;
     }
 }
 
 .td-search-bar.td-search-bar--blur {
+    .td-search-bar__input {
+        cursor: pointer;
+    }
+
     .td-search-bar__input-accessories::after {
         width: 0%;
     }
