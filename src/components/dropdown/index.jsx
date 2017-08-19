@@ -16,7 +16,6 @@ class Dropdown extends React.PureComponent {
 
         this.blur = this.blur.bind(this)
         this.click = this.click.bind(this)
-        this.focus = this.focus.bind(this)
         this.onItemSelected = this.onItemSelected.bind(this)
 
         this.state = {
@@ -29,18 +28,9 @@ class Dropdown extends React.PureComponent {
             return
         }
 
-        if (this.state.collapsed) {
-            this.focus()
-        } else {
-            this.blur()
-        }
-    }
-
-    focus(e) {
         this.setState({
-            collapsed: false
+            collapsed: !this.state.collapsed
         })
-        this.props.onFocus(e)
     }
 
     blur(e) {
@@ -89,7 +79,6 @@ class Dropdown extends React.PureComponent {
                 tabIndex={tabIndex}
                 onBlur={this.blur}
                 onClick={this.click}
-                onFocus={this.focus}
             >
                 <div className={iconWrapperClasses}>
                     <Icon className={iconClasses} name="arrow-dropdown" />
@@ -124,7 +113,6 @@ Dropdown.propTypes = {
     tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
     onBlur: PropTypes.func,
-    onFocus: PropTypes.func,
     onItemSelected: PropTypes.func
 }
 
