@@ -43,6 +43,10 @@ class InputDropdown extends React.PureComponent {
     }
 
     click(e) {
+        if (e && e.target !== e.currentTarget) {
+            return
+        }
+        
         this._dropdownComponent.click()
         this._inputComponent.focus()
     }
