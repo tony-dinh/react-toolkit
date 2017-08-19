@@ -74,7 +74,7 @@ class Input extends React.Component {
         } = this.props
 
         this.setState({
-            focus: false,
+            focus: false
         })
 
         onBlur()
@@ -96,7 +96,7 @@ class Input extends React.Component {
     focus(e) {
         e && e.currentTarget.scrollIntoViewIfNeeded(true)
         this.setState({
-            focus: true,
+            focus: true
         })
 
         this.props.onFocus()
