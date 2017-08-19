@@ -98,6 +98,8 @@ class Input extends React.Component {
         this.setState({
             focus: true
         })
+
+        this.props.onFocus()
     }
 
     render() {
@@ -247,7 +249,7 @@ Input.propTypes = {
     /**
      * Specifies the tab index of the input
      */
-    tabIndex: PropTypes.number,
+    tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
     /**
      * Specifies the role of the text input.
@@ -275,6 +277,11 @@ Input.propTypes = {
     onChange: PropTypes.func,
 
     /**
+     * User-defined function which triggers when the input is clicked.
+     */
+    onClick: PropTypes.func,
+
+    /**
      * User-defined function which triggers when the input focuses.
      */
     onFocus: PropTypes.func,
@@ -293,6 +300,7 @@ Input.defaultProps = {
     type: 'text',
     onBlur: noop,
     onChange: noop,
+    onClick: noop,
     onFocus: noop,
     onUpdate: noop
 }

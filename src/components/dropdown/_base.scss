@@ -2,14 +2,22 @@
 
 .td-dropdown {
     position: relative;
+    font-size: 1em;
+
+    border: 0;
+    outline: none;
+    cursor: pointer;
+}
+
+.td-dropdown__icon-wrapper {
     height: $min-tap-target-size;
     width: $min-tap-target-size;
+    padding: map-get($spacing-map, x-small);
+    border: 0;
 
     color: $grey-60;
-    border: none;
     background-color: transparent;
-    font-size: 1em;
-    outline: none;
+    pointer-events: none;
 }
 
 .td-dropdown__icon {
@@ -32,6 +40,7 @@
     position: absolute;
     left: 0;
 
+    background-color: rgba(255,255,255,1);
     min-width: 250px;
     max-width: 90vw;
 

@@ -215,7 +215,7 @@ SearchBar.propTypes = {
     /**
      * Specifies the tab index of the input
      */
-    tabIndex: PropTypes.number,
+    tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
     /**
      * User-defined function which triggers when the search input loses focus.

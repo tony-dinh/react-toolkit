@@ -1,0 +1,24 @@
+.td-input-dropdown {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    outline: none;
+    position: relative;
+}
+
+.td-input-dropdown__selection {
+    pointer-events: none;
+}
+
+.td-input-dropdown__list {
+    position: absolute;
+    left: 0;
+    bottom: -70%;
+    width: 100%;
+}
+
+.td-input-dropdown__dropdown {
+    position: static;
+}
