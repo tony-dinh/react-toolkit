@@ -249,7 +249,7 @@ Input.propTypes = {
     /**
      * Specifies the tab index of the input
      */
-    tabIndex: PropTypes.number,
+    tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
     /**
      * Specifies the role of the text input.

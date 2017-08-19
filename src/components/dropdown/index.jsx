@@ -16,6 +16,7 @@ class Dropdown extends React.PureComponent {
 
         this.blur = this.blur.bind(this)
         this.click = this.click.bind(this)
+        this.focus = this.focus.bind(this)
         this.onItemSelected = this.onItemSelected.bind(this)
 
         this.state = {
@@ -23,10 +24,23 @@ class Dropdown extends React.PureComponent {
         }
     }
 
-    click() {
+    click(e) {
+        if (e && e.currentTarget !== e.target) {
+            return
+        }
+
+        if (this.state.collapsed) {
+            this.focus()
+        } else {
+            this.blur()
+        }
+    }
+
+    focus(e) {
         this.setState({
-            collapsed: !this.state.collapsed
+            collapsed: false
         })
+        this.props.onFocus(e)
     }
 
     blur(e) {
@@ -37,6 +51,7 @@ class Dropdown extends React.PureComponent {
     }
 
     onItemSelected(index, value) {
+        this.blur()
         this.props.onItemSelected({index, value})
     }
 
@@ -53,12 +68,12 @@ class Dropdown extends React.PureComponent {
             tabIndex
         } = this.props
 
-        const buttonClasses = 'td-dropdown__button'
         const classes = classNames('td-dropdown', className, {
             'td-dropdown--collapsed': collapsed,
             'td-dropdown--expanded': !collapsed,
         })
         const iconClasses = 'td-dropdown__icon'
+        const iconWrapperClasses = 'td-dropdown__icon-wrapper'
         const listClasses = classNames('td-dropdown__list', listClassName, {
             'td-dropdown--fade-in': !collapsed,
             'td-dropdown--fade-out': collapsed,
@@ -70,15 +85,15 @@ class Dropdown extends React.PureComponent {
 
         return (
             <div className={classes}
+                aria-expanded={!collapsed}
+                tabIndex={tabIndex}
                 onBlur={this.blur}
                 onClick={this.click}
+                onFocus={this.focus}
             >
-                <button className={buttonClasses}
-                    aria-expanded={!collapsed}
-                    type="button"
-                >
+                <div className={iconWrapperClasses}>
                     <Icon className={iconClasses} name="arrow-dropdown" />
-                </button>
+                </div>
 
                 <Transition
                     in={!collapsed}
@@ -109,6 +124,7 @@ Dropdown.propTypes = {
     tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
     onBlur: PropTypes.func,
+    onFocus: PropTypes.func,
     onItemSelected: PropTypes.func
 }
 
@@ -117,6 +133,7 @@ Dropdown.defaultProps = {
     source: [],
     tabIndex: 0,
     onBlur: noop,
+    onFocus: noop,
     onItemSelected: noop
 }
 
