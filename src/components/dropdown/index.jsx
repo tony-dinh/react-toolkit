@@ -52,6 +52,7 @@ class Dropdown extends React.PureComponent {
             source
         } = this.props
 
+        const buttonClasses = 'td-dropdown__button'
         const classes = classNames('td-dropdown', className, {
             'td-dropdown--collapsed': collapsed,
             'td-dropdown--expanded': !collapsed,
@@ -67,13 +68,15 @@ class Dropdown extends React.PureComponent {
         }
 
         return (
-            <button className={classes}
-                aria-expanded={!collapsed}
-                onClick={this.click}
+            <div className={classes}
                 onBlur={this.blur}
-                type="button"
-            >
-                <Icon className={iconClasses} name="arrow-dropdown" />
+                onClick={this.click} >
+                <button className={buttonClasses}
+                    aria-expanded={!collapsed}
+                    type="button"
+                >
+                    <Icon className={iconClasses} name="arrow-dropdown" />
+                </button>
                 <Transition
                     in={!collapsed}
                     timeout={animationDuration}
@@ -85,7 +88,7 @@ class Dropdown extends React.PureComponent {
                         onItemClicked={this.onItemSelected}
                     />
                 </Transition>
-            </button>
+            </div>
         )
     }
 }

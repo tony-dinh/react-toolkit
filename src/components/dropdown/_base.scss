@@ -13,6 +13,12 @@
     cursor: pointer;
 }
 
+.td-dropdown__button {
+    color: $grey-60;
+    border: 0;
+    background-color: transparent;
+}
+
 .td-dropdown__icon {
     transition: transform 250ms ease;
 }
@@ -33,6 +39,7 @@
     position: absolute;
     left: 0;
 
+    background-color: rgba(255,255,255,1);
     min-width: 250px;
     max-width: 90vw;
 
