@@ -49,7 +49,8 @@ class Dropdown extends React.PureComponent {
             animationDuration,
             className,
             listClassName,
-            source
+            source,
+            tabIndex
         } = this.props
 
         const buttonClasses = 'td-dropdown__button'
@@ -70,13 +71,15 @@ class Dropdown extends React.PureComponent {
         return (
             <div className={classes}
                 onBlur={this.blur}
-                onClick={this.click} >
+                onClick={this.click}
+            >
                 <button className={buttonClasses}
                     aria-expanded={!collapsed}
                     type="button"
                 >
                     <Icon className={iconClasses} name="arrow-dropdown" />
                 </button>
+
                 <Transition
                     in={!collapsed}
                     timeout={animationDuration}
@@ -99,6 +102,12 @@ Dropdown.propTypes = {
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         label: PropTypes.string
     })),
+
+    /**
+     * Specifies the tab index of the button
+     */
+    tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+
     onBlur: PropTypes.func,
     onItemSelected: PropTypes.func
 }
@@ -106,6 +115,7 @@ Dropdown.propTypes = {
 Dropdown.defaultProps = {
     animationDuration: 250,
     source: [],
+    tabIndex: 0,
     onBlur: noop,
     onItemSelected: noop
 }

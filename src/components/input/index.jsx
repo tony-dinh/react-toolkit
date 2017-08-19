@@ -86,7 +86,11 @@ class Input extends React.Component {
     }
 
     click(e) {
-        this.props.onClick()
+        // the component is intended to be in a focus state
+        // after being clicked. Some browsers don't trigger focus on a click
+        !this.state.focus && this.focus()
+
+        this.props.onClick(e)
     }
 
     focus(e) {
@@ -109,6 +113,7 @@ class Input extends React.Component {
             name,
             maxLength,
             readOnly,
+            tabIndex,
             type,
         } = this.props
 
@@ -177,6 +182,7 @@ class Input extends React.Component {
                     <input className={inputClasses}
                         form={formId}
                         readOnly={readOnly}
+                        tabIndex={tabIndex}
                         type={type}
                         value={value}
                         name={name}
@@ -241,6 +247,11 @@ Input.propTypes = {
     readOnly: PropTypes.bool,
 
     /**
+     * Specifies the tab index of the input
+     */
+    tabIndex: PropTypes.number,
+
+    /**
      * Specifies the role of the text input.
      */
     type: PropTypes.oneOf([
@@ -285,6 +296,7 @@ Input.defaultProps = {
     autoFocus: false,
     disabled: false,
     readOnly: false,
+    tabIndex: 0,
     type: 'text',
     onBlur: noop,
     onChange: noop,

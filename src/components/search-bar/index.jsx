@@ -19,10 +19,11 @@ class SearchBar extends React.PureComponent {
     constructor(props) {
         super(props)
 
-        this.clearInput = this.clearInput.bind(this)
-        this.onBlur = this.onBlur.bind(this)
-        this.onFocus = this.onFocus.bind(this)
-        this.onChange = this.onChange.bind(this)
+        this.clear = this.clear.bind(this)
+        this.blur = this.blur.bind(this)
+        this.click = this.click.bind(this)
+        this.focus = this.focus.bind(this)
+        this.change = this.change.bind(this)
 
         this.state = {
             height: 0,
@@ -58,23 +59,27 @@ class SearchBar extends React.PureComponent {
         })
     }
 
-    clearInput() {
+    clear() {
         this.setValue('')
     }
 
-    onBlur(e) {
+    blur(e) {
         this.setState({
             focus: false
         })
         this.props.onBlur()
     }
 
-    onChange(e) {
+    change(e) {
         e.stopPropagation()
         this.setValue(e.currentTarget.value)
     }
 
-    onFocus(e) {
+    click() {
+        !this.state.focus && this.focus()
+    }
+
+    focus() {
         this.setState({
             focus: true
         })
@@ -94,7 +99,8 @@ class SearchBar extends React.PureComponent {
             disabled,
             inputClassName,
             name,
-            placeholder
+            placeholder,
+            tabIndex
         } = this.props
 
         const value = this.getValue()
@@ -148,11 +154,13 @@ class SearchBar extends React.PureComponent {
                     {/* Input Field */}
                     <input className={inputClasses}
                         name={name}
+                        tabIndex={tabIndex}
                         type="text"
                         value={value}
-                        onBlur={this.onBlur}
-                        onChange={this.onChange}
-                        onFocus={this.onFocus}
+                        onBlur={this.blur}
+                        onChange={this.change}
+                        onClick={this.click}
+                        onFocus={this.focus}
                         ref={el => this._input = el}
                     />
 
@@ -165,7 +173,7 @@ class SearchBar extends React.PureComponent {
                         <button className={clearButtonClasses}
                             aria-label="clear input"
                             style={buttonStyle}
-                            onClick={this.clearInput}
+                            onClick={this.clear}
                         >
                             <Icon className={iconClasses}
                                 name="close"
@@ -205,6 +213,11 @@ SearchBar.propTypes = {
     name: PropTypes.string,
 
     /**
+     * Specifies the tab index of the input
+     */
+    tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+
+    /**
      * User-defined function which triggers when the search input loses focus.
      */
     onBlur: PropTypes.func,
@@ -225,6 +238,7 @@ SearchBar.defaultProps = {
     disabled: false,
     placeholder: 'Search',
     name: 'search',
+    tabIndex: 0,
     onBlur: noop,
     onChange: noop,
     onFocus: noop

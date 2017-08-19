@@ -41,15 +41,21 @@ $icon-size: 64px;
     cursor: pointer;
 }
 
-.td-alert__icon {
+.td-alert__icon-wrapper {
     position: absolute;
     top: -$icon-size/2;
+    left: 0;
+    width: 100%;
+}
+
+.td-alert__icon {
     flex: 0 0 auto;
 
     width: $icon-size;
     height: $icon-size;
-    color: $background-color;
+    margin: auto;
 
+    color: $background-color;
     border-radius: 50%;
     border: map-get($spacing-map, x-small) solid $background-color;
     padding: map-get($spacing-map, small);

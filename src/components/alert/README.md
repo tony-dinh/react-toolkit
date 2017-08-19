@@ -3,13 +3,13 @@ Example:
 ```
 <div>
     <Button text="Show Alert" onClick={() => {setState({showing: true})}}/>
-    <div>
+
     <Alert
         showing={state.showing}
         animationDuration={250}
-        iconName="close"
-        type="success"
+        iconName="check"
         tapOutsideToDismiss={true}
+        themeColor="#5dc2a0"
         onDismiss={() => {setState({showing: false})}}
     >
         <div>
@@ -18,7 +18,5 @@ Example:
             <p>Second line body text</p>
         </div>
     </Alert>
-    </div>
-
 </div>
 ```
