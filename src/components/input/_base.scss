@@ -28,18 +28,9 @@ $transitions-label-height: 1.2rem;
     cursor: pointer;
     z-index: $z-2;
 
-    &::placeholder {
-        color: transparent;
-        transition: color 250ms;
-    }
-
     &:focus {
         outline: none;
         cursor: text;
-
-        &::placeholder{
-            color: $grey-75;
-        }
     }
 }
 

@@ -244,7 +244,7 @@ Input.propTypes = {
     maxLength: PropTypes.number,
 
     /**
-     * Defines a maximum length for the input.
+     * Defines a placeholder for the input.
      */
     placeholder: PropTypes.string,
 
@@ -302,7 +302,6 @@ Input.propTypes = {
 Input.defaultProps = {
     autoFocus: false,
     disabled: false,
-    placeholder: '',
     readOnly: false,
     tabIndex: 0,
     type: 'text',
