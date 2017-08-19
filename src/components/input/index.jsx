@@ -74,7 +74,7 @@ class Input extends React.Component {
         } = this.props
 
         this.setState({
-            focus: false
+            focus: false,
         })
 
         onBlur()
@@ -96,7 +96,7 @@ class Input extends React.Component {
     focus(e) {
         e && e.currentTarget.scrollIntoViewIfNeeded(true)
         this.setState({
-            focus: true
+            focus: true,
         })
 
         this.props.onFocus()
@@ -112,6 +112,7 @@ class Input extends React.Component {
             label,
             name,
             maxLength,
+            placeholder,
             readOnly,
             tabIndex,
             type,
@@ -188,6 +189,7 @@ class Input extends React.Component {
                         name={name}
                         autoFocus={autoFocus}
                         maxLength={maxLength}
+                        placeholder={placeholder}
                         onFocus={this.focus}
                         onBlur={this.blur}
                         onChange={this.change}
@@ -240,6 +242,11 @@ Input.propTypes = {
      * Defines a maximum length for the input.
      */
     maxLength: PropTypes.number,
+
+    /**
+     * Defines a maximum length for the input.
+     */
+    placeholder: PropTypes.string,
 
     /**
      * Specifies whether the input is read-only
@@ -295,6 +302,7 @@ Input.propTypes = {
 Input.defaultProps = {
     autoFocus: false,
     disabled: false,
+    placeholder: '',
     readOnly: false,
     tabIndex: 0,
     type: 'text',
