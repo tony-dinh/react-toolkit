@@ -46,7 +46,7 @@ class InputDropdown extends React.PureComponent {
         if (e && e.target !== e.currentTarget) {
             return
         }
-        
+
         this._dropdownComponent.click()
         this._inputComponent.focus()
     }
@@ -63,6 +63,7 @@ class InputDropdown extends React.PureComponent {
             error,
             label,
             name,
+            placeholder,
             source,
             tabIndex
         } = this.props
@@ -86,6 +87,7 @@ class InputDropdown extends React.PureComponent {
                 <Input className={selectionClasses}
                     error={error}
                     label={label}
+                    placeholder={placeholder}
                     readOnly
                     ref={el => this._inputComponent = el}
                     tabIndex='-1'
@@ -110,6 +112,7 @@ InputDropdown.PropTypes = {
     error: PropTypes.string,
     label: PropTypes.string,
     name: PropTypes.string,
+    placeholder: PropTypes.string,
     source: PropTypes.array,
     onBlur: PropTypes.func,
     onFocus: PropTypes.func,

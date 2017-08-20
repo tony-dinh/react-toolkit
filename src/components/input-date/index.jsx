@@ -178,11 +178,6 @@ InputDate.propTypes = {
     label: PropTypes.string,
 
     /**
-     * Defines the name of the input.
-     */
-    name: PropTypes.string,
-
-    /**
      * Specifies a lower bound for displayed dates.
      */
     minDate: PropTypes.instanceOf(Date),
@@ -200,6 +195,16 @@ InputDate.propTypes = {
         'multiple',
         'range'
     ]),
+
+    /**
+     * Defines the name of the input.
+     */
+    name: PropTypes.string,
+
+    /**
+     * Defines a placeholder for the input.
+     */
+    placeholder: PropTypes.string,
 
     /**
      * Specifies the value of the input

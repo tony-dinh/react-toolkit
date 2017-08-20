@@ -11,6 +11,7 @@ const onUpdate = (value) => {
 <Input
     label="Enter Text"
     maxLength={10}
+    placeholder="placeholder"
     onChange={onChange}
     onUpdate={onUpdate}
 />
@@ -20,7 +21,7 @@ const onUpdate = (value) => {
 
 #### `disabled`
 ```
-<Input label="Disabled Input" disabled />
+<Input label="Disabled Input" placeholder="Placeholder" disabled />
 ```
 
 #### `error`

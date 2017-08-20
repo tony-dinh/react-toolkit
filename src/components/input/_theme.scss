@@ -1,14 +1,10 @@
 .td-input__input {
     border-color: $grey-70;
-
-    &::placeholder {
-        opacity: 0;
-        transition: opacity 250ms;
-    }
 }
 
 .td-input__label,
-.td-input__count {
+.td-input__count,
+.td-input__input::placeholder {
     color: $grey-70;
     transition: color 250ms ease;
 }
@@ -17,14 +13,6 @@
 .td-input.td-input--focus .td-input__count,
 .td-input.td-input--active .td-input__label {
     color: $primary-color;
-}
-
-.td-input.td-input--active {
-    .td-input__input {
-        &::placeholder {
-            opacity: .5;
-        }
-    }
 }
 
 .td-input.td-input--error {

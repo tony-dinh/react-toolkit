@@ -32,6 +32,11 @@ $transitions-label-height: 1.2rem;
         outline: none;
         cursor: text;
     }
+
+    &::placeholder {
+        opacity: 0;
+        transition: opacity 250ms;
+    }
 }
 
 .td-input__input-accessories {
@@ -124,6 +129,10 @@ $transitions-label-height: 1.2rem;
         line-height: $transitions-label-height;
         height: $transitions-label-height;
         font-size: $transitions-label-height * .65;
+    }
+
+    .td-input__input::placeholder {
+        opacity: 1;
     }
 }
 
