@@ -8,6 +8,7 @@ This is the release process for publishing version `x.y.z` to npm.
     - [ ] Update the `package.json` version to `x.y.z`
     - [ ] Update `CHANGELOG.md` and change `To be released` to `vx.y.z`
     - [ ] Execute the command `npm run build:docs`
+    - [ ] Execute the command `npm run build`
     - [ ] Execute `npm publish`
     - [ ] Open a PR named `vx.y.z` and merge `vx.y.z` into master & delete the branch
 
