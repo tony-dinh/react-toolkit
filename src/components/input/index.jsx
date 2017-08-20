@@ -112,6 +112,7 @@ class Input extends React.Component {
             label,
             name,
             maxLength,
+            placeholder,
             readOnly,
             tabIndex,
             type,
@@ -188,6 +189,7 @@ class Input extends React.Component {
                         name={name}
                         autoFocus={autoFocus}
                         maxLength={maxLength}
+                        placeholder={placeholder}
                         onFocus={this.focus}
                         onBlur={this.blur}
                         onChange={this.change}
@@ -240,6 +242,11 @@ Input.propTypes = {
      * Defines a maximum length for the input.
      */
     maxLength: PropTypes.number,
+
+    /**
+     * Defines a placeholder for the input.
+     */
+    placeholder: PropTypes.string,
 
     /**
      * Specifies whether the input is read-only
