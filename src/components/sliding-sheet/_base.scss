@@ -1,5 +1,8 @@
 @import "../../styles/variables";
 
+// Sliding Sheet Base Styles
+// 1. Necessary to avoid mounting jank on different browsers
+
 .td-sliding-sheet {
     display: flex;
     flex-direction: column;
@@ -30,6 +33,8 @@
 
 .td-sliding-sheet__sheet-wrapper {
     position: absolute;
+    pointer-events: none;
+    opacity: 0; // 1
 }
 
 .td-sliding-sheet__sheet {
@@ -37,8 +42,10 @@
     max-width: 100vw;
     max-height: 100vh;
     margin: auto;
+    cursor: default;
 
     background-color: white;
+    pointer-events: initial;
 }
 
 .td-sliding-sheet.td-sliding-sheet--up,
