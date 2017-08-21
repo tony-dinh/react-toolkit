@@ -3,10 +3,12 @@
 }
 
 .td-input__label,
-.td-input__count,
-.td-input__input::placeholder {
+.td-input__count {
     color: $grey-70;
-    transition: color 250ms ease;
+}
+
+.td-input__input::placeholder {
+    color: $grey-85;
 }
 
 .td-input__input-accessories,
@@ -38,10 +40,10 @@
     .td-input__label,
     .td-input__count,
     .td-input__input {
-        color: $grey-70;
+        color: $grey-85;
     }
 
     .td-input__input {
-        border-color: $grey-70;
+        color: $grey-85;
     }
 }

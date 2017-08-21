@@ -16,7 +16,7 @@
 
 .td-search-bar__input-wrapper,
 .td-search-bar__icon,
-.td-search-bar__input-label {
+ {
     color: $grey-70;
 }
 
@@ -26,4 +26,8 @@
     .td-search-bar__input-label {
         color: $grey-85;
     }
+}
+
+.td-search-bar__input-label {
+    color: $grey-85;
 }

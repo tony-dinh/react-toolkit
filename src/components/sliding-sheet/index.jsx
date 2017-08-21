@@ -42,6 +42,7 @@ class SlidingSheet extends React.PureComponent {
         const completionHandler = () => {
             this.setState({
                 sheetStyle: {
+                    opacity: '1', // opacity needed to avoid mount jank on different browsers
                     transform: `translate3d(0, 0, 0)`,
                     transition: 'none'
                 }
@@ -71,6 +72,7 @@ class SlidingSheet extends React.PureComponent {
         const setStartState = () => new Promise((resolve) => {
             this.setState({
                 sheetStyle: {
+                    opacity: '1', // opacity needed to avoid mount jank on different browsers
                     transform: `translate3d(${vertical ? 0 : start}, ${vertical ? start : 0}, 0)`,
                     transition: 'none'
                 }
@@ -80,6 +82,7 @@ class SlidingSheet extends React.PureComponent {
         const setEndState = () => new Promise((resolve) => {
             this.setState({
                 sheetStyle: {
+                    opacity: '1', // opacity needed to avoid mount jank on different browsers
                     transform: `translate3d(${vertical ? 0 : end}, ${vertical ? end : 0}, 0)`,
                     transition: `transform ${duration}ms ${easing}`
                 }
@@ -90,7 +93,8 @@ class SlidingSheet extends React.PureComponent {
             setTimeout(completionHandler, duration)
         }
 
-        setStartState()
+        animationFrame()
+            .then(setStartState)
             .then(animationFrame)
             .then(setEndState)
             .then(waitForAnimation)
@@ -192,6 +196,11 @@ SlidingSheet.propTypes = {
      * Defines whether the sheet is showing or not.
      */
     showing: PropTypes.bool,
+
+    /**
+     * Adds a user-defined class to the sheet element.
+     */
+    sheetClassName: PropTypes.string,
 
     /**
      * Enables users to dismiss the sheet by clicking/tapping outside.

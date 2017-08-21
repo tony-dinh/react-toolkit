@@ -96,9 +96,9 @@ class InputDropdown extends React.PureComponent {
 
                 <Dropdown className={dropDownClasses}
                     listClassName={listClasses}
-                    onItemSelected={this.change}
                     source={source}
                     tabIndex='-1'
+                    onItemSelected={this.change}
                     ref={el => this._dropdownComponent = el}
                 />
             </div>
@@ -121,10 +121,10 @@ InputDropdown.PropTypes = {
 }
 
 InputDropdown.defaultProps = {
+    tabIndex: 0,
     onBlur: noop,
     onFocus: noop,
     onUpdate: noop,
-    tabIndex: '0'
 }
 
 export default InputDropdown

@@ -1,5 +1,6 @@
 @import "../../styles/variables";
 
+$transition-duration: 250ms;
 $transitions-label-height: 1.2rem;
 
 .td-input {
@@ -35,7 +36,7 @@ $transitions-label-height: 1.2rem;
 
     &::placeholder {
         opacity: 0;
-        transition: opacity 250ms;
+        transition: opacity $transition-duration;
     }
 }
 
@@ -61,15 +62,16 @@ $transitions-label-height: 1.2rem;
 .td-input__phantom-input::after {
     content: '';
     display: inline-block;
+    width: 100%;
+    padding: 0;
+
     border-color: currentColor;
     border-style: solid;
     border-width: 0 0 2px 0;
-    transform: translate(0, 1px);
 
-    width: 100%;
-    padding: 0;
+    transform: translate(0, 1px);
+    transition: width $transition-duration ease-in-out;
     z-index: $z-1;
-    transition: width 250ms ease-in-out;
 }
 
 .td-input.td-input--focus {
@@ -86,7 +88,7 @@ $transitions-label-height: 1.2rem;
 
 .td-input__label {
     padding: 0;
-    transition-duration: 250ms;
+    transition-duration: $transition-duration;
     transition-property: font-size;
     transition-timing-function: cubic-bezier(.4, 0, .2, 1);
 
@@ -98,10 +100,9 @@ $transitions-label-height: 1.2rem;
     position: relative;
     padding: 0;
     height: map-get($spacing-map, small);
-
     pointer-events: none;
 
-    transition-duration: 250ms;
+    transition-duration: $transition-duration;
     transition-property: height;
     transition-timing-function: cubic-bezier(.4, 0, .2, 1);
 }
