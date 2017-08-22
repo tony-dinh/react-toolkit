@@ -112,6 +112,9 @@ class Input extends React.Component {
             label,
             name,
             maxLength,
+            numMax,
+            numMin,
+            numStep,
             placeholder,
             readOnly,
             tabIndex,
@@ -189,6 +192,9 @@ class Input extends React.Component {
                         name={name}
                         autoFocus={autoFocus}
                         maxLength={maxLength}
+                        max={numMax}
+                        min={numMin}
+                        step={numStep}
                         placeholder={placeholder}
                         onFocus={this.focus}
                         onBlur={this.blur}
@@ -242,6 +248,21 @@ Input.propTypes = {
      * Defines a maximum length for the input.
      */
     maxLength: PropTypes.number,
+
+    /**
+     * Defines a maximum number for the input type number.
+     */
+    numMax: PropTypes.number,
+
+    /**
+     * Defines a minimum number for the input  type number.
+     */
+    numMin: PropTypes.number,
+
+    /**
+     * Defines a step value for the input  type number.
+     */
+    numStep: PropTypes.number,
 
     /**
      * Defines a placeholder for the input.
