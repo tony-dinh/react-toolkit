@@ -1,9 +1,9 @@
 Example
 ```
 const source = [
-    {value: 'pineapple', label: 'pineapple'},
-    {value: 'apple', label: 'apple'},
-    {value: 'pen', label: 'pen'}
+    {value: '0', label: 'pineapple'},
+    {value: '1', label: 'apple'},
+    {value: '2', label: 'pen'}
 ];
 
    <InputDropdown source={source} />

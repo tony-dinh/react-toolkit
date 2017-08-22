@@ -40,9 +40,9 @@ class Dropdown extends React.PureComponent {
         this.props.onBlur(e)
     }
 
-    onItemSelected(index, value) {
+    onItemSelected(index, value, label) {
         this.blur()
-        this.props.onItemSelected({index, value})
+        this.props.onItemSelected({index, value, label})
     }
 
     render() {

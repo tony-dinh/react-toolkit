@@ -39,6 +39,26 @@ const onUpdate = (value) => {
 <Input maxLength={50} />
 ```
 
+#### `numMax`
+```
+<Input type="number" numMax={50} />
+```
+
+#### `numMin`
+```
+<Input type="number" numMin={50} />
+```
+
+#### `numStep`
+```
+<Input type="number" numStep={50} />
+```
+
+#### `placeholder`
+```
+<Input placeholder="Bubba Gump Shrimp" />
+```
+
 #### `readOnly`
 ```
 <Input label="Read-only" readOnly />
