@@ -255,7 +255,7 @@ Input.propTypes = {
     numMax: PropTypes.number,
 
     /**
-     * Defines a minimum number for the input  type number.
+     * Defines a minimum number for the input type number.
      */
     numMin: PropTypes.number,
 
