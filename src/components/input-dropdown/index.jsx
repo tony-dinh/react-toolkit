@@ -20,7 +20,7 @@ class InputDropdown extends React.PureComponent {
 
         this.state = {
             value: '',
-            valueLabel: ''
+            label: ''
         }
     }
 
@@ -33,12 +33,12 @@ class InputDropdown extends React.PureComponent {
         if(selectedItem) {
             this.setState({
                 value: selectedItem.value,
-                valueLabel: selectedItem.label
+                label: selectedItem.label
             })
         } else {
             this.setState({
                 value: '',
-                valueLabel: ''
+                label: ''
             })
         }
 
@@ -64,7 +64,7 @@ class InputDropdown extends React.PureComponent {
         const {
             className,
             error,
-            label,
+            label: inputLabel,
             name,
             placeholder,
             source,
@@ -73,7 +73,7 @@ class InputDropdown extends React.PureComponent {
 
         const {
             value,
-            valueLabel
+            label
         } = this.state
 
         const classes = classNames('td-input-dropdown', className)
@@ -90,12 +90,12 @@ class InputDropdown extends React.PureComponent {
             >
                 <Input className={selectionClasses}
                     error={error}
-                    label={label}
+                    label={inputLabel}
                     placeholder={placeholder}
                     readOnly
                     ref={el => this._inputComponent = el}
                     tabIndex='-1'
-                    value={valueLabel}
+                    value={label}
                 />
 
                 <Dropdown className={dropDownClasses}
