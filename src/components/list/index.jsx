@@ -13,8 +13,8 @@ class List extends React.PureComponent {
         this.renderItem = this.renderItem.bind(this)
     }
 
-    onItemClicked(index, value) {
-        this.props.onItemClicked(index, value)
+    onItemClicked(index, value, label) {
+        this.props.onItemClicked(index, value, label)
     }
 
     renderItem(index, key) {
@@ -32,7 +32,7 @@ class List extends React.PureComponent {
                 <itemTemplate className={classes}
                     key={key}
                     item={item}
-                    onClick={this.onItemClicked.bind(this, index, item.value)}
+                    onClick={this.onItemClicked.bind(this, index, item.value, item.label)}
                 />
             )
         }
@@ -40,7 +40,7 @@ class List extends React.PureComponent {
         return (
             <li className={classes}
                 key={key}
-                onClick={this.onItemClicked.bind(this, index, item.value)}
+                onClick={this.onItemClicked.bind(this, index, item.value, item.label)}
                 data-index={index}
                 data-value={item.value}
             >
