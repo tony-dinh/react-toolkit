@@ -30,7 +30,6 @@ class InputDropdown extends React.PureComponent {
     }
 
     change(selectedItem) {
-        console.log(selectedItem, 'selected')
         if(selectedItem) {
             this.setState({
                 value: selectedItem.value,
