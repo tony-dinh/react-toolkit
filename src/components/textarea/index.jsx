@@ -58,6 +58,7 @@ class TextArea extends React.PureComponent {
         })
     }
 
+
     resizeHeight() {
         if (!this._textarea) {
             return null
@@ -75,6 +76,7 @@ class TextArea extends React.PureComponent {
                 }
             }, () => {
                 const newScrollHeight = this._textarea.scrollHeight
+
                 this.setState({
                     scrollHeight: newScrollHeight,
                     style: {

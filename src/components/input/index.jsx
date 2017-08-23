@@ -112,9 +112,9 @@ class Input extends React.Component {
             label,
             name,
             maxLength,
-            numMax,
-            numMin,
-            numStep,
+            maxNum,
+            minNum,
+            stepValue,
             placeholder,
             readOnly,
             tabIndex,
@@ -130,7 +130,7 @@ class Input extends React.Component {
         const value = this.getValue()
         const active = focus || value || error || disabled
         const classes = classNames('td-input', className, {
-            'td-input--active': active,
+            'td-input--active': active || !label,
             'td-input--disabled': disabled,
             'td-input--blur': !focus,
             'td-input--focus': focus,
@@ -192,9 +192,9 @@ class Input extends React.Component {
                         name={name}
                         autoFocus={autoFocus}
                         maxLength={maxLength}
-                        max={numMax}
-                        min={numMin}
-                        step={numStep}
+                        max={maxNum}
+                        min={minNum}
+                        step={stepValue}
                         placeholder={placeholder}
                         onFocus={this.focus}
                         onBlur={this.blur}
@@ -245,24 +245,24 @@ Input.propTypes = {
     name: PropTypes.string,
 
     /**
-     * Defines a maximum length for the input.
+     * Defines the maximum length for the input.
      */
     maxLength: PropTypes.number,
 
     /**
-     * Defines a maximum number for the input type number.
+     * Defines the maximum number for a `number` input type .
      */
-    numMax: PropTypes.number,
+    maxNum: PropTypes.number,
 
     /**
-     * Defines a minimum number for the input type number.
+     * Defines the minimum number for a `number` input type.
      */
-    numMin: PropTypes.number,
+    minNum: PropTypes.number,
 
     /**
-     * Defines a step value for the input  type number.
+     * Defines the step value for a `number` input type.
      */
-    numStep: PropTypes.number,
+    stepValue: PropTypes.number,
 
     /**
      * Defines a placeholder for the input.
