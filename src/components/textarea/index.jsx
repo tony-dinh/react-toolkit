@@ -60,7 +60,7 @@ class TextArea extends React.PureComponent {
 
     resizeHeight() {
         if (!this._textarea) {
-            return
+            return null
         }
 
         // Avoid extra rendering if the scroll height hasn't changed
@@ -95,6 +95,9 @@ class TextArea extends React.PureComponent {
         return setStartState()
             .then(animationFrame)
             .then(setEndState)
+            .then(() => {
+                this.props.onResize(this.state.scrollHeight)
+            })
     }
 
     onChange(e) {
@@ -120,9 +123,12 @@ class TextArea extends React.PureComponent {
             autoFocus,
             className,
             disabled,
+            formId,
             maxLength,
             name,
-            placeholder
+            placeholder,
+            readOnly,
+            tabIndex
         } = this.props
 
         const value = this.getValue()
@@ -133,9 +139,13 @@ class TextArea extends React.PureComponent {
         return (
             <textarea className={classes}
                 autoFocus={autoFocus}
-                name={name}
+                form={formId}
                 maxLength={maxLength}
+                name={name}
+                placeholder={placeholder}
+                readOnly={readOnly}
                 style={style}
+                tabIndex={tabIndex}
                 value={value}
                 onBlur={this.onBlur}
                 onChange={this.onChange}
@@ -150,23 +160,30 @@ TextArea.propTypes = {
     autoFocus: PropTypes.bool,
     className: PropTypes.string,
     disabled: PropTypes.bool,
+    formId: PropTypes.string,
     maxLength: PropTypes.number,
     name: PropTypes.string,
     placeholder: PropTypes.string,
+    readOnly: PropTypes.bool,
     resize: PropTypes.bool,
+    tabIndex: PropTypes.number,
     value: PropTypes.string,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
-    onFocus: PropTypes.func
+    onFocus: PropTypes.func,
+    onResize: PropTypes.func
 }
 
 TextArea.defaultProps = {
     autoFocus: false,
     disabled: false,
+    readOnly: false,
     resize: false,
+    tabIndex: 0,
     onBlur: noop,
     onChange: noop,
-    onFocus: noop
+    onFocus: noop,
+    onResize: noop
 }
 
 export default TextArea

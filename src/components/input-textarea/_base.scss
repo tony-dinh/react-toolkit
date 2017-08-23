@@ -1,0 +1,190 @@
+@import "../../styles/variables";
+
+$transitions-label-height: 1.2rem;
+
+.td-input-textarea {
+    position: relative;
+    width: 100%;
+    padding: $transitions-label-height 0;
+    margin: 0;
+}
+
+.td-input-textarea.td-input-textarea--disabled {
+    cursor: not-allowed;
+
+    .td-input-textarea__input {
+        border-style: dashed;
+        pointer-events: none;
+    }
+}
+
+.td-input-textarea__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100%;
+}
+
+.td-input-textarea__input {
+    padding: map-get($spacing-map, small) 0;
+    height: 1.2em;
+    border-width: 0 0 1px 0;
+    border-style: solid;
+
+    background: none;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: $z-1;
+
+    &:focus {
+        outline: none;
+        cursor: text;
+    }
+
+    &::placeholder {
+        opacity: 0;
+        transition: opacity 250ms;
+    }
+}
+
+.td-input-textarea__input-accessories {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+}
+
+.td-input-textarea__phantom-input {
+    display: flex;
+    flex-grow: 0;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+
+    height: map-get($spacing-map, small);
+    padding: 0;
+    pointer-events: none;
+
+    transition-property: flex-grow;
+    transition-duration: 250ms;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+
+.td-input-textarea__phantom-input::after {
+    content: '';
+    display: inline-block;
+    border-color: currentColor;
+    border-style: solid;
+    border-width: 0 0 2px 0;
+    pointer-events: none;
+    transform: translate(0, 1px);
+
+    width: 100%;
+    padding: 0;
+    z-index: $z-2;
+    transition: width 250ms ease-in-out;
+}
+
+.td-input-textarea.td-input-textarea--focus {
+    .td-input-textarea__phantom-input::after {
+        width: 100%;
+    }
+}
+
+.td-input-textarea.td-input-textarea--blur {
+    .td-input-textarea__phantom-input::after {
+        width: 0%;
+    }
+}
+
+.td-input-textarea__label {
+    flex: 0 0 auto;
+
+    padding: 0;
+    transition-duration: 250ms;
+    transition-property: font-size;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+
+    font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
+}
+
+.td-input-textarea__label,
+.td-input-textarea__phantom-input,
+.td-input-textarea__count {
+    border: 0;
+}
+
+.td-input-textarea__input,
+.td-input-textarea__phantom-input,
+.td-input-textarea__label {
+    width: 100%;
+    margin: 0;
+
+    outline: none;
+    font-size: 1rem;
+    text-align: start;
+}
+
+.td-input-textarea.td-input-textarea--active {
+    .td-input-textarea__label {
+        line-height: $transitions-label-height;
+        height: $transitions-label-height;
+        font-size: $transitions-label-height * .65;
+    }
+
+    .td-input-textarea__phantom-input {
+        flex-grow: 1;
+        -webkit-flex-grow: 1;
+        transform: flex-grow 350ms;
+    }
+
+    .td-input-textarea__input::placeholder {
+        opacity: 1;
+    }
+}
+
+.td-input-textarea__decorations {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    width: 100%;
+    height: $transitions-label-height;
+}
+
+.td-input-textarea__error {
+    flex: 1 0 auto;
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: default;
+    pointer-events: initial;
+}
+
+.td-input-textarea__count {
+    flex: 0 0 auto;
+    text-align: right;
+}
+
+.td-input-textarea__error,
+.td-input-textarea__count {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    height: $transitions-label-height;
+    line-height: $transitions-label-height;
+    font-size: $transitions-label-height * .65;
+}
+
+.td-input-textarea__count.td-input-textarea--invisible {
+    opacity: 0;
+}

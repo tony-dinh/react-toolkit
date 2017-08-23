@@ -1,0 +1,49 @@
+.td-input-textarea__input {
+    border-color: $grey-70;
+}
+
+.td-input-textarea__label,
+.td-input-textarea__count {
+    color: $grey-70;
+}
+
+.td-input-textarea__input::placeholder {
+    color: $grey-85;
+}
+
+.td-input-textarea__input-accessories,
+.td-input-textarea.td-input-textarea--focus .td-input-textarea__count,
+.td-input-textarea.td-input-textarea--active .td-input-textarea__label {
+    color: $primary-color;
+}
+
+.td-input-textarea.td-input-textarea--error {
+    .td-input-textarea__input {
+        border-color: $fail-color;
+    }
+
+    .td-input-textarea__label,
+    .td-input-textarea__count,
+    .td-input-textarea__error {
+        color: $fail-color;
+        transition: color 250ms ease;
+    }
+
+    .td-input-textarea__input-accessories,
+    .td-input-textarea.td-input-textarea--focus .td-input-textarea__count,
+    .td-input-textarea.td-input-textarea--active .td-input-textarea__label {
+        color: $fail-color;
+    }
+}
+
+.td-input-textarea.td-input-textarea--disabled {
+    .td-input-textarea__label,
+    .td-input-textarea__count,
+    .td-input-textarea__input {
+        color: $grey-85;
+    }
+
+    .td-input-textarea__input {
+        color: $grey-85;
+    }
+}
