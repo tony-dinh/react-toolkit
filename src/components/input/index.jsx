@@ -186,7 +186,7 @@ class Input extends React.Component {
                     <input className={inputClasses}
                         form={formId}
                         readOnly={readOnly}
-                        tabIndex={tabIndex}
+                        tabIndex={disabled ? -1 : tabIndex}
                         type={type}
                         value={value}
                         name={name}

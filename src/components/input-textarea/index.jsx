@@ -173,7 +173,7 @@ class InputTextArea extends React.Component {
                         placeholder={placeholder}
                         readOnly={readOnly}
                         resize
-                        tabIndex={tabIndex}
+                        tabIndex={disabled ? -1 : tabIndex}
                         value={value}
                         onBlur={this.blur}
                         onChange={this.change}

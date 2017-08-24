@@ -4,6 +4,7 @@ import classNames from 'classnames'
 
 import FormButton from './partials/form-button'
 import FormField from './partials/form-field'
+import FormFieldGroup from './partials/form-field-group'
 
 const noop = () => {}
 
@@ -56,6 +57,7 @@ class Form extends React.PureComponent {
         this.setState({data})
     }
 
+
     validate() {
         const {
             data
@@ -63,18 +65,26 @@ class Form extends React.PureComponent {
 
         let error = {...this.state.error}
         let newError = false
-        this.FormElements.forEach((element) => {
+
+        const validateEl = (element) => {
+            if (!element) {
+                return
+            }
             // Do requirement validation on form fields (ignore buttons)
             // by checking if we have the data for that field name in our state.
             // TODO: support default values
-            if (element && element.type === FormField) {
+            if (element.type === FormField) {
                 const fieldName = element.props.name
                 if (element.props.required && !data[fieldName]) {
                     error[fieldName] = 'Required'
                     newError = true
                 }
+            } else if (element.type === FormFieldGroup) {
+                React.Children.forEach(element.props.children, validateEl)
             }
-        })
+        }
+
+        this.FormElements.forEach(validateEl)
 
         if (Object.keys(error).length) {
             newError && this.setState({error})
@@ -127,16 +137,28 @@ class Form extends React.PureComponent {
                     }
                     return React.cloneElement(element, fieldProps)
 
+                case FormFieldGroup:
+                    const fieldGroupProps = {
+                        ...element.props,
+                        key: `${name}-${this.id}__field-group-${index}`,
+                        error: error || null,
+                        formId: this.id,
+                        validate,
+                        onValidate: this.onValidateField,
+                        onUpdate: this.update,
+                    }
+
+                    return React.cloneElement(element, fieldGroupProps)
+
                 case FormButton:
                     const buttonProps = {
                         ...element.props,
                         key: `${name}-${this.id}__button-${index}`
                     }
-
                     return React.cloneElement(element, buttonProps)
 
                 default:
-                    return null
+                    return element
             }
         })
 
@@ -169,7 +191,7 @@ const FormFieldType = (props, propName, componentName) => {
 }
 
 Form.propTypes = {
-    children: FormFieldType,
+    children: PropTypes.node,
     name: PropTypes.string.isRequired,
     validate: PropTypes.func,
     onSubmit: PropTypes.func
@@ -179,5 +201,5 @@ Form.defaultProps = {
     onSubmit: noop
 }
 
-export {FormField, FormButton}
+export {FormField, FormFieldGroup, FormButton}
 export default Form
