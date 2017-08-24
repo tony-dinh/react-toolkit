@@ -200,6 +200,15 @@ const PersonIcon = ({className}) => {
     )
 }
 
+const PieChartIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M0 0h24v24H0V0z" fill="none"/>
+            <path d="M11 2v20c-5.07-.5-9-4.79-9-10s3.93-9.5 9-10zm2.03 0v8.99H22c-.47-4.74-4.24-8.52-8.97-8.99zm0 11.01V22c4.74-.47 8.5-4.25 8.97-8.99h-8.97z"/>
+        </svg>
+    )
+}
+
 const PlayIcon = ({className}) => {
     return (
         <svg className={className} viewBox="3 3 18 18" preserveAspectRatio="xMidYMid meet">
@@ -260,6 +269,7 @@ const ICONS = {
     'more-vertical': MoreVerticalIcon,
     'pdf': PdfIcon,
     'person': PersonIcon,
+    'pie-chart': PieChartIcon,
     'play': PlayIcon,
     'search': SearchIcon,
     'time': TimeIcon,
@@ -276,11 +286,12 @@ class Icon extends React.PureComponent {
             className,
             name,
             reference,
-            style
+            style,
+            svgClassName
         } = this.props
 
         const classes = classNames('td-icon', className)
-        const svgClasses = 'td-icon__svg'
+        const svgClasses = classNames('td-icon__svg', svgClassName)
 
         const Svg = ICONS[name]
         return (

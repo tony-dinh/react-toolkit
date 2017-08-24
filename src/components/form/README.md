@@ -57,7 +57,7 @@ const onSubmit = (data) => {
     <FormField name="nonDigitInput"
         label="Enter non-digits"
         maxLength={10}
-        component={(props) => <Input {...props} />}
+        component={Input}
     />
 
     <FormField name="digitInput"
@@ -70,6 +70,12 @@ const onSubmit = (data) => {
         label="Select a Date"
         dateFormat="F Y"
         component={(props) => <InputDate {...props} />}
+        required
+    />
+
+    <FormField name="file"
+        label="Upload a file"
+        component={InputFile}
         required
     />
 

@@ -1,0 +1,49 @@
+.td-input-file__input {
+    border-color: $grey-70;
+}
+
+.td-input-file__label,
+.td-input-file__count {
+    color: $grey-70;
+}
+
+.td-input-file__input::placeholder {
+    color: $grey-80;
+}
+
+.td-input-file__input-accessories,
+.td-input-file.td-input-file--focus .td-input-file__count,
+.td-input-file.td-input-file--focus .td-input-file__label {
+    color: $primary-color;
+}
+
+.td-input-file.td-input-file--error {
+    .td-input-file__input {
+        border-color: $fail-color;
+    }
+
+    .td-input-file__label,
+    .td-input-file__count,
+    .td-input-file__error {
+        color: $fail-color;
+        transition: color 250ms ease;
+    }
+
+    .td-input-file__input-accessories,
+    .td-input-file.td-input-file--focus .td-input-file__count,
+    .td-input-file.td-input-file--active .td-input-file__label {
+        color: $fail-color;
+    }
+}
+
+.td-input-file.td-input-file--disabled {
+    .td-input-file__label,
+    .td-input-file__count,
+    .td-input-file__input {
+        color: $grey-85;
+    }
+
+    .td-input-file__input {
+        color: $grey-85;
+    }
+}
