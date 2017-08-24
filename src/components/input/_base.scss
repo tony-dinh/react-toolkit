@@ -20,7 +20,7 @@ $transitions-label-height: 1.2rem;
 }
 
 .td-input__input {
-    padding: map-get($spacing-map, x-small) 0;
+    padding: map-get($spacing-map, small) 0;
 
     border-width: 0 0 1px 0;
     border-style: solid;
@@ -60,7 +60,7 @@ $transitions-label-height: 1.2rem;
 
     position: relative;
     padding: 0;
-    height: map-get($spacing-map, x-small);
+    height: map-get($spacing-map, small);
     pointer-events: none;
 
     transition-duration: $transition-duration;

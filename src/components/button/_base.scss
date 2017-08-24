@@ -6,10 +6,13 @@
 .td-button {
     min-height: $min-tap-target-size;
     min-width: $min-tap-target-size;
-    padding: map-get($spacing-map, medium);
+    padding: map-get($spacing-map, small);
+    margin: 0;
     border: 0;
+    border-radius: 2px;
+    outline: none;
 
-    font-size: 15px;
+    font-size: 1em;
     font-weight: normal;
     line-height: 1.2em;
     text-align: center;
@@ -29,12 +32,14 @@
     height: 100%;
     width: 100%;
 
+    color: inherit;
     pointer-events: none; // 1
 }
 
 .td-button__icon {
     height: 1.2em;
     width: 1.2em;
+    color: inherit;
 }
 
 .td-button__text {

@@ -5,44 +5,29 @@ $secondaryButtonColor: $secondary-color;
 $tertiaryButtonColor: $tertiary-color;
 
 .td-button {
-    border-radius: 2px;
-    color: white;
+    background: none;
+    opacity: 1;
+    transition: all 250ms;
 
-    transition:
-        color 250ms,
-        background 250ms,
-        border 250ms,
-        opacity 250ms;
-}
-
-.td-button__text {
-    color: inherit;
+    &:hover {
+        opacity: .8;
+    }
 }
 
 .td-button.td--primary {
+    color: white;
     background-color: $primaryButtonColor;
-
-    &:hover {
-        opacity: .8;
-    }
 }
 
 .td-button.td--secondary {
+    color: white;
     background-color: $secondaryButtonColor;
-
-    &:hover {
-        opacity: .8;
-    }
 }
 
 .td-button.td--tertiary {
     background-color: transparent;
     border: 1px solid $tertiaryButtonColor;
     color: $tertiaryButtonColor;
-
-    &:hover {
-        opacity: .8;
-    }
 }
 
 .td-button.td--button-disabled {

@@ -1,11 +1,21 @@
-### Examples
-#### `role`
-* default: `primary`
+### Basic Example
+```
+<Button text="Default Button" />
+```
 
-Applies styles based on the significance of the button's role.
+### props
+
+#### `children`
+```
+<Button>
+    <IconLabel icon="check" label="Check" />
+</Button>
+```
+
+#### `role`
 ```
     <div>
-        <Button text="Primary" />
+        <Button text="Primary" role="primary"/>
         <Button text="Seconday" role="secondary" />
         <Button text="Tertiary" role="tertiary" />
     </div>

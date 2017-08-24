@@ -10,10 +10,21 @@ class FormButton extends React.PureComponent {
     }
 
     render() {
-        return (
-            <Button {...this.props} />
-        )
+        const {
+            button: Button,
+            ...rest
+        } = this.props
+
+        return <Button {...rest} />
     }
+}
+
+FormButton.propTypes = {
+    button: PropTypes.func
+}
+
+FormButton.defaultProps = {
+    button: Button
 }
 
 export default FormButton

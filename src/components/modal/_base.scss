@@ -1,0 +1,70 @@
+@import "../../styles/variables";
+
+.td-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+    width: 100vw;
+    padding: map-get($spacing-map, x-large);
+    background-color: $dark-overlay-color;
+    z-index: $z-3;
+
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}
+
+.td-modal.td-modal--fade-in {
+    animation-name: fadeIn;
+}
+
+.td-modal.td-modal--fade-out {
+    animation-name: fadeOut;
+}
+
+.td-modal__modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    max-width: 600px;
+    max-height: 90%;
+    padding: map-get($spacing-map, large);
+
+    border-radius: 3px;
+    background-color: white;
+    cursor: default;
+}
+
+.td-modal__header-container {
+    width: 100%;
+}
+
+.td-modal__content-container {
+    overflow: auto;
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@media (max-width: map-get($media-breakpoints, phone)) {
+    .td-modal {
+        padding: map-get($spacing-map, medium);
+    }
+}
