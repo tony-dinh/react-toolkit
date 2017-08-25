@@ -60,6 +60,9 @@ LoadingContainer.propTypes = {
     loader: PropTypes.element,
     loading: PropTypes.bool,
     showContentWhileLoading: PropTypes.bool,
+    /**
+     * Defines styles to be applied to root element.
+     */
     style: PropTypes.object
 }
 
