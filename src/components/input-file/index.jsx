@@ -6,7 +6,7 @@ import './_base.scss'
 
 const noop = () => {}
 
-class Input extends React.Component {
+class InputFile extends React.Component {
     constructor(props) {
         super(props)
 
@@ -23,7 +23,8 @@ class Input extends React.Component {
         this.state = {
             focus: false,
             height: 0,
-            value: typeof props.value === 'undefined' ? '' : props.value
+            value: '',
+            files: null
         }
     }
 
@@ -51,20 +52,14 @@ class Input extends React.Component {
     }
 
     getValue() {
-        return typeof this.props.value === 'undefined'
-            ? this.state.value
-            : this.props.value
+        return this.state.value
     }
 
-    setValue(value) {
-        this.props.onChange(value)
-
-        if (typeof this.props.value !== 'undefined') {
-            return
-        }
-
+    setValue(value, files) {
+        this.props.onChange(files)
         this.setState({
-            value
+            value,
+            files
         })
     }
 
@@ -79,18 +74,34 @@ class Input extends React.Component {
         })
 
         onBlur(e)
-        onUpdate(this.getValue())
+        onUpdate(this.state.files)
     }
 
     change(e) {
-        this.setValue(e.currentTarget.value)
+        if (e.currentTarget !== e.target) {
+            return
+        }
+
+        const fileNames = []
+        const files = e.currentTarget.files.length > 0
+            ? e.currentTarget.files
+            : null
+
+        if (files) {
+            const length = files.length
+            for (let i = 0; i < length; i++) {
+                fileNames.push(files[i].name)
+            }
+        }
+
+        this.setValue(fileNames.join(', '), files)
     }
 
     click(e) {
         // the component is intended to be in a focus state
-        // after being clicked. Some browsers don't trigger focus on a click
+        // after being clicked. Some browsers don't trigger focus on a click.
         !this.state.focus && this.focus()
-
+        this._fileInput.click()
         this.props.onClick(e)
     }
 
@@ -104,22 +115,23 @@ class Input extends React.Component {
     }
 
     keypress(e) {
+        if (e.key === 'Enter') {
+            this._fileInput.click()
+        }
+
         this.props.onKeyPress(e)
     }
 
     render() {
         const {
-            autoFocus,
+            accept,
             className,
             disabled,
             error,
             formId,
             label,
+            multiple,
             name,
-            maxLength,
-            maxNum,
-            minNum,
-            stepValue,
             placeholder,
             readOnly,
             tabIndex,
@@ -134,23 +146,20 @@ class Input extends React.Component {
 
         const value = this.getValue()
         const active = focus || value || error || disabled
-        const classes = classNames('td-input', className, {
-            'td-input--active': active || !label,
-            'td-input--disabled': disabled,
-            'td-input--blur': !focus,
-            'td-input--focus': focus,
-            'td-input--error': error
+        const classes = classNames('td-input-file', className, {
+            'td-input-file--active': active || !label,
+            'td-input-file--disabled': disabled,
+            'td-input-file--blur': !focus,
+            'td-input-file--focus': focus,
+            'td-input-file--error': error
         })
-        const innerClasses = 'td-input__inner'
-        const inputClasses = 'td-input__input'
-        const countClasses = classNames('td-input__count', {
-            'td-input--invisible': maxLength == null
-        })
-        const accessoryWrapperClasses = 'td-input__input-accessories'
-        const decorationWrapperClasses = 'td-input__decorations'
-        const errorClasses = 'td-input__error'
-        const labelClasses = 'td-input__label'
-        const phantomInputClasses = 'td-input__phantom-input'
+        const innerClasses = 'td-input-file__inner'
+        const inputClasses = 'td-input-file__input'
+        const accessoryWrapperClasses = 'td-input-file__input-accessories'
+        const decorationWrapperClasses = 'td-input-file__decorations'
+        const errorClasses = 'td-input-file__error'
+        const labelClasses = 'td-input-file__label'
+        const phantomInputClasses = 'td-input-file__phantom-input'
 
         const accessoryWrapperStyles = {
             height: `${componentHeight}px`
@@ -181,32 +190,31 @@ class Input extends React.Component {
                                     {error}
                                 </span>
                             }
-
-                            <span className={countClasses}>
-                                {`${value.length}/${maxLength}`}
-                            </span>
                         </div>
                     </div>
 
                     <input className={inputClasses}
-                        form={formId}
-                        readOnly={readOnly}
-                        tabIndex={disabled ? -1 : tabIndex}
-                        type={type}
-                        value={value}
-                        name={name}
-                        autoFocus={autoFocus}
-                        maxLength={maxLength}
-                        max={maxNum}
-                        min={minNum}
-                        step={stepValue}
                         placeholder={placeholder}
+                        readOnly
+                        tabIndex={disabled ? -1 : tabIndex}
+                        value={value}
                         onFocus={this.focus}
                         onBlur={this.blur}
-                        onChange={this.change}
                         onClick={this.click}
                         onKeyPress={this.keypress}
                         ref={el => this._input = el}
+                    />
+
+                    <input
+                        accept={accept}
+                        form={formId}
+                        hidden
+                        multiple={multiple}
+                        name={name}
+                        tabIndex={-1}
+                        type="file"
+                        onChange={this.change}
+                        ref={el => this._fileInput = el}
                     />
                 </div>
             </div>
@@ -214,19 +222,19 @@ class Input extends React.Component {
     }
 }
 
-Input.propTypes = {
+InputFile.propTypes = {
     /**
-     * Specifies whether or not the input should auto focus when present on screen.
+     * Specifies the accepted file types by comma-separated list of extensions or MIME types (e.g ".png, .jpg, .jpeg").
      */
-    autoFocus: PropTypes.bool,
+    accept: PropTypes.string,
 
     /**
-     *  Adds a user-defined class to the root element.
+     * Adds a user-defined class to the root element.
      */
     className: PropTypes.string,
 
     /**
-     *  Sets the disable state of the input.
+     * Sets the disable state of the input.
      */
     disabled: PropTypes.bool,
 
@@ -246,29 +254,14 @@ Input.propTypes = {
     label: PropTypes.string,
 
     /**
+     * Specifies whether a user is allowed to upload multiple files.
+     */
+    multiple: PropTypes.bool,
+
+    /**
      * Defines the name of the input.
      */
     name: PropTypes.string,
-
-    /**
-     * Defines the maximum length for the input.
-     */
-    maxLength: PropTypes.number,
-
-    /**
-     * Defines the maximum number for a `number` input type .
-     */
-    maxNum: PropTypes.number,
-
-    /**
-     * Defines the minimum number for a `number` input type.
-     */
-    minNum: PropTypes.number,
-
-    /**
-     * Defines the step value for a `number` input type.
-     */
-    stepValue: PropTypes.number,
 
     /**
      * Defines a placeholder for the input.
@@ -276,29 +269,9 @@ Input.propTypes = {
     placeholder: PropTypes.string,
 
     /**
-     * Specifies whether the input is read-only
-     */
-    readOnly: PropTypes.bool,
-
-    /**
      * Specifies the tab index of the input
      */
     tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-
-    /**
-     * Specifies the role of the text input.
-     */
-    type: PropTypes.oneOf([
-        'text',
-        'email',
-        'number',
-        'telephone'
-    ]),
-
-    /**
-     * Specifies the value of the input
-     */
-    value: PropTypes.string,
 
     /**
      * User-defined function which triggers when the input loses focus.
@@ -331,18 +304,17 @@ Input.propTypes = {
     onUpdate: PropTypes.func
 }
 
-Input.defaultProps = {
+InputFile.defaultProps = {
     autoFocus: false,
     disabled: false,
+    multiple: false,
     readOnly: false,
     tabIndex: 0,
-    type: 'text',
     onBlur: noop,
     onChange: noop,
     onClick: noop,
     onFocus: noop,
-    onKeyPress: noop,
     onUpdate: noop
 }
 
-export default Input
+export default InputFile

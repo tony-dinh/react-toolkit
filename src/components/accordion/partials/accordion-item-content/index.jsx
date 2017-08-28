@@ -34,6 +34,10 @@ class AccordionItemContent extends React.PureComponent {
 
 AccordionItemContent.propTypes = {
     children: PropTypes.element,
+
+    /**
+     * Defines styles to be applied to root element.
+     */
     style: PropTypes.object
 }
 

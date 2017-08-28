@@ -209,7 +209,7 @@ InputDate.propTypes = {
     /**
      * Specifies the value of the input
      */
-    value: PropTypes.arrayOf([PropTypes.instanceOf(Date)]),
+    value: PropTypes.arrayOf(PropTypes.instanceOf(Date)),
 
     /**
      * User-defined function which triggers when the input loses focus.

@@ -14,10 +14,8 @@ This is the release process for publishing version `x.y.z` to npm.
 
 1. Update `develop`
     - [ ] Merge `master` back into `develop`
-    - [ ] Create a branch off of `develop` named `post-vx.y.z`
     - [ ] Update the `package.json` version to `x.y.z-dev`
     - [ ] Update `CHANGELOG.md` and add a `To be released` heading
-    - [ ] Open a PR named `post-vx.y.z` and merge it
 
 1. Create a release tag
     - [ ] Create a [release tag](https://github.com/tony-dinh/react-toolkit/releases) off of `master` name it `vx.y.z`

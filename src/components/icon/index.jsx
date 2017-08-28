@@ -119,6 +119,14 @@ const ErrorCircleIcon = ({className}) => {
     )
 }
 
+const FacebookIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 16 28" preserveAspectRatio="xMidYMid meet">
+            <path d="M14.984 0.187v4.125h-2.453c-1.922 0-2.281 0.922-2.281 2.25v2.953h4.578l-0.609 4.625h-3.969v11.859h-4.781v-11.859h-3.984v-4.625h3.984v-3.406c0-3.953 2.422-6.109 5.953-6.109 1.687 0 3.141 0.125 3.563 0.187z"/>
+        </svg>
+    )
+}
+
 const FileIcon = ({className}) => {
     return (
         <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
@@ -142,6 +150,14 @@ const LanguageIcon = ({className}) => {
         <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
             <path d="M0 0h24v24H0z" fill="none"/>
             <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm6.93 6h-2.95c-.32-1.25-.78-2.45-1.38-3.56 1.84.63 3.37 1.91 4.33 3.56zM12 4.04c.83 1.2 1.48 2.53 1.91 3.96h-3.82c.43-1.43 1.08-2.76 1.91-3.96zM4.26 14C4.1 13.36 4 12.69 4 12s.1-1.36.26-2h3.38c-.08.66-.14 1.32-.14 2 0 .68.06 1.34.14 2H4.26zm.82 2h2.95c.32 1.25.78 2.45 1.38 3.56-1.84-.63-3.37-1.9-4.33-3.56zm2.95-8H5.08c.96-1.66 2.49-2.93 4.33-3.56C8.81 5.55 8.35 6.75 8.03 8zM12 19.96c-.83-1.2-1.48-2.53-1.91-3.96h3.82c-.43 1.43-1.08 2.76-1.91 3.96zM14.34 14H9.66c-.09-.66-.16-1.32-.16-2 0-.68.07-1.35.16-2h4.68c.09.65.16 1.32.16 2 0 .68-.07 1.34-.16 2zm.25 5.56c.6-1.11 1.06-2.31 1.38-3.56h2.95c-.96 1.65-2.49 2.93-4.33 3.56zM16.36 14c.08-.66.14-1.32.14-2 0-.68-.06-1.34-.14-2h3.38c.16.64.26 1.31.26 2s-.1 1.36-.26 2h-3.38z"/>
+        </svg>
+    )
+}
+
+const LinkedInIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 28" preserveAspectRatio="xMidYMid meet">
+            <path d="M5.453 9.766v15.484h-5.156v-15.484h5.156zM5.781 4.984c0.016 1.484-1.109 2.672-2.906 2.672v0h-0.031c-1.734 0-2.844-1.188-2.844-2.672 0-1.516 1.156-2.672 2.906-2.672 1.766 0 2.859 1.156 2.875 2.672zM24 16.375v8.875h-5.141v-8.281c0-2.078-0.75-3.5-2.609-3.5-1.422 0-2.266 0.953-2.641 1.875-0.125 0.344-0.172 0.797-0.172 1.266v8.641h-5.141c0.063-14.031 0-15.484 0-15.484h5.141v2.25h-0.031c0.672-1.062 1.891-2.609 4.672-2.609 3.391 0 5.922 2.219 5.922 6.969z" />
         </svg>
     )
 }
@@ -200,6 +216,15 @@ const PersonIcon = ({className}) => {
     )
 }
 
+const PieChartIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
+            <path d="M0 0h24v24H0V0z" fill="none"/>
+            <path d="M11 2v20c-5.07-.5-9-4.79-9-10s3.93-9.5 9-10zm2.03 0v8.99H22c-.47-4.74-4.24-8.52-8.97-8.99zm0 11.01V22c4.74-.47 8.5-4.25 8.97-8.99h-8.97z"/>
+        </svg>
+    )
+}
+
 const PlayIcon = ({className}) => {
     return (
         <svg className={className} viewBox="3 3 18 18" preserveAspectRatio="xMidYMid meet">
@@ -237,6 +262,14 @@ const TimerIcon = ({className}) => {
     )
 }
 
+const TwitterIcon = ({className}) => {
+    return (
+        <svg className={className} viewBox="0 0 26 28" preserveAspectRatio="xMidYMid meet">
+            <path d="M25.312 6.375c-0.688 1-1.547 1.891-2.531 2.609 0.016 0.219 0.016 0.438 0.016 0.656 0 6.672-5.078 14.359-14.359 14.359-2.859 0-5.516-0.828-7.75-2.266 0.406 0.047 0.797 0.063 1.219 0.063 2.359 0 4.531-0.797 6.266-2.156-2.219-0.047-4.078-1.5-4.719-3.5 0.313 0.047 0.625 0.078 0.953 0.078 0.453 0 0.906-0.063 1.328-0.172-2.312-0.469-4.047-2.5-4.047-4.953v-0.063c0.672 0.375 1.453 0.609 2.281 0.641-1.359-0.906-2.25-2.453-2.25-4.203 0-0.938 0.25-1.797 0.688-2.547 2.484 3.062 6.219 5.063 10.406 5.281-0.078-0.375-0.125-0.766-0.125-1.156 0-2.781 2.25-5.047 5.047-5.047 1.453 0 2.766 0.609 3.687 1.594 1.141-0.219 2.234-0.641 3.203-1.219-0.375 1.172-1.172 2.156-2.219 2.781 1.016-0.109 2-0.391 2.906-0.781z"/>
+        </svg>
+    )
+}
+
 const ICONS = {
     'arrow-dropdown': ArrowDropdownIcon,
     'arrow-dropup': ArrowDropupIcon,
@@ -260,8 +293,12 @@ const ICONS = {
     'more-vertical': MoreVerticalIcon,
     'pdf': PdfIcon,
     'person': PersonIcon,
+    'pie-chart': PieChartIcon,
     'play': PlayIcon,
     'search': SearchIcon,
+    'social-facebook': FacebookIcon,
+    'social-linkedin': LinkedInIcon,
+    'social-twitter': TwitterIcon,
     'time': TimeIcon,
     'timer': TimerIcon
 }
@@ -276,11 +313,12 @@ class Icon extends React.PureComponent {
             className,
             name,
             reference,
-            style
+            style,
+            svgClassName
         } = this.props
 
         const classes = classNames('td-icon', className)
-        const svgClasses = 'td-icon__svg'
+        const svgClasses = classNames('td-icon__svg', svgClassName)
 
         const Svg = ICONS[name]
         return (

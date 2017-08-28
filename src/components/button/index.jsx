@@ -129,6 +129,9 @@ Button.propTypes = {
         'tertiary'
     ]),
 
+    /**
+     * Defines styles to be applied to root element.
+     */
     style: PropTypes.object,
     tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     title: PropTypes.string,

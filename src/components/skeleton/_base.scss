@@ -1,0 +1,27 @@
+@import "../../styles/variables";
+
+.td-skeleton {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+
+    animation-name: pulse;
+    animation-direction: alternate-reverse;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease;
+}
+
+@keyframes pulse {
+    from {
+        background-color: $grey-85;
+    }
+
+    to {
+        background-color: $grey-95;
+    }
+}
