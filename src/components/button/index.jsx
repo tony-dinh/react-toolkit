@@ -1,9 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
+import debounce from 'lodash/debounce'
 
 import Icon from '../icon'
 import './_base.scss'
+
+const noop = () => {}
 
 /**
  * ```jsx
@@ -15,6 +18,29 @@ import './_base.scss'
 class Button extends React.PureComponent {
     constructor(props) {
         super(props)
+
+        this._mouseEnter = this._mouseEnter.bind(this)
+        this._mouseLeave = this._mouseLeave.bind(this)
+        this.mouseEnter = debounce(this.mouseEnter.bind(this), 250)
+        this.mouseLeave = debounce(this.mouseLeave.bind(this), 250)
+    }
+
+    _mouseEnter(e) {
+        e.persist()
+        this.mouseEnter(e)
+    }
+
+    _mouseLeave(e) {
+        e.persist()
+        this.mouseLeave(e)
+    }
+
+    mouseEnter(e) {
+        this.props.onMouseEnter(e)
+    }
+
+    mouseLeave(e) {
+        this.props.onMouseLeave(e)
     }
 
     render() {
@@ -32,7 +58,9 @@ class Button extends React.PureComponent {
             title,
             type,
             text,
-            onClick
+            onClick,
+            onMouseEnter,
+            onMouseLeave
         } = this.props
 
         const classes = classNames('td-button', className, {
@@ -56,6 +84,8 @@ class Button extends React.PureComponent {
                 style={style}
                 tabIndex={disabled ? -1 : tabIndex}
                 title={title || text}
+                onMouseEnter={onMouseEnter && this._mouseEnter}
+                onMouseLeave={onMouseLeave && this._mouseLeave}
             >
                 {children ?
                     children
@@ -140,14 +170,16 @@ Button.propTypes = {
         'submit'
     ]),
     text: PropTypes.string,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func
 }
 
 Button.defaultProps = {
     disabled: false,
     iconPosition: 'start',
     tabIndex: 0,
-    type: 'button',
+    type: 'button'
 }
 
 export default Button

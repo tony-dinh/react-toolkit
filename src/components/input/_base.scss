@@ -21,6 +21,7 @@ $transitions-label-height: 1.2rem;
 
 .td-input__input {
     padding: map-get($spacing-map, small) 0;
+    height: calc(#{map-get($spacing-map, small)} * 2 + 1.2rem);
 
     border-width: 0 0 1px 0;
     border-style: solid;
