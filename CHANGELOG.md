@@ -1,6 +1,8 @@
 ## Changelog
 
 ### To be released
+
+### v0.1.2
 - Fix incorrect lodash imports
 - Minor Input style bugs on Safari
 - Button onMouseEnter & onMouseLeave event hooks (https://github.com/tony-dinh/react-toolkit/pull/17)
