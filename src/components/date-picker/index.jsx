@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import flatpickr from 'flatpickr'
 import moment from 'moment'
-import isEqual from 'lodash/isequal'
+import isEqual from 'lodash/isEqual'
 
 import Icon from '../icon'
 
