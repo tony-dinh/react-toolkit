@@ -4,6 +4,10 @@
 // 1. Ensure that the button element is the one triggering events.
 
 .td-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
     min-height: $min-tap-target-size;
     min-width: $min-tap-target-size;
     padding: map-get($spacing-map, small);
@@ -16,6 +20,7 @@
     font-weight: normal;
     line-height: 1.2em;
     text-align: center;
+    text-decoration: none;
     pointer-events: initial;
     cursor: pointer;
 }

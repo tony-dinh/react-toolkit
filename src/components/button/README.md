@@ -12,6 +12,11 @@
 </Button>
 ```
 
+#### `href`
+```
+<Button href="https://google.ca" text="I'm a Link" role="primary" />
+```
+
 #### `role`
 ```
     <div>
