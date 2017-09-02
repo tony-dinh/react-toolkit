@@ -1,5 +1,8 @@
 ## Changelog
 
+### v0.1.3
+- Fix `href` Button styling (https://github.com/tony-dinh/react-toolkit/pull/20)
+
 ### v0.1.2
 - Fix incorrect lodash imports
 - Minor Input style bugs on Safari
