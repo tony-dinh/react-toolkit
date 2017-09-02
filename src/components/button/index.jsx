@@ -58,6 +58,7 @@ class Button extends React.PureComponent {
             title,
             type,
             text,
+            textClassName,
             onClick,
             onMouseEnter,
             onMouseLeave
@@ -69,7 +70,7 @@ class Button extends React.PureComponent {
         })
         const innerClasses = 'td-button__inner'
         const iconClasses = classNames('td-button__icon', iconClassName)
-        const textClasses = classNames('td-button__text', {
+        const textClasses = classNames('td-button__text', textClassName, {
             'td--icon-text': !!iconName
         })
 
@@ -164,6 +165,7 @@ Button.propTypes = {
      */
     style: PropTypes.object,
     tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    textClassName: PropTypes.string,
     title: PropTypes.string,
     type: PropTypes.oneOf([
         'button',
