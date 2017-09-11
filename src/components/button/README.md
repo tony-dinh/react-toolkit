@@ -14,7 +14,11 @@
 
 #### `href`
 ```
-<Button href="https://google.ca" text="I'm a Link" role="primary" />
+const onClick = () => {
+    console.log('<a> tag clicked')
+};
+
+<Button href="https://google.ca" text="I'm a Link" role="primary" onClick={onClick} />
 ```
 
 #### `role`
