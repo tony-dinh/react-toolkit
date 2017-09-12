@@ -77,7 +77,7 @@ class Button extends React.PureComponent {
         const ButtonWrapper = ({children, ...rest}) => {
             return href
                 ? <a {...rest} href={href}>{children}</a>
-                : <button {...rest} onClick={onClick} type={type}>{children}</button>
+                : <button {...rest} type={type}>{children}</button>
         }
 
         return (
@@ -85,6 +85,7 @@ class Button extends React.PureComponent {
                 style={style}
                 tabIndex={disabled ? -1 : tabIndex}
                 title={title || text}
+                onClick={onClick}
                 onMouseEnter={onMouseEnter && this._mouseEnter}
                 onMouseLeave={onMouseLeave && this._mouseLeave}
             >

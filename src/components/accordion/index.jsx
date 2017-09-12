@@ -115,21 +115,29 @@ class Accordion extends React.Component {
         const {
             className,
             children,
+            lazy,
             multiSelect
         } = this.props
 
         const classes = classNames('td-accordion', className)
         this.AccordionItems = React.Children.toArray(children)
+
         return (
             <div className={classes}
                 id={this.accordionId}
                 aria-multiselectable={multiSelect}
                 role="tablist"
             >
-                <ReactList
-                    length={this.AccordionItems.length}
-                    itemRenderer={this.renderItem}
-                />
+                {lazy ?
+                    <ReactList
+                        length={this.AccordionItems.length}
+                        itemRenderer={this.renderItem}
+                    />
+                :
+                    this.AccordionItems.map((_, index) => (
+                        this.renderItem(index, `accordion-${this.accordionId}__item-${index}`)
+                    ))
+                }
             </div>
         )
     }
@@ -160,6 +168,11 @@ Accordion.propTypes = {
      * Specifies which accordion cells are open by default
      */
     initialOpenItems: PropTypes.arrayOf(PropTypes.number),
+
+    /**
+     * Specifies whether to lazy load accordion items (recommended)
+     */
+    lazy: PropTypes.bool,
 
     /**
      * Enables multiple accordion cells to be expanded at a time

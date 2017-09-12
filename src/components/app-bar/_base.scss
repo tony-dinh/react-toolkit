@@ -1,0 +1,78 @@
+@import "../../styles/variables";
+
+// App Bar
+// ===
+// 1. 🍫 Default bar height
+
+$title-margin: 72px;
+$action-button-size: 44px;
+
+.td-app-bar {
+    top: 0;
+    left: 0;
+
+    height: 64px; // 1
+    width: 100%;
+}
+
+.td-app-bar__inner {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+
+    height: 100%;
+    width: 100%;
+    background-color: transparent;
+}
+
+.td-app-bar__button-group {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: inherit;
+}
+
+.td-app-bar__title {
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    height: 100%;
+    margin: 0;
+    margin-left: $title-margin;
+
+    font-size: 1em;
+    font-weight: inherit;
+    background-color: inherit;
+    pointer-events: none;
+}
+
+.td-app-bar__button {
+    padding: map-get($spacing-map, small) * 2;
+    background-color: transparent;
+}
+
+.td-app-bar__title-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+
+    height: 100%;
+    width: 100%;
+}
+
+// App Bar Theme
+// ===
+
+.td-app-bar {
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, .26);
+
+    font-size: 1.2em;
+    font-weight: 500;
+}

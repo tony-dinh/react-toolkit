@@ -2,9 +2,13 @@
 
 ### To be released
 
+### v0.2.0
+- Drawer Component deprecated prop `drawerContent` -- use `children` to render content (https://github.com/tony-dinh/react-toolkit/pull/23)
+- Accordion Component now takes `lazy` flag to determine whether to lazy load items (https://github.com/tony-dinh/react-toolkit/pull/23)
+- Bumped node version to >= 8 (https://github.com/tony-dinh/react-toolkit/pull/23)
+
 ### v0.1.3
 - Fix `href` Button styling (https://github.com/tony-dinh/react-toolkit/pull/20)
->>>>>>> master
 
 ### v0.1.2
 - Fix incorrect lodash imports
