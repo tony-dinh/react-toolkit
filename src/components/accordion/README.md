@@ -17,10 +17,32 @@ const Content = () => (
     </div>
 );
 
-<Accordion lazy>
-    {Array(5).fill().map((_, index)=>
+<Accordion>
+    {Array(5).fill().map((_, index) =>
         <AccordionItem key={index} headerContent={<div>{`Accordion ${index}`}</div>}>
             <Content />
+        </AccordionItem>
+    )}
+</Accordion>
+```
+
+### Nested Example
+```
+const AccordionItem = require('./partials/accordion-item').default;
+
+<Accordion>
+    {Array(5).fill().map((_, i) =>
+        <AccordionItem key={i} headerContent={<div>{`Accordion ${i}`}</div>}>
+            <Accordion>
+                {Array(5).fill().map((_, j) =>
+                    <AccordionItem
+                        key={j}
+                        headerContent={<div>{`Accordion ${i}.${j}`}</div>}
+                    >
+                        <div>hello</div>
+                    </AccordionItem>
+                )}
+            </Accordion>
         </AccordionItem>
     )}
 </Accordion>
