@@ -1,0 +1,68 @@
+@import "../../styles/variables";
+
+.td-segmented-bar-graph {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .td-graph-legend {
+        margin: 0 0 map-get($spacing-map, x-large) * 2 0;
+    }
+}
+
+.td-segmented-bar-graph__graph {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.td-segmented-bar-graph__labels,
+.td-segmented-bar-graph__bars {
+    list-style: none;
+    margin: map-get($spacing-map, small) 0;
+    padding: 0;
+}
+
+.td-segmented-bar-graph__labels {
+    flex: 0 0 auto;
+}
+
+.td-segmented-bar-graph__label {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 1em;
+}
+
+.td-segmented-bar-graph__label + .td-segmented-bar-graph__label,
+.td-segmented-bar + .td-segmented-bar {
+    margin-top: map-get($spacing-map, x-large);
+}
+
+.td-segmented-bar-graph__vertical-rule {
+    width: 0;
+    margin: 0 map-get($spacing-map, small);
+    border-color: currentColor;
+    border-style: solid;
+    border-width: 0 3px 0 0;
+}
+
+.td-segmented-bar-graph__bars {
+    width: 100%;
+}
+
+.td-segmented-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.td-segmented-bar__segment {
+    height: 100%;
+}
+
+.td-segmented-bar__segment + .td-segmented-bar__segment {
+    margin-left: map-get($spacing-map, x-small);
+}

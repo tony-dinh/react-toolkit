@@ -1,6 +1,6 @@
 ### Example
 ```
-<SkillPolygon
+<SkillRadar
     skills={[
         {label: 'Leadership', rating: 20},
         {label: 'Leadership', rating: 100},

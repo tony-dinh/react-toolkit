@@ -1,0 +1,31 @@
+@import "../../styles/variables";
+
+$entry-height: 1.2em;
+
+.td-graph-legend {
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+}
+
+.td-graph-legend__entry {
+    display: flex;
+    flex-direction: row;
+    height: $entry-height;
+}
+
+.td-graph-legend__entry + .td-graph-legend__entry {
+    margin-left: map-get($spacing-map, x-large) * 2;
+}
+
+.td-graph-legend__color-swatch {
+    height: $entry-height;
+    width: $entry-height;
+    margin-right: map-get($spacing-map, small);
+}
+
+.td-graph-legend__entry-label {
+    line-height: $entry-height;
+    font-size: 1em;
+}
