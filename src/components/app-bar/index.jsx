@@ -8,9 +8,6 @@ import AppBarButton from './partials/button'
 
 import './_base.scss'
 
-// Margin based on material design spec
-const TITLE_LEFT_MARGIN = 72
-
 class AppBar extends React.Component {
     setTitleStyle(style) {
         this.setState({
@@ -21,14 +18,15 @@ class AppBar extends React.Component {
     render() {
         const {
             className,
+            innerClassName,
             fixed,
             leftButton: LeftButton,
             rightButtonGroup,
             title,
         } = this.props
 
-        const classes = classNames('td-app-bar', classNames)
-        const innerClasses = 'td-app-bar__inner'
+        const classes = classNames('td-app-bar', className)
+        const innerClasses = classNames('td-app-bar__inner', innerClassName)
         const titleClasses = 'td-app-bar__title'
         const buttonGroupClasses = 'td-app-bar__button-group'
         const titleActionContainer = 'td-app-bar__title-container'
@@ -82,7 +80,7 @@ AppBar.propTypes = {
     fixed: PropTypes.bool,
     leftButton: AppBarButtonType,
     rightButtonGroup: PropTypes.array,
-    title: PropTypes.string,
+    title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     titleAlign: PropTypes.oneOf([
         'center',
         'left',

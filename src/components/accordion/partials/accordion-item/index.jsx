@@ -146,7 +146,7 @@ class AccordionItem extends React.PureComponent {
         const headerInnerClasses = 'td-accordion__header-inner'
 
         return (
-            <div id={itemId} className={classes}>
+            <li id={itemId} className={classes}>
                 <div className={headerClasses}
                     role="tab"
                     tabIndex="0"
@@ -172,7 +172,7 @@ class AccordionItem extends React.PureComponent {
                         {children}
                     </AccordionItemContent>
                 </Transition>
-            </div>
+            </li>
         )
     }
 }
