@@ -123,7 +123,7 @@ class Accordion extends React.Component {
         this.AccordionItems = React.Children.toArray(children)
 
         return (
-            <div className={classes}
+            <ul className={classes}
                 id={this.accordionId}
                 aria-multiselectable={multiSelect}
                 role="tablist"
@@ -138,7 +138,7 @@ class Accordion extends React.Component {
                         this.renderItem(index, `accordion-${this.accordionId}__item-${index}`)
                     ))
                 }
-            </div>
+            </ul>
         )
     }
 }

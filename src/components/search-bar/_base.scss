@@ -59,6 +59,9 @@
 }
 
 .td-search-bar__input-label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     opacity: 0;
     transition: opacity ease 250ms;
 }
