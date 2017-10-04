@@ -5,7 +5,7 @@ import debounce from 'lodash/debounce'
 
 import './_base.scss'
 
-class SkillRadar extends React.Component {
+class RadarGraph extends React.Component {
     constructor(props) {
         super(props)
 
@@ -54,20 +54,20 @@ class SkillRadar extends React.Component {
         const {
             className,
             color,
-            skills,
+            dataset,
             textClassName
         } = this.props
 
-        if (skills.length !== 5) {
+        if (dataset.length !== 5) {
             throw new Error(`${this.constructor.name} expects a skill prop with 5 items`)
         }
 
-        const classes = classNames('td-skill-radar', className)
-        const textClasses = classNames('td-skill-radar__text', textClassName)
+        const classes = classNames('td-radar-graph', className)
+        const textClasses = classNames('td-radar-graph__text', textClassName)
 
-        const scoreToPoints = skills.map(({rating}, index) => {
+        const scoreToPoints = dataset.map(({value}, index) => {
             const {min, max} = this.verticies[index]
-            const coordinate = this.coordinateAlongLine(min, max, rating / 100)
+            const coordinate = this.coordinateAlongLine(min, max, value / 100)
             return `${coordinate.x} ${coordinate.y}`
         })
 
@@ -76,7 +76,6 @@ class SkillRadar extends React.Component {
             color: color
         }
 
-        // 184 175
         return (
             <svg xmlns="http://www.w3.org/2000/svg" className={classes} viewBox="-108 -37.5 400 250" ref={el => this._svg = el} style={style}>
                 <g fill="none" fillRule="evenodd" stroke="#CCC">
@@ -95,11 +94,11 @@ class SkillRadar extends React.Component {
 
                     {/* Labels */}
                     <text className={textClasses} fill="#515151">
-                        <tspan x={this.verticies[0].max.x} y={this.verticies[0].max.y - 15} textAnchor="middle">{skills[0].label}</tspan>
-                        <tspan x={this.verticies[1].max.x - 15} y={this.verticies[1].max.y} textAnchor="end">{skills[1].label}</tspan>
-                        <tspan x={this.verticies[2].max.x} y={this.verticies[2].max.y + 25} textAnchor="end">{skills[2].label}</tspan>
-                        <tspan x={this.verticies[3].max.x} y={this.verticies[3].max.y + 25} textAnchor="start">{skills[3].label}</tspan>
-                        <tspan x={this.verticies[4].max.x + 15} y={this.verticies[4].max.y} textAnchor="start">{skills[4].label}</tspan>
+                        <tspan x={this.verticies[0].max.x} y={this.verticies[0].max.y - 15} textAnchor="middle">{dataset[0].label}</tspan>
+                        <tspan x={this.verticies[1].max.x - 15} y={this.verticies[1].max.y} textAnchor="end">{dataset[1].label}</tspan>
+                        <tspan x={this.verticies[2].max.x} y={this.verticies[2].max.y + 25} textAnchor="end">{dataset[2].label}</tspan>
+                        <tspan x={this.verticies[3].max.x} y={this.verticies[3].max.y + 25} textAnchor="start">{dataset[3].label}</tspan>
+                        <tspan x={this.verticies[4].max.x + 15} y={this.verticies[4].max.y} textAnchor="start">{dataset[4].label}</tspan>
                     </text>
 
                     {/* Fill Polygon */}
@@ -110,17 +109,17 @@ class SkillRadar extends React.Component {
     }
 }
 
-SkillRadar.propTypes = {
+RadarGraph.propTypes = {
     classNames: PropTypes.string,
     color: PropTypes.string,
-    skills: PropTypes.arrayOf(PropTypes.shape({
+    dataset: PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired
+        value: PropTypes.number.isRequired
     })).isRequired
 }
 
-SkillRadar.defaultProps = {
+RadarGraph.defaultProps = {
     color: 'rgba(150, 199, 206, .6)'
 }
 
-export default SkillRadar
+export default RadarGraph
