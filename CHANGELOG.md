@@ -1,5 +1,13 @@
 ## Changelog
 
+### v0.2.0
+- Segmented Bar Graph Component (https://github.com/tony-dinh/react-toolkit/pull/24)
+- Radar Graph Component (https://github.com/tony-dinh/react-toolkit/pull/24)
+- App Bar Component (https://github.com/tony-dinh/react-toolkit/pull/24)
+- Drawer Component deprecated prop `drawerContent` -- use `children` to render content (https://github.com/tony-dinh/react-toolkit/pull/23)
+- Accordion Component now takes `lazy` flag to determine whether to lazy load items (https://github.com/tony-dinh/react-toolkit/pull/23)
+- Bumped node version to >= 8 (https://github.com/tony-dinh/react-toolkit/pull/23)
+
 ### v0.1.3
 - Fix `href` Button styling (https://github.com/tony-dinh/react-toolkit/pull/20)
 

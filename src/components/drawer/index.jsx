@@ -125,12 +125,11 @@ class Drawer extends React.PureComponent {
 
     render() {
         const {
-            duration,
+            children,
             className,
-            drawerContent,
+            duration,
             innerClassName,
-            outerClassName,
-            onDismiss
+            outerClassName
         } = this.props
 
         const {
@@ -176,7 +175,7 @@ class Drawer extends React.PureComponent {
                     >
                         {/* Drawer Content Container*/}
                         <div className={innerClasses}>
-                            {drawerContent}
+                            {children}
                         </div>
                     </div>
                 </div>
@@ -187,14 +186,14 @@ class Drawer extends React.PureComponent {
 
 Drawer.propTypes = {
     /**
+     *  Content to be rendered in the drawer.
+     */
+    children: PropTypes.node,
+
+    /**
      *  Adds a user-defined class to the drawer element.
      */
     className: PropTypes.string,
-
-    /**
-     *  An element containing the contents of the drawer.
-     */
-    drawerContent: PropTypes.element,
 
     /**
      * Specifies the animation duration in milliseconds for opening/closing the drawer.

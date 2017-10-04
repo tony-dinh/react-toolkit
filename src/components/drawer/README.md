@@ -20,9 +20,11 @@ const Content = () => (
 <div>
     <Button text="Open Drawer" onClick={() => { setState({open: true}) }}/>
     <Drawer
-        drawerContent={<Content />}
         open={state.open}
-        onClose={() => { setState({open: false}) }} />
+        onClose={() => { setState({open: false}) }}
+    >
+        <Content />
+    </Drawer>
 </div>
 ```
 
