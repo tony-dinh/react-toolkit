@@ -105,6 +105,10 @@ class Input extends React.Component {
 
     keypress(e) {
         this.props.onKeyPress(e)
+
+        if (e.key === 'Enter') {
+            this.blur()
+        }
     }
 
     render() {
@@ -292,6 +296,7 @@ Input.propTypes = {
         'text',
         'email',
         'number',
+        'password',
         'telephone'
     ]),
 
