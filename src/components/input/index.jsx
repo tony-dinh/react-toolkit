@@ -57,7 +57,11 @@ class Input extends React.Component {
     }
 
     setValue(value) {
-        this.props.onChange(value)
+        if (this.state.focus) {
+            this.props.onChange(value)
+        } else {
+            this.props.onUpdate(value)
+        }
 
         if (typeof this.props.value !== 'undefined') {
             return
