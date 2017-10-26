@@ -1,0 +1,10 @@
+extends:
+  - './node_modules/@equitysim/code-style/es6/es6-react.yml'
+
+settings:
+  import/resolver:
+    webpack:
+      config: './webpack/base.config.js'
+  import/extensions: ['.js', '.jsx']
+
+parser: 'babel-eslint'

@@ -9,5 +9,13 @@
             "regenerator": false
         }],
         "transform-object-rest-spread"
-    ]
+    ],
+    "env": {
+        "commonjs": {
+            "presets": [
+                "es2015",
+                "react"
+            ]
+        }
+    }
 }

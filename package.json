@@ -1,6 +1,6 @@
 {
   "name": "@tonydinh/react-toolkit",
-  "version": "0.2.1-alpha.2",
+  "version": "1.0.0-rc.1",
   "description": "A collection of reusable react components.",
   "scripts": {
     "start": "styleguidist server",
@@ -22,6 +22,7 @@
     "url": "https://github.com/tony-dinh/react-toolkit/issues"
   },
   "devDependencies": {
+    "@equitysim/code-style": "0.0.2",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
@@ -30,6 +31,7 @@
     "babel-preset-react": "^6.24.1",
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.4",
+    "eslint-loader": "^1.9.0",
     "node-sass": "^4.5.3",
     "react-styleguidist": "^5.5.10",
     "sass-loader": "^6.0.6",
