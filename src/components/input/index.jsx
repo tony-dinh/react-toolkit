@@ -121,6 +121,7 @@ class Input extends React.Component {
             disabled,
             error,
             formId,
+            icon,
             label,
             name,
             maxLength,
@@ -146,7 +147,8 @@ class Input extends React.Component {
             'td-input--disabled': disabled,
             'td-input--blur': !focus,
             'td-input--focus': focus,
-            'td-input--error': error
+            'td-input--error': error,
+            'td-input--with-icon': icon
         })
         const innerClasses = 'td-input__inner'
         const inputClasses = 'td-input__input'
@@ -166,6 +168,13 @@ class Input extends React.Component {
         const inputStyles = active
             ? {height: `${inputHeight}px`}
             : null
+
+        let IconComponent
+
+        if (icon) {
+            const iconClasses = classNames('td-input__icon', icon.props.className)
+            IconComponent = React.cloneElement(icon, {className: iconClasses})
+        }
 
         return (
             <div className={classes} aria-disabled={disabled} ref={(el) => { this._component = el }}>
@@ -194,6 +203,8 @@ class Input extends React.Component {
                             </span>
                         </div>
                     </div>
+
+                    {IconComponent}
 
                     <input className={inputClasses}
                         form={formId}
@@ -246,6 +257,11 @@ Input.propTypes = {
      * Specifies the ID of form the input belongs to if any.
      */
     formId: PropTypes.string,
+
+    /**
+     * Specifies an icon
+     */
+    icon: PropTypes.element,
 
     /**
      * Defines the text for the input's label.

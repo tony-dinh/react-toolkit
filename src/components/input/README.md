@@ -29,6 +29,11 @@ const onUpdate = (value) => {
 <Input error="Error!!" />
 ```
 
+#### `icon`
+```
+<Input icon={<Icon name="check" />} label="Input with Icon" />
+```
+
 #### `label`
 ```
 <Input label="Label Text" maxLength={50} />

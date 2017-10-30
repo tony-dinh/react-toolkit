@@ -354,6 +354,7 @@ const ICONS = {
 class Icon extends React.PureComponent {
     render() {
         const {
+            children,
             className,
             name,
             iconRef,
@@ -363,20 +364,33 @@ class Icon extends React.PureComponent {
 
         const classes = classNames('td-icon', className)
         const svgClasses = classNames('td-icon__svg', svgClassName)
-
         const Svg = ICONS[name]
+        let customSvg
+
+        if (!Svg && children) {
+            customSvg = React.cloneElement(React.Children.toArray(children)[0], {className: svgClasses})
+        }
+
         return (
             <div ref={iconRef} style={style} className={classes}>
-                <Svg className={svgClasses} />
+                {Svg ? <Svg className={svgClasses} /> : customSvg}
             </div>
         )
     }
 }
 
+const SvgElementType = (props, propName, componentName) => {
+    const prop = props[propName]
+    const children = React.Children.toArray(prop)
+    return (children.length > 1 && new Error(`${componentName} expects an 'svg' element for the 'children' prop`)) ||
+        (children.find((child) => child.type !== 'svg') && new Error(`${componentName} only accepts 'svg' elements`))
+}
+
 Icon.propTypes = {
-    name: PropTypes.oneOf(Object.keys(ICONS)).isRequired,
+    children: SvgElementType,
     className: PropTypes.string,
     iconRef: PropTypes.func,
+    name: PropTypes.oneOf(Object.keys(ICONS)),
     style: PropTypes.object,
     svgClassName: PropTypes.string,
 }

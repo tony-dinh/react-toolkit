@@ -1,7 +1,8 @@
-.td-input__input {
+.td-input__inner {
     border-color: $grey-70;
 }
 
+.td-input__icon,
 .td-input__label,
 .td-input__count {
     color: $grey-70;
@@ -13,12 +14,13 @@
 
 .td-input__input-accessories,
 .td-input.td-input--focus .td-input__count,
+.td-input.td-input--focus .td-input__icon,
 .td-input.td-input--focus .td-input__label {
     color: $primary-color;
 }
 
 .td-input.td-input--error {
-    .td-input__input {
+    .td-input__inner {
         border-color: $fail-color;
     }
 
@@ -29,6 +31,7 @@
         transition: color 250ms ease;
     }
 
+    .td-input__icon,
     .td-input__input-accessories,
     .td-input.td-input--focus .td-input__count,
     .td-input.td-input--active .td-input__label {
@@ -37,6 +40,7 @@
 }
 
 .td-input.td-input--disabled {
+    .td-input__icon,
     .td-input__label,
     .td-input__count,
     .td-input__input {
