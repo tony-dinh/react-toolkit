@@ -38,7 +38,6 @@ class Input extends React.Component {
 
         const componentHeight = this._component.getBoundingClientRect().height
         const inputHeight = this._input.getBoundingClientRect().height
-        const verticalPadding = this._input.style.paddingTop
 
         this.setState({
             componentHeight,
@@ -152,7 +151,7 @@ class Input extends React.Component {
         const innerClasses = 'td-input__inner'
         const inputClasses = 'td-input__input'
         const countClasses = classNames('td-input__count', {
-            'td-input--invisible': maxLength == null
+            'td-input--invisible': maxLength === null || maxLength === undefined
         })
         const accessoryWrapperClasses = 'td-input__input-accessories'
         const decorationWrapperClasses = 'td-input__decorations'
@@ -169,7 +168,7 @@ class Input extends React.Component {
             : null
 
         return (
-            <div className={classes} aria-disabled={disabled} ref={el => this._component = el}>
+            <div className={classes} aria-disabled={disabled} ref={(el) => { this._component = el }}>
                 <div className={innerClasses}>
 
                     {/* Input, Error, MaxLength Labels */}
@@ -181,7 +180,7 @@ class Input extends React.Component {
                                 {label}
                             </label>
                         }
-                        <div className={phantomInputClasses} style={inputStyles}></div>
+                        <div className={phantomInputClasses} style={inputStyles} />
 
                         <div className={decorationWrapperClasses}>
                             {error && error.length &&
@@ -214,7 +213,7 @@ class Input extends React.Component {
                         onChange={this.change}
                         onClick={this.click}
                         onKeyPress={this.keypress}
-                        ref={el => this._input = el}
+                        ref={(el) => { this._input = el }}
                     />
                 </div>
             </div>
@@ -254,11 +253,6 @@ Input.propTypes = {
     label: PropTypes.string,
 
     /**
-     * Defines the name of the input.
-     */
-    name: PropTypes.string,
-
-    /**
      * Defines the maximum length for the input.
      */
     maxLength: PropTypes.number,
@@ -274,9 +268,9 @@ Input.propTypes = {
     minNum: PropTypes.number,
 
     /**
-     * Defines the step value for a `number` input type.
+     * Defines the name of the input.
      */
-    stepValue: PropTypes.number,
+    name: PropTypes.string,
 
     /**
      * Defines a placeholder for the input.
@@ -287,6 +281,11 @@ Input.propTypes = {
      * Specifies whether the input is read-only
      */
     readOnly: PropTypes.bool,
+
+    /**
+     * Defines the step value for a `number` input type.
+     */
+    stepValue: PropTypes.number,
 
     /**
      * Specifies the tab index of the input

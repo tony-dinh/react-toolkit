@@ -1,17 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import isEqual from 'lodash/isEqual'
 import FormButton from '../form-button'
 import FormField from '../form-field'
 
 const noop = () => {}
 
 class FormFieldGroup extends React.PureComponent {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         const {
             className,
@@ -24,21 +19,35 @@ class FormFieldGroup extends React.PureComponent {
             onValidate
         } = this.props
 
-        const FormFields = React.Children.map(children, (element, index) => {
-            switch(element.type) {
+        const FormElements = React.Children.map(children, (element, index) => {
+            switch (element.type) {
                 case FormField:
-                    const fieldName = element.props.name
-                    const fieldProps = {
+                    return React.cloneElement(element, {
                         ...element.props,
-                        key: `${name}-${formId}__${fieldName}`,
-                        error: error && error[fieldName] || null,
-                        formId: formId,
+                        key: `${formId}__${element.props.name}`,
+                        error: error && error[element.props.name] || null,
+                        formId,
                         validate,
-                        onValidate: onValidate,
-                        onUpdate: onUpdate,
-                    }
+                        onValidate,
+                        onUpdate,
+                    })
 
-                    return React.cloneElement(element, fieldProps)
+                case FormFieldGroup:
+                    return React.cloneElement(element, {
+                        ...element.props,
+                        key: `${formId}__field-group-${index}`,
+                        error: error || null,
+                        formId,
+                        validate,
+                        onValidate,
+                        onUpdate,
+                    })
+
+                case FormButton:
+                    return React.cloneElement(element, {
+                        ...element.props,
+                        key: `${formId}__button-${index}`
+                    })
 
                 default:
                     return element
@@ -47,19 +56,21 @@ class FormFieldGroup extends React.PureComponent {
 
         return (
             <div className={className} style={style}>
-                {FormFields}
+                {FormElements}
             </div>
         )
     }
 }
 
-FormFieldGroup.PropTypes = {
+FormFieldGroup.propTypes = {
     children: PropTypes.node,
+    className: PropTypes.string,
     error: PropTypes.object,
-    formId: PropTypes.string.isRequired,
+    formId: PropTypes.string,
+    style: PropTypes.object,
     validate: PropTypes.func,
     onUpdate: PropTypes.func,
-    onValidate: PropTypes.func
+    onValidate: PropTypes.func,
 }
 
 FormFieldGroup.defaultProps = {

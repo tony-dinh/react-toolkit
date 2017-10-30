@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 import GraphLegend from '../graph-legend'
 import SegmentedBar from './partials/segmented-bar'
-import "./_base.scss"
+import './_base.scss'
 
 const uuid = (() => {
     let i = 0

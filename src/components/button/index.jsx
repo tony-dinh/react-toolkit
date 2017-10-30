@@ -91,7 +91,7 @@ class Button extends React.PureComponent {
             >
                 {children ?
                     children
-                :
+                    :
                     <div className={innerClasses}>
                         {!!iconName && iconPosition === 'start' &&
                             <Icon className={iconClasses} name={iconName} />
@@ -166,13 +166,13 @@ Button.propTypes = {
      */
     style: PropTypes.object,
     tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    text: PropTypes.string,
     textClassName: PropTypes.string,
     title: PropTypes.string,
     type: PropTypes.oneOf([
         'button',
         'submit'
     ]),
-    text: PropTypes.string,
     onClick: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func
@@ -182,7 +182,9 @@ Button.defaultProps = {
     disabled: false,
     iconPosition: 'start',
     tabIndex: 0,
-    type: 'button'
+    type: 'button',
+    onMouseEnter: noop,
+    onMouseLeave: noop
 }
 
 export default Button

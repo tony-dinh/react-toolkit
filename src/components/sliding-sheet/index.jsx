@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Transition from 'react-transition-group/Transition'
 
-import Icon from '../icon'
-
 import './_base.scss'
 
 const noop = () => {}
@@ -193,14 +191,14 @@ SlidingSheet.propTypes = {
     easing: PropTypes.string,
 
     /**
-     * Defines whether the sheet is showing or not.
-     */
-    showing: PropTypes.bool,
-
-    /**
      * Adds a user-defined class to the sheet element.
      */
     sheetClassName: PropTypes.string,
+
+    /**
+     * Defines whether the sheet is showing or not.
+     */
+    showing: PropTypes.bool,
 
     /**
      * Enables users to dismiss the sheet by clicking/tapping outside.

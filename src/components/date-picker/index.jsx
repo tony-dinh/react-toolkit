@@ -45,13 +45,12 @@ class DatePicker extends React.PureComponent {
             maxDate,
             minDate,
             mode,
-            showIcon,
-            onChange
+            showIcon
         } = this.props
 
         this.fp = flatpickr(this._container, {
             altInput: humanReadable,
-            defaultDate: defaultDate,
+            defaultDate,
             disable: disabledDates,
             enableTime: false,
             maxDate,
@@ -82,7 +81,7 @@ class DatePicker extends React.PureComponent {
         this.props.onBlur()
     }
 
-    onDateSelected(selectedDates, dateString, instance) {
+    onDateSelected(selectedDates, dateString) {
         if (this.props.mode === 'single') {
             if (dateString !== this.state.dateString) {
                 this.setState({
@@ -92,12 +91,13 @@ class DatePicker extends React.PureComponent {
                 this.props.onChange(dateString, selectedDates)
             }
         } else {
-            if (!isEqual(selectedDates, this.state.selectedDates) || !isEqual(dateString, this.state.dateString))
-            this.setState({
-                dateString,
-                selectedDates
-            })
-            this.props.onChange(dateString, selectedDates)
+            if (!isEqual(selectedDates, this.state.selectedDates) || !isEqual(dateString, this.state.dateString)) {
+                this.setState({
+                    dateString,
+                    selectedDates
+                })
+                this.props.onChange(dateString, selectedDates)
+            }
         }
     }
 
@@ -231,6 +231,11 @@ DatePicker.propTypes = {
     inputClassName: PropTypes.string,
 
     /**
+     * Adds a user-defined class to the input wrapper element.
+     */
+    inputWrapperClassName: PropTypes.string,
+
+    /**
      * Defines the label text to be displayed above the input field.
      */
     label: PropTypes.string,
@@ -241,13 +246,9 @@ DatePicker.propTypes = {
     labelClassName: PropTypes.string,
 
     /**
-     *  Specifies the date selection mode.
+     * Defines an upper bound for displayed dates.
      */
-    mode: PropTypes.oneOf([
-        'single',
-        'multiple',
-        'range'
-    ]),
+    maxDate: PropTypes.instanceOf(Date),
 
     /**
      * Specifies a lower bound for displayed dates.
@@ -255,9 +256,13 @@ DatePicker.propTypes = {
     minDate: PropTypes.instanceOf(Date),
 
     /**
-     * Defines an upper bound for displayed dates.
+     *  Specifies the date selection mode.
      */
-    maxDate: PropTypes.instanceOf(Date),
+    mode: PropTypes.oneOf([
+        'single',
+        'multiple',
+        'range'
+    ]),
 
     /**
      * Defines the placeholder text to be displayed in the input field.

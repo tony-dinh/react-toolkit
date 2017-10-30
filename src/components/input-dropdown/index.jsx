@@ -25,12 +25,13 @@ class InputDropdown extends React.PureComponent {
     }
 
     blur(e) {
-        this._dropdownComponent.blur()
-        this._inputComponent.blur()
+        e && e.persist()
+        this._dropdownComponent.blur(e)
+        this._inputComponent.blur(e)
     }
 
     change(selectedItem) {
-        if(selectedItem) {
+        if (selectedItem) {
             this.setState({
                 value: selectedItem.value,
                 label: selectedItem.label
@@ -49,18 +50,18 @@ class InputDropdown extends React.PureComponent {
         if (e && e.target !== e.currentTarget) {
             return
         }
-
-        this._dropdownComponent.click()
+        e && e.persist()
+        this._dropdownComponent.click(e)
         this._inputComponent.focus()
     }
 
     focus(e) {
+        e && e.persist()
         this._dropdownComponent.click()
-        this._inputComponent.focus()
+        this._inputComponent.focus(e)
     }
 
     render() {
-
         const {
             className,
             error,
@@ -72,7 +73,6 @@ class InputDropdown extends React.PureComponent {
         } = this.props
 
         const {
-            value,
             label
         } = this.state
 
@@ -93,24 +93,24 @@ class InputDropdown extends React.PureComponent {
                     label={inputLabel}
                     placeholder={placeholder}
                     readOnly
-                    ref={el => this._inputComponent = el}
-                    tabIndex='-1'
+                    ref={(el) => { this._inputComponent = el }}
+                    tabIndex={-1}
                     value={label}
                 />
 
                 <Dropdown className={dropDownClasses}
                     listClassName={listClasses}
                     source={source}
-                    tabIndex='-1'
+                    tabIndex={-1}
                     onItemSelected={this.change}
-                    ref={el => this._dropdownComponent = el}
+                    ref={(el) => { this._dropdownComponent = el }}
                 />
             </div>
         )
     }
 }
 
-InputDropdown.PropTypes = {
+InputDropdown.propTypes = {
     autoFocus: PropTypes.bool,
     className: PropTypes.string,
     error: PropTypes.string,
@@ -118,10 +118,10 @@ InputDropdown.PropTypes = {
     name: PropTypes.string,
     placeholder: PropTypes.string,
     source: PropTypes.array,
+    tabIndex: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     onBlur: PropTypes.func,
     onFocus: PropTypes.func,
     onUpdate: PropTypes.func,
-    tabIndex: PropTypes.string
 }
 
 InputDropdown.defaultProps = {

@@ -1,22 +1,14 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
-
 import Button from '../../../button'
 
-class FormButton extends React.PureComponent {
-    constructor(props) {
-        super(props)
-    }
+const FormButton = (props) => {
+    const {
+        button: Button,
+        ...rest
+    } = props
 
-    render() {
-        const {
-            button: Button,
-            ...rest
-        } = this.props
-
-        return <Button {...rest} />
-    }
+    return <Button {...rest} />
 }
 
 FormButton.propTypes = {

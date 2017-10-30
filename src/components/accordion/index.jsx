@@ -1,4 +1,4 @@
-import React  from 'react'
+import React from 'react'
 import ReactList from 'react-list'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
@@ -108,7 +108,7 @@ class Accordion extends React.Component {
         childProps.onClose = childProps.onClose || onItemClose
         childProps.onDidClose = childProps.onDidClose || onItemDidClose
 
-        return React.cloneElement(child, {...childProps, key: key})
+        return React.cloneElement(child, {...childProps, key})
     }
 
     render() {
@@ -133,7 +133,7 @@ class Accordion extends React.Component {
                         length={this.AccordionItems.length}
                         itemRenderer={this.renderItem}
                     />
-                :
+                    :
                     this.AccordionItems.map((_, index) => (
                         this.renderItem(index, `accordion-${this.accordionId}__item-${index}`)
                     ))
@@ -180,22 +180,6 @@ Accordion.propTypes = {
     multiSelect: PropTypes.bool,
 
     /**
-     * User-defined function which triggers when an accordion cell is opening.
-     * ```jsx
-     * function(itemId) {...}
-     * ```
-     */
-    onItemOpen: PropTypes.func,
-
-    /**
-     * User-defined function which triggers after an accordion cell has opened.
-     * ```jsx
-     * function(itemId) {...}
-     * ```
-     */
-    onItemDidOpen: PropTypes.func,
-
-    /**
      * User-defined function which triggers when an accordion cell is closing.
      * ```jsx
      * function(itemId) {...}
@@ -209,7 +193,23 @@ Accordion.propTypes = {
      * function(itemId) {...}
      * ```
      */
-    onItemDidClose: PropTypes.func
+    onItemDidClose: PropTypes.func,
+
+    /**
+     * User-defined function which triggers after an accordion cell has opened.
+     * ```jsx
+     * function(itemId) {...}
+     * ```
+     */
+    onItemDidOpen: PropTypes.func,
+
+    /**
+     * User-defined function which triggers when an accordion cell is opening.
+     * ```jsx
+     * function(itemId) {...}
+     * ```
+     */
+    onItemOpen: PropTypes.func,
 }
 
 Accordion.defaultProps = {

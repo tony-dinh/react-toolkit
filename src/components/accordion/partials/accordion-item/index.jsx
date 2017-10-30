@@ -1,4 +1,4 @@
-import React  from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import Transition from 'react-transition-group/Transition'
 import classNames from 'classnames'
@@ -131,7 +131,6 @@ class AccordionItem extends React.PureComponent {
             className,
             children,
             duration,
-            easing,
             headerClassName,
             headerContent: HeaderContent,
             itemId,
@@ -167,7 +166,7 @@ class AccordionItem extends React.PureComponent {
                 >
                     <AccordionItemContent
                         style={this.state.style}
-                        ref={(el) => {this._content = el}}
+                        ref={(el) => { this._content = el }}
                     >
                         {children}
                     </AccordionItemContent>
@@ -178,8 +177,8 @@ class AccordionItem extends React.PureComponent {
 }
 
 AccordionItem.propTypes = {
-    className: PropTypes.string,
     children: PropTypes.element,
+    className: PropTypes.string,
     duration: PropTypes.number,
     easing: PropTypes.string,
     headerClassName: PropTypes.string,
@@ -188,9 +187,9 @@ AccordionItem.propTypes = {
     open: PropTypes.bool,
     onClick: PropTypes.func,
     onClose: PropTypes.func,
-    onOpen: PropTypes.func,
     onDidClose: PropTypes.func,
-    onDidOpen: PropTypes.func
+    onDidOpen: PropTypes.func,
+    onOpen: PropTypes.func,
 }
 
 AccordionItem.defaultProps = {

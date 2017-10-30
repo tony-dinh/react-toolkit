@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
-import debounce from 'lodash/debounce'
 
 import './_base.scss'
 
@@ -73,24 +72,24 @@ class RadarGraph extends React.Component {
 
         const polygon = scoreToPoints.join(' ')
         const style = {
-            color: color
+            color
         }
 
         return (
-            <svg xmlns="http://www.w3.org/2000/svg" className={classes} viewBox="-108 -37.5 400 250" ref={el => this._svg = el} style={style}>
+            <svg xmlns="http://www.w3.org/2000/svg" className={classes} viewBox="-108 -37.5 400 250" ref={(el) => { this._svg = el }} style={style}>
                 <g fill="none" fillRule="evenodd" stroke="#CCC">
-                    <polygon strokeWidth=".75" points="91.697 .4632 .441 66.7652 35.298 174.0432 148.096 174.0432 182.953 66.7652"/>
-                    <polygon strokeWidth=".5" points="91.697 19.6552 18.6922 72.6968 46.5778 158.5192 136.8162 158.5192 164.7018 72.6968"/>
-                    <polygon strokeWidth=".5" points="91.697 38.8472 36.9434 78.6284 57.8576 142.9952 125.5364 142.9952 146.4506 78.6284"/>
-                    <polygon strokeWidth=".5" points="91.697 58.0392 55.1946 84.56 69.1374 127.4712 114.2566 127.4712 128.1994 84.56"/>
-                    <polygon strokeWidth=".5" points="91.697 77.2312 73.4458 90.4916 80.4172 111.9472 102.9768 111.9472 109.9482 90.4916"/>
+                    <polygon strokeWidth=".75" points="91.697 .4632 .441 66.7652 35.298 174.0432 148.096 174.0432 182.953 66.7652" />
+                    <polygon strokeWidth=".5" points="91.697 19.6552 18.6922 72.6968 46.5778 158.5192 136.8162 158.5192 164.7018 72.6968" />
+                    <polygon strokeWidth=".5" points="91.697 38.8472 36.9434 78.6284 57.8576 142.9952 125.5364 142.9952 146.4506 78.6284" />
+                    <polygon strokeWidth=".5" points="91.697 58.0392 55.1946 84.56 69.1374 127.4712 114.2566 127.4712 128.1994 84.56" />
+                    <polygon strokeWidth=".5" points="91.697 77.2312 73.4458 90.4916 80.4172 111.9472 102.9768 111.9472 109.9482 90.4916" />
 
                     {/* Diagonals */}
-                    <polygon strokeWidth=".5" points="91.697 .4632 91.697 96.4232"/>
-                    <polygon strokeWidth=".5" points=".441 66.7652 91.697 96.4232"/>
-                    <polygon strokeWidth=".5" points="35.298 174.0432 91.697 96.4232"/>
-                    <polygon strokeWidth=".5" points="148.096 174.0432 91.697 96.4232"/>
-                    <polygon strokeWidth=".5" points="182.953 66.7652 91.697 96.4232"/>
+                    <polygon strokeWidth=".5" points="91.697 .4632 91.697 96.4232" />
+                    <polygon strokeWidth=".5" points=".441 66.7652 91.697 96.4232" />
+                    <polygon strokeWidth=".5" points="35.298 174.0432 91.697 96.4232" />
+                    <polygon strokeWidth=".5" points="148.096 174.0432 91.697 96.4232" />
+                    <polygon strokeWidth=".5" points="182.953 66.7652 91.697 96.4232" />
 
                     {/* Labels */}
                     <text className={textClasses} fill="#515151">
@@ -110,12 +109,13 @@ class RadarGraph extends React.Component {
 }
 
 RadarGraph.propTypes = {
-    classNames: PropTypes.string,
-    color: PropTypes.string,
     dataset: PropTypes.arrayOf(PropTypes.shape({
         label: PropTypes.string.isRequired,
         value: PropTypes.number.isRequired
-    })).isRequired
+    })).isRequired,
+    className: PropTypes.string,
+    color: PropTypes.string,
+    textClassName: PropTypes.string
 }
 
 RadarGraph.defaultProps = {

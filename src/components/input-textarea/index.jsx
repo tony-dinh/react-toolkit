@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
@@ -38,7 +37,7 @@ class InputTextArea extends React.Component {
             return
         }
 
-        const textArea = ReactDOM.findDOMNode(this._textAreaComponent)
+        const textArea = this._textAreaComponent
         const textareaHeight = textArea.getBoundingClientRect().height
 
         this.resize(textareaHeight)
@@ -76,7 +75,8 @@ class InputTextArea extends React.Component {
             focus: false
         })
 
-        onBlur()
+        e && e.persist()
+        onBlur(e)
         onUpdate(this.getValue())
     }
 
@@ -110,13 +110,10 @@ class InputTextArea extends React.Component {
             placeholder,
             readOnly,
             tabIndex,
-            type,
         } = this.props
 
         const {
-            componentHeight,
-            focus,
-            textareaHeight
+            focus
         } = this.state
 
         const value = this.getValue()
@@ -131,7 +128,7 @@ class InputTextArea extends React.Component {
         const innerClasses = 'td-input-textarea__inner'
         const inputClasses = 'td-input-textarea__input'
         const countClasses = classNames('td-input-textarea__count', {
-            'td-input-textarea--invisible': maxLength == null
+            'td-input-textarea--invisible': maxLength === null || maxLength === undefined
         })
         const accessoryWrapperClasses = 'td-input-textarea__input-accessories'
         const decorationWrapperClasses = 'td-input-textarea__decorations'
@@ -139,12 +136,8 @@ class InputTextArea extends React.Component {
         const labelClasses = 'td-input-textarea__label'
         const phantomInputClasses = 'td-input-textarea__phantom-input'
 
-        const inputStyles = active
-            ? {height: `${textareaHeight}px`}
-            : null
-
         return (
-            <div className={classes} aria-disabled={disabled} ref={el => this._component = el}>
+            <div className={classes} aria-disabled={disabled} ref={(el) => { this._component = el }}>
                 <div className={innerClasses}>
 
                     {/* Input, Error, MaxLength Labels */}
@@ -154,7 +147,7 @@ class InputTextArea extends React.Component {
                                 {label}
                             </label>
                         }
-                        <div className={phantomInputClasses}></div>
+                        <div className={phantomInputClasses} />
 
                         <div className={decorationWrapperClasses}>
                             {error && error.length &&
@@ -183,7 +176,7 @@ class InputTextArea extends React.Component {
                         onChange={this.change}
                         onFocus={this.focus}
                         onResize={this.resize}
-                        ref={el => this._textAreaComponent = el}
+                        nodeRef={(el) => { this._textAreaComponent = el }}
                     />
                 </div>
             </div>

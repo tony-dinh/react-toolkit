@@ -13,6 +13,7 @@ class Switch extends React.PureComponent {
         this.adjustKnobSize = this.adjustKnobSize.bind(this)
         this.toggle = this.toggle.bind(this)
         this.onChange = this.onChange.bind(this)
+        this.isOn = this.isOn.bind(this)
 
         this.state = {
             on: !!(this.props.on),
@@ -33,6 +34,12 @@ class Switch extends React.PureComponent {
         this.adjustKnobSize()
     }
 
+    isOn() {
+        return this.props.on !== null && this.props.on !== undefined
+            ? this.props.on
+            : this.state.on
+    }
+
     adjustKnobSize() {
         const switchStyles = getComputedStyle(this._inner)
         const switchHeight = parseInt(switchStyles.height)
@@ -42,13 +49,13 @@ class Switch extends React.PureComponent {
             knobStyle: {
                 height: `${knobHeight}px`,
                 width: `${knobHeight}px`,
-                borderRadius: `${knobHeight/2}px`,
+                borderRadius: `${knobHeight / 2}px`,
             }
         })
     }
 
     toggle() {
-        if (this.props.on != null) {
+        if (this.props.on !== null && this.props.on !== undefined) {
             this.onChange(!this.props.on)
             return
         }
@@ -74,9 +81,7 @@ class Switch extends React.PureComponent {
         } = this.props
 
         // Use props to drive the state, otherwise let it manage its own state.
-        const on  = this.props.on != null
-            ? this.props.on
-            : this.state.on
+        const on = this.isOn()
 
         const classes = classNames('td-switch', {
             'td--switch-on': on,

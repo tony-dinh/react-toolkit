@@ -7,56 +7,46 @@ import Loader from '../loader'
 
 import './_base.scss'
 
-class LoadingContainer extends React.PureComponent {
-    constructor(props) {
-        super(props)
-    }
+const LoadingContainer = ({
+    children,
+    className,
+    loader: LoaderElement,
+    loading,
+    showContentWhileLoading,
+    style
+}) => {
+    const classes = classNames('td-loading-container', className)
+    const innerClasses = classNames('td-loading-container__inner', {
+        'td--fade-in': loading,
+        'td--fade-out': !loading
+    })
 
-    render() {
-        const {
-            animationDuration,
-            className,
-            children,
-            loader: LoaderElement,
-            loaderColor,
-            loading,
-            showContentWhileLoading,
-            style
-        } = this.props
-
-        const classes = classNames('td-loading-container', className)
-        const innerClasses = classNames('td-loading-container__inner', {
-            'td--fade-in': loading,
-            'td--fade-out': !loading
-        })
-
-        return (
-            <div className={classes} style={style}>
-                <Transition
-                    in={loading}
-                    timeout={250}
-                    unmountOnExit={true}
-                >
-                    {LoaderElement ?
-                        LoaderElement
+    return (
+        <div className={classes} style={style}>
+            <Transition
+                in={loading}
+                timeout={250}
+                unmountOnExit={true}
+            >
+                {LoaderElement ?
+                    LoaderElement
                     :
-                        <div className={innerClasses}>
-                            <Loader color="white" duration={1200} />
-                        </div>
-                    }
-                </Transition>
-
-                {((showContentWhileLoading && loading) || !loading) &&
-                    children
+                    <div className={innerClasses}>
+                        <Loader color="white" duration={1200} />
+                    </div>
                 }
-            </div>
-        )
-    }
+            </Transition>
+
+            {((showContentWhileLoading && loading) || !loading) &&
+                children
+            }
+        </div>
+    )
 }
 
 LoadingContainer.propTypes = {
-    className: PropTypes.string,
     children: PropTypes.element,
+    className: PropTypes.string,
     loader: PropTypes.element,
     loading: PropTypes.bool,
     showContentWhileLoading: PropTypes.bool,

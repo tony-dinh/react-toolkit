@@ -13,7 +13,7 @@ import './_base.scss'
 
 const Skeleton = ({tag: Tag, className, style}) => {
     const classes = classNames('td-skeleton', className)
-    return <Tag className={classes} style={style}></Tag>
+    return <Tag className={classes} style={style} />
 }
 
 Skeleton.propTypes = {

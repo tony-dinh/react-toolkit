@@ -93,14 +93,14 @@ class Checkbox extends React.PureComponent {
 
         const classes = classNames('td-checkbox', className)
         const inputClasses = classNames('td-checkbox__input', inputClassName, {
-            [classNames('td--checkbox-checked', checkedClassName)] : checked
+            [classNames('td--checkbox-checked', checkedClassName)]: checked
         })
         const iconClasses = 'td-checkbox__icon'
 
         return (
             <div className={classes}
                 onClick={onToggle}
-                ref={el => this._checkboxContainer = el}
+                ref={(el) => { this._checkboxContainer = el }}
             >
                 <span className={inputClasses}
                     style={style}
@@ -126,10 +126,10 @@ class Checkbox extends React.PureComponent {
 }
 
 Checkbox.propTypes = {
-    className: PropTypes.string,
-    checkedClassName: PropTypes.string,
-    inputClassName: PropTypes.string,
     checked: PropTypes.bool,
+    checkedClassName: PropTypes.string,
+    className: PropTypes.string,
+    inputClassName: PropTypes.string,
     name: PropTypes.string,
     onToggle: PropTypes.func
 }
@@ -138,6 +138,5 @@ Checkbox.defaultProps = {
     checked: false,
     onToggle: noop
 }
-
 
 export default Checkbox

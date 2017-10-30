@@ -46,8 +46,8 @@ class TimePicker extends React.PureComponent {
             ? moment(maxTime, this.timeFormat)
             : undefined
 
-        return defaultDate < minDate || defaultDate > maxDate
-            ? minTime ? minTime : maxTime
+        return (minDate && defaultDate < minDate) || (maxDate && defaultDate > maxDate)
+            ? minTime || maxTime
             : defaultTime
     }
 
@@ -95,7 +95,7 @@ class TimePicker extends React.PureComponent {
         this.fp.open()
     }
 
-    TimeSelected(selectedDates, dateStr, instance) {
+    TimeSelected(selectedDates, dateStr) {
         if (dateStr !== this.state.value) {
             this.props.onChange(dateStr)
             this.setState({
@@ -192,17 +192,15 @@ class TimePicker extends React.PureComponent {
 }
 
 const DateFormatPropType = (props, propName, componentName) => {
-    if (props[propName] == null) {
-        return
+    if (props[propName] === null || props[propName] === undefined) {
+        return null
     }
 
     if (!/^\d{1,2}:\d{1,2}$/.test(props[propName])) {
-        debugger
-      return new Error(
-        'Invalid prop `' + propName + '` supplied to' +
-        ' `' + componentName + '`. Validation failed.'
-      );
+        return new Error(`Invalid prop ${propName} supplied to ${componentName}. Validation failed.`)
     }
+
+    return null
 }
 
 const now = new Date()
@@ -241,6 +239,11 @@ TimePicker.propTypes = {
      *  Adds a user-defined class to the input element.
      */
     inputClassName: PropTypes.string,
+
+    /**
+     *  Adds a user-defined class to the input wrapper element.
+     */
+    inputWrapperClassName: PropTypes.string,
 
     /**
      * Specifies the label text to be displayed above the input field.

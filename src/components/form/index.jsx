@@ -63,7 +63,7 @@ class Form extends React.PureComponent {
             data
         } = this.state
 
-        let error = {...this.state.error}
+        const error = {...this.state.error}
         let newError = false
 
         const validateEl = (element) => {
@@ -123,22 +123,20 @@ class Form extends React.PureComponent {
         const classes = classNames('td-form', className)
 
         this.FormElements = React.Children.map(children, (element, index) => {
-            switch(element.type) {
+            switch (element.type) {
                 case FormField:
-                    const fieldName = element.props.name
-                    const fieldProps = {
+                    return React.cloneElement(element, {
                         ...element.props,
-                        key: `${name}-${this.id}__${fieldName}`,
-                        error: error && error[fieldName] || null,
+                        key: `${name}-${this.id}__${element.props.name}`,
+                        error: error && error[element.props.name] || null,
                         formId: this.id,
                         validate,
                         onValidate: this.onValidateField,
                         onUpdate: this.update,
-                    }
-                    return React.cloneElement(element, fieldProps)
+                    })
 
                 case FormFieldGroup:
-                    const fieldGroupProps = {
+                    return React.cloneElement(element, {
                         ...element.props,
                         key: `${name}-${this.id}__field-group-${index}`,
                         error: error || null,
@@ -146,16 +144,14 @@ class Form extends React.PureComponent {
                         validate,
                         onValidate: this.onValidateField,
                         onUpdate: this.update,
-                    }
-
-                    return React.cloneElement(element, fieldGroupProps)
+                    })
 
                 case FormButton:
-                    const buttonProps = {
+                    return React.cloneElement(element, {
                         ...element.props,
-                        key: `${name}-${this.id}__button-${index}`
-                    }
-                    return React.cloneElement(element, buttonProps)
+                        key: `${name}-${this.id}__button-${index}`,
+                        formId: this.id,
+                    })
 
                 default:
                     return element
@@ -173,26 +169,10 @@ class Form extends React.PureComponent {
     }
 }
 
-const FormFieldType = (props, propName, componentName) => {
-    const allowedTypes = [
-        FormField,
-        FormButton
-    ]
-
-    const isValid = React.Children
-        .toArray(props[propName])
-        .every((child) => allowedTypes.includes(child.type))
-
-    if (isValid) {
-        return null
-    }
-
-    return new Error(`Invalid prop ${propName} supplied to ${componentName}.`);
-}
-
 Form.propTypes = {
-    children: PropTypes.node,
     name: PropTypes.string.isRequired,
+    children: PropTypes.node,
+    className: PropTypes.string,
     validate: PropTypes.func,
     onSubmit: PropTypes.func
 }

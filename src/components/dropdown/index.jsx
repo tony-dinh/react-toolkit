@@ -102,6 +102,8 @@ class Dropdown extends React.PureComponent {
 
 Dropdown.propTypes = {
     animationDuration: PropTypes.number,
+    className: PropTypes.string,
+    listClassName: PropTypes.string,
     source: PropTypes.arrayOf(PropTypes.shape({
         value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         label: PropTypes.string
@@ -111,7 +113,6 @@ Dropdown.propTypes = {
      * Specifies the tab index of the button
      */
     tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-
     onBlur: PropTypes.func,
     onItemSelected: PropTypes.func
 }
@@ -124,6 +125,5 @@ Dropdown.defaultProps = {
     onFocus: noop,
     onItemSelected: noop
 }
-
 
 export default Dropdown

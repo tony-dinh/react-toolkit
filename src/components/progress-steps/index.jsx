@@ -76,5 +76,10 @@ const ProgressSteps = ({className, children}) => {
     )
 }
 
+ProgressSteps.propTypes = {
+    children: PropTypes.node,
+    className: PropTypes.string
+}
+
 export {ProgressStepsItem, ProgressSteps}
 export default ProgressSteps

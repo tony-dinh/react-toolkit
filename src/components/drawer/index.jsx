@@ -16,9 +16,10 @@ class Drawer extends React.PureComponent {
         this.animate = this.animate.bind(this)
         this.animateOpen = this.animateOpen.bind(this)
         this.animateClose = this.animateClose.bind(this)
+        this.isOpen = this.isOpen.bind(this)
         this.onAnimationComplete = this.onAnimationComplete.bind(this)
 
-        const open = this.props.open != null
+        const open = this.props.open !== null && this.props.open !== undefined
             ? undefined
             : false
 
@@ -29,6 +30,23 @@ class Drawer extends React.PureComponent {
             },
             style: null
         }
+    }
+
+    isOpen() {
+        return this.props.open !== null && this.props.open !== undefined
+            ? this.props.open
+            : this.state.open
+    }
+
+    setOpen(open) {
+        if (this.props.open !== null && this.props.open !== undefined && !open) {
+            this.props.onClose()
+            return
+        }
+
+        this.setState({
+            open
+        })
     }
 
     animateOpen() {
@@ -97,9 +115,7 @@ class Drawer extends React.PureComponent {
             onDidOpen
         } = this.props
 
-        const open = this.props.open != null
-            ? this.props.open
-            : this.state.open
+        const open = this.isOpen()
 
         if (open) {
             onDidOpen()
@@ -112,15 +128,7 @@ class Drawer extends React.PureComponent {
         if (e.currentTarget !== e.target) {
             return
         }
-
-        if (this.props.open != null) {
-            this.props.onClose()
-            return
-        }
-
-        this.setState({
-            open: !this.state.open
-        })
+        this.setOpen(false)
     }
 
     render() {
@@ -137,13 +145,9 @@ class Drawer extends React.PureComponent {
             style
         } = this.state
 
+        const open = this.isOpen()
         const prefixedOuterStyle = prefixAll(outerStyle)
         const prefixedStyle = prefixAll(style)
-
-        // Allow props to drive the state otherwise let it manage its own
-        const open = this.props.open != null
-            ? this.props.open
-            : this.state.open
 
         const classes = classNames('td-drawer', className, {
             'td-drawer--open': open,

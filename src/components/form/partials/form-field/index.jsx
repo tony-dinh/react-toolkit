@@ -4,9 +4,8 @@ import PropTypes from 'prop-types'
 const noop = () => {}
 
 class FormField extends React.PureComponent {
-    constructor(props){
+    constructor(props) {
         super(props)
-
         this.update = this.update.bind(this)
         this.validate = this.validate.bind(this)
     }
@@ -14,7 +13,6 @@ class FormField extends React.PureComponent {
     update(value) {
         const {
             name,
-            validate,
             onUpdate,
             onValidate
         } = this.props
@@ -34,7 +32,6 @@ class FormField extends React.PureComponent {
         if (required && !value) {
             return 'Required'
         }
-
         return validate({name, value})
     }
 
@@ -47,7 +44,6 @@ class FormField extends React.PureComponent {
             onValidate,
             ...rest
         } = this.props
-
         return (
             <Component
                 {...rest}
@@ -58,20 +54,22 @@ class FormField extends React.PureComponent {
     }
 }
 
-FormField.PropTypes = {
+FormField.propTypes = {
     component: PropTypes.func.isRequired,
-    error: PropTypes.string,
-    formId: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    error: PropTypes.string,
+    formId: PropTypes.string,
     required: PropTypes.bool,
     validate: PropTypes.func,
-    onUpdate: PropTypes.func
+    onUpdate: PropTypes.func,
+    onValidate: PropTypes.func
 }
 
 FormField.defaultProps = {
     required: false,
     validate: noop,
-    onUpdate: noop
+    onUpdate: noop,
+    onValidate: noop
 }
 
 export default FormField

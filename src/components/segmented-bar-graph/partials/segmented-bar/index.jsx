@@ -2,8 +2,8 @@ import React from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 
-const SegmentedBar = ({dataset, style}) => {
-    const classes = 'td-segmented-bar'
+const SegmentedBar = ({className, dataset, style}) => {
+    const classes = classNames('td-segmented-bar', className)
     const segmentClasses = 'td-segmented-bar__segment'
     const Segments = dataset.map(({background, value}, index) => {
         if (value > 100) {
@@ -28,6 +28,7 @@ const SegmentedBar = ({dataset, style}) => {
 }
 
 SegmentedBar.propTypes = {
+    className: PropTypes.string,
     dataset: PropTypes.arrayOf(PropTypes.shape({
         background: PropTypes.string,
         value: PropTypes.number
