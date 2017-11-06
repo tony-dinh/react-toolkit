@@ -4,7 +4,7 @@ import classNames from 'classnames'
 
 const noop = () => {}
 
-const Tab = ({active, className, href, title, value, onSelect}) => {
+const Tab = ({active, className, href, style, label, value, onSelect}) => {
     const disabled = !href
     const classes = classNames('td-tab', className, {
         'td-tab--active': active,
@@ -15,13 +15,14 @@ const Tab = ({active, className, href, title, value, onSelect}) => {
         <a className={classes}
             aria-selected={active}
             aria-disabled={disabled}
-            aria-label={title || value}
+            aria-label={label || value}
             data-value={value}
             href={href}
             role="tab"
+            style={style}
             onClick={onSelect}
         >
-            {title}
+            {label}
         </a>
     )
 }
@@ -31,7 +32,8 @@ Tab.propTypes = {
     active: PropTypes.bool,
     className: PropTypes.string,
     href: PropTypes.string,
-    title: PropTypes.string,
+    label: PropTypes.string,
+    style: PropTypes.object,
     onSelect: PropTypes.func
 }
 

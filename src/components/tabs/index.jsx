@@ -2,6 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Tab from './partials/tab'
+import prefixAll from 'inline-style-prefixer/static'
+
+import './_base.scss'
 
 const noop = () => {}
 
@@ -26,14 +29,32 @@ class Tabs extends React.Component {
 
     render() {
         const {
+            activeIndex
+        } = this.state
+
+        const {
             children,
             className,
+            sliderClassName
         } = this.props
 
         const classes = classNames('td-tabs', className)
+        const sliderClasses = classNames('td-tabs__slider', sliderClassName)
+
+        const length = children.length
+        const tabStyle = prefixAll({
+            width: `${100 / length}%`
+        })
+
+        const sliderStyle = prefixAll({
+            width: `${100 / length}%`,
+            left: `calc(${100 / length}% * ${activeIndex})`
+        })
+
         const TabElements = React.Children.map(children, (element, index) => (
             React.cloneElement(element, {
-                active: index === this.state.activeIndex,
+                active: index === activeIndex,
+                style: tabStyle,
                 onSelect: () => {
                     this.onTabSelected(index, element.props.value)
                     element.props.onSelect(index, element.props.value)
@@ -44,6 +65,7 @@ class Tabs extends React.Component {
         return (
             <nav className={classes} role="tablist">
                 {TabElements}
+                <span className={sliderClasses} style={sliderStyle} />
             </nav>
         )
     }
@@ -70,6 +92,7 @@ const TabType = (props, propName, componentName) => {
 Tabs.propTypes = {
     children: TabType,
     className: PropTypes.string,
+    sliderClassName: PropTypes.string,
     onTabChange: PropTypes.func,
     onTabSelected: PropTypes.func
 }

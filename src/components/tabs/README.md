@@ -8,8 +8,8 @@ const onTabSelected = (index, value) => {
 };
 
 <Tabs onTabSelected={onTabSelected}>
-    <Tab href="#tabs" title="Tab 1" value="link-1" />
-    <Tab href="#tabs" title="Tab 2" value="link-2" />
-    <Tab href="#tabs" title="Tab 3" value="link-3" />
+    <Tab href="#tabs" label="Tab 1" value="link-1" />
+    <Tab href="#tabs" label="Tab 2" value="link-2" />
+    <Tab href="#tabs" label="Tab 3" value="link-3" />
 </Tabs>
 ```

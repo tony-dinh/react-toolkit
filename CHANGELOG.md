@@ -1,6 +1,8 @@
 ## Changelog
 
 ### To be released
+- Support Icons for Input (https://github.com/tony-dinh/react-toolkit/pull/28)
+- Tabs Component (https://github.com/tony-dinh/react-toolkit/pull/29)
 
 ### v0.2.0
 - Segmented Bar Graph Component (https://github.com/tony-dinh/react-toolkit/pull/24)
