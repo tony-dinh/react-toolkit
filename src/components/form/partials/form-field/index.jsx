@@ -13,13 +13,16 @@ class FormField extends React.PureComponent {
     update(value) {
         const {
             name,
+            validateOnUpdate,
             onUpdate,
             onValidate
         } = this.props
 
-        const error = this.validate({name, value})
+        if (validateOnUpdate) {
+            const error = this.validate({name, value})
+            onValidate({name, error})
+        }
 
-        onValidate({name, error})
         onUpdate({name, value})
     }
 
@@ -61,6 +64,7 @@ FormField.propTypes = {
     formId: PropTypes.string,
     required: PropTypes.bool,
     validate: PropTypes.func,
+    validateOnUpdate: PropTypes.bool,
     onUpdate: PropTypes.func,
     onValidate: PropTypes.func
 }
@@ -68,6 +72,7 @@ FormField.propTypes = {
 FormField.defaultProps = {
     required: false,
     validate: noop,
+    validateOnUpdate: false,
     onUpdate: noop,
     onValidate: noop
 }

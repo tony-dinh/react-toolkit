@@ -15,6 +15,7 @@ class FormFieldGroup extends React.PureComponent {
             formId,
             style,
             validate,
+            validateOnUpdate,
             onUpdate,
             onValidate
         } = this.props
@@ -28,6 +29,7 @@ class FormFieldGroup extends React.PureComponent {
                         error: error && error[element.props.name] || null,
                         formId,
                         validate,
+                        validateOnUpdate,
                         onValidate,
                         onUpdate,
                     })
@@ -39,6 +41,7 @@ class FormFieldGroup extends React.PureComponent {
                         error: error || null,
                         formId,
                         validate,
+                        validateOnUpdate,
                         onValidate,
                         onUpdate,
                     })
@@ -69,12 +72,14 @@ FormFieldGroup.propTypes = {
     formId: PropTypes.string,
     style: PropTypes.object,
     validate: PropTypes.func,
+    validateOnUpdate: PropTypes.bool,
     onUpdate: PropTypes.func,
     onValidate: PropTypes.func,
 }
 
 FormFieldGroup.defaultProps = {
     validate: noop,
+    validateOnUpdate: false,
     onUpdate: noop,
     onValidate: noop
 }

@@ -117,7 +117,8 @@ class Form extends React.PureComponent {
             children,
             className,
             name,
-            validate
+            validate,
+            validateOnUpdate
         } = this.props
 
         const classes = classNames('td-form', className)
@@ -131,6 +132,7 @@ class Form extends React.PureComponent {
                         error: error && error[element.props.name] || null,
                         formId: this.id,
                         validate,
+                        validateOnUpdate,
                         onValidate: this.onValidateField,
                         onUpdate: this.update,
                     })
@@ -142,6 +144,7 @@ class Form extends React.PureComponent {
                         error: error || null,
                         formId: this.id,
                         validate,
+                        validateOnUpdate,
                         onValidate: this.onValidateField,
                         onUpdate: this.update,
                     })
@@ -174,10 +177,12 @@ Form.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     validate: PropTypes.func,
+    validateOnUpdate: PropTypes.bool,
     onSubmit: PropTypes.func
 }
 
 Form.defaultProps = {
+    validateOnUpdate: false,
     onSubmit: noop
 }
 
