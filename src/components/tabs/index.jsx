@@ -13,7 +13,7 @@ class Tabs extends React.Component {
         super(props)
 
         this.state = {
-            activeIndex: 0
+            activeIndex: props.defaultIndex || 0
         }
 
         this.onTabSelected = this.onTabSelected.bind(this)
@@ -92,6 +92,7 @@ const TabType = (props, propName, componentName) => {
 Tabs.propTypes = {
     children: TabType,
     className: PropTypes.string,
+    defaultIndex: PropTypes.number,
     sliderClassName: PropTypes.string,
     onTabChange: PropTypes.func,
     onTabSelected: PropTypes.func

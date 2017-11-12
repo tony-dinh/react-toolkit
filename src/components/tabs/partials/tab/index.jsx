@@ -4,12 +4,21 @@ import classNames from 'classnames'
 
 const noop = () => {}
 
-const Tab = ({active, className, href, style, label, value, onSelect}) => {
+const Tab = ({active, className, href, style, label, value, onNavigate, onSelect}) => {
     const disabled = !href
     const classes = classNames('td-tab', className, {
         'td-tab--active': active,
         'td-tab--disabled': disabled
     })
+
+    const onClick = (e) => {
+        onSelect()
+
+        if (typeof onNavigate === 'function' && href) {
+            e.preventDefault()
+            onNavigate(href)
+        }
+    }
 
     return (
         <a className={classes}
@@ -20,7 +29,7 @@ const Tab = ({active, className, href, style, label, value, onSelect}) => {
             href={href}
             role="tab"
             style={style}
-            onClick={onSelect}
+            onClick={onClick}
         >
             {label}
         </a>
@@ -34,6 +43,7 @@ Tab.propTypes = {
     href: PropTypes.string,
     label: PropTypes.string,
     style: PropTypes.object,
+    onNavigate: PropTypes.func,
     onSelect: PropTypes.func
 }
 
