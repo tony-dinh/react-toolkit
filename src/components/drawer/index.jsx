@@ -146,8 +146,8 @@ class Drawer extends React.PureComponent {
         } = this.state
 
         const open = this.isOpen()
-        const prefixedOuterStyle = prefixAll(outerStyle)
-        const prefixedStyle = prefixAll(style)
+        const prefixedOuterStyle = prefixAll({...outerStyle})
+        const prefixedStyle = prefixAll({...style})
 
         const classes = classNames('td-drawer', className, {
             'td-drawer--open': open,
