@@ -11,6 +11,7 @@ class FormFieldGroup extends React.PureComponent {
         const {
             className,
             children,
+            data,
             error,
             formId,
             style,
@@ -29,7 +30,8 @@ class FormFieldGroup extends React.PureComponent {
                         error: error && error[element.props.name] || null,
                         formId,
                         validate,
-                        validateOnUpdate,
+                        validateOnUpdate: element.props.validateOnUpdate || validateOnUpdate,
+                        value: data[element.props.name],
                         onValidate,
                         onUpdate,
                     })
@@ -38,10 +40,11 @@ class FormFieldGroup extends React.PureComponent {
                     return React.cloneElement(element, {
                         ...element.props,
                         key: `${formId}__field-group-${index}`,
+                        data,
                         error: error || null,
                         formId,
                         validate,
-                        validateOnUpdate,
+                        validateOnUpdate: element.props.validateOnUpdate || validateOnUpdate,
                         onValidate,
                         onUpdate,
                     })
@@ -68,6 +71,7 @@ class FormFieldGroup extends React.PureComponent {
 FormFieldGroup.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
+    data: PropTypes.object,
     error: PropTypes.object,
     formId: PropTypes.string,
     style: PropTypes.object,

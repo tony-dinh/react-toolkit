@@ -6,8 +6,18 @@ const noop = () => {}
 class FormField extends React.PureComponent {
     constructor(props) {
         super(props)
+        this.change = this.change.bind(this)
         this.update = this.update.bind(this)
         this.validate = this.validate.bind(this)
+    }
+
+    change(value) {
+        const {
+            name,
+            onChange
+        } = this.props
+
+        onChange({name, value})
     }
 
     update(value) {
@@ -18,8 +28,9 @@ class FormField extends React.PureComponent {
             onValidate
         } = this.props
 
+        const error = this.validate({name, value})
+
         if (validateOnUpdate) {
-            const error = this.validate({name, value})
             onValidate({name, error})
         }
 
@@ -43,6 +54,7 @@ class FormField extends React.PureComponent {
             component: Component,
             error,
             validate,
+            onChange,
             onUpdate,
             onValidate,
             ...rest
@@ -51,6 +63,7 @@ class FormField extends React.PureComponent {
             <Component
                 {...rest}
                 error={error}
+                onChange={this.change}
                 onUpdate={this.update}
             />
         )
@@ -65,6 +78,7 @@ FormField.propTypes = {
     required: PropTypes.bool,
     validate: PropTypes.func,
     validateOnUpdate: PropTypes.bool,
+    onChange: PropTypes.func,
     onUpdate: PropTypes.func,
     onValidate: PropTypes.func
 }
@@ -73,6 +87,7 @@ FormField.defaultProps = {
     required: false,
     validate: noop,
     validateOnUpdate: false,
+    onChange: noop,
     onUpdate: noop,
     onValidate: noop
 }
