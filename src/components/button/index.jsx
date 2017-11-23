@@ -117,7 +117,7 @@ Button.propTypes = {
     /**
      * User-defined custom button content to be nested within the button.
      */
-    children: PropTypes.element,
+    children: PropTypes.node,
 
     /**
      * Adds a user-defined class to the root element.
