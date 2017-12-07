@@ -15,6 +15,7 @@ class FormFieldGroup extends React.PureComponent {
             error,
             formId,
             style,
+            tag: Tag,
             validate,
             validateOnUpdate,
             onUpdate,
@@ -61,9 +62,9 @@ class FormFieldGroup extends React.PureComponent {
         })
 
         return (
-            <div className={className} style={style}>
+            <Tag className={className} style={style}>
                 {FormElements}
-            </div>
+            </Tag>
         )
     }
 }
@@ -75,6 +76,7 @@ FormFieldGroup.propTypes = {
     error: PropTypes.object,
     formId: PropTypes.string,
     style: PropTypes.object,
+    tag: PropTypes.string,
     validate: PropTypes.func,
     validateOnUpdate: PropTypes.bool,
     onUpdate: PropTypes.func,
@@ -82,6 +84,7 @@ FormFieldGroup.propTypes = {
 }
 
 FormFieldGroup.defaultProps = {
+    tag: 'div',
     validate: noop,
     validateOnUpdate: false,
     onUpdate: noop,

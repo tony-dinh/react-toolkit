@@ -185,12 +185,11 @@ $transitions-label-height: 1.2rem;
 .td-input__icon {
     height: 1rem;
     width: 1rem;
-    margin: 0;
-    margin-right: map-get($spacing-map, large);
+    margin: 0 map-get($spacing-map, large);
     transition: all $transition-duration;
 }
 
 .td-input--with-icon .td-input__label,
 .td-input--with-icon .td-input__error {
-    margin-left: calc(1rem + #{map-get($spacing-map, large)});
+    margin-left: calc(1rem + #{map-get($spacing-map, large) * 2});
 }

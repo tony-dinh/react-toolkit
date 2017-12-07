@@ -23,12 +23,15 @@ class Input extends React.Component {
         this.state = {
             focus: false,
             height: 0,
-            value: typeof props.value === 'undefined' ? '' : props.value
+            value: props.value === undefined
+                ? ''
+                : props.value
         }
     }
 
     componentDidMount() {
         this.setInitialBounds()
+        this.props.onUpdate(this.getValue())
     }
 
     setInitialBounds() {
@@ -50,7 +53,7 @@ class Input extends React.Component {
     }
 
     getValue() {
-        return typeof this.props.value === 'undefined'
+        return this.props.value === undefined
             ? this.state.value
             : this.props.value
     }
@@ -62,7 +65,7 @@ class Input extends React.Component {
             this.props.onUpdate(value)
         }
 
-        if (typeof this.props.value !== 'undefined') {
+        if (this.props.value !== undefined) {
             return
         }
 
@@ -79,10 +82,10 @@ class Input extends React.Component {
 
         this.setState({
             focus: false
+        }, () => {
+            onBlur(e)
+            onUpdate(this.getValue())
         })
-
-        onBlur(e)
-        onUpdate(this.getValue())
     }
 
     change(e) {
@@ -110,7 +113,7 @@ class Input extends React.Component {
         this.props.onKeyPress(e)
 
         if (e.key === 'Enter') {
-            this.blur()
+            this._input.blur()
         }
     }
 
