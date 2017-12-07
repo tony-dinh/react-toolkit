@@ -13,25 +13,28 @@ class Tabs extends React.Component {
         super(props)
 
         this.state = {
-            activeIndex: props.defaultIndex || 0
+            activeIndex: props.activeIndex || 0
         }
 
+        this.getActiveIndex = this.getActiveIndex.bind(this)
         this.onTabSelected = this.onTabSelected.bind(this)
+    }
+
+    getActiveIndex() {
+        return this.props.activeIndex !== null && this.props.activeIndex !== undefined
+            ? this.props.activeIndex
+            : this.state.activeIndex
     }
 
     onTabSelected(index, value) {
         this.props.onTabSelected(index, value)
 
-        if (this.state.activeIndex !== index) {
+        if (this.getActiveIndex() !== index) {
             this.setState({activeIndex: index}, () => { this.props.onTabChange(index, value) })
         }
     }
 
     render() {
-        const {
-            activeIndex
-        } = this.state
-
         const {
             children,
             className,
@@ -41,6 +44,7 @@ class Tabs extends React.Component {
         const classes = classNames('td-tabs', className)
         const sliderClasses = classNames('td-tabs__slider', sliderClassName)
 
+        const activeIndex = this.getActiveIndex()
         const length = children.length
         const tabStyle = prefixAll({
             width: `${100 / length}%`
@@ -90,9 +94,9 @@ const TabType = (props, propName, componentName) => {
 }
 
 Tabs.propTypes = {
+    activeIndex: PropTypes.number,
     children: TabType,
     className: PropTypes.string,
-    defaultIndex: PropTypes.number,
     sliderClassName: PropTypes.string,
     onTabChange: PropTypes.func,
     onTabSelected: PropTypes.func
