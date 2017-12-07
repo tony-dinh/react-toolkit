@@ -125,6 +125,7 @@ class Input extends React.Component {
             error,
             formId,
             icon,
+            id,
             label,
             name,
             maxLength,
@@ -210,6 +211,7 @@ class Input extends React.Component {
                     {IconComponent}
 
                     <input className={inputClasses}
+                        id={id}
                         form={formId}
                         readOnly={readOnly}
                         tabIndex={disabled ? -1 : tabIndex}
@@ -265,6 +267,11 @@ Input.propTypes = {
      * Specifies an icon
      */
     icon: PropTypes.element,
+
+    /**
+     * Specifies the ID of the input element.
+     */
+    id: PropTypes.string,
 
     /**
      * Defines the text for the input's label.
