@@ -25,13 +25,10 @@ class FormField extends React.PureComponent {
             name,
             validateOnUpdate,
             onUpdate,
-            onValidate
         } = this.props
 
-        const error = this.validate({name, value})
-
         if (validateOnUpdate) {
-            onValidate({name, error})
+            this.validate({name, value})
         }
 
         onUpdate({name, value})
@@ -40,13 +37,19 @@ class FormField extends React.PureComponent {
     validate({name, value}) {
         const {
             validate,
-            required
+            required,
+            onValidate
         } = this.props
 
+        let error = null
+
         if (required && !value) {
-            return 'Required'
+            error = 'Required'
+        } else {
+            error = validate({name, value})
         }
-        return validate({name, value})
+
+        onValidate({name, error})
     }
 
     render() {

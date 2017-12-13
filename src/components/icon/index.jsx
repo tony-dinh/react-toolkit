@@ -188,6 +188,14 @@ const LocationIcon = (props) => {
     )
 }
 
+const MediumIcon = (props) => {
+    return (
+        <svg {...props} viewBox="-10 -10 276 223" preserveAspectRatio="xMidYMid meet">
+            <path d="M256 29.867h-10.125c-3.76 0-9.075 5.423-9.075 8.894v125.827c0 3.475 5.316 8.213 9.075 8.213H256v29.867h-91.733V172.8h19.2V40.533h-.94L137.69 202.667h-34.712L58.72 40.533H57.6V172.8h19.2v29.867H0V172.8h9.835c4.05 0 9.365-4.738 9.365-8.213V38.76c0-3.47-5.316-8.894-9.365-8.894H0V0h96.034l31.53 117.333h.87L160.254 0H256v29.867" fill="currentColor" />
+        </svg>
+    )
+}
+
 const MenuIcon = (props) => {
     return (
         <svg {...props} viewBox="0 0 24 24" preserveAspectRatio="xMidYMid meet">
@@ -312,7 +320,7 @@ const TwitterIcon = (props) => {
 /* eslint-enable max-len */
 
 /* eslint-disable */
-const ICONS = {
+const SVGS = {
     'arrow-dropdown': ArrowDropdownIcon,
     'arrow-dropup': ArrowDropupIcon,
     'arrow-down': ArrowDownIcon,
@@ -342,6 +350,7 @@ const ICONS = {
     'search': SearchIcon,
     'social-facebook': FacebookIcon,
     'social-linkedin': LinkedInIcon,
+    'social-medium': MediumIcon,
     'social-twitter': TwitterIcon,
     'telephone': TelephoneIcon,
     'thumb-up': ThumbUpIcon,
@@ -364,7 +373,7 @@ class Icon extends React.PureComponent {
 
         const classes = classNames('td-icon', className)
         const svgClasses = classNames('td-icon__svg', svgClassName)
-        const Svg = ICONS[name]
+        const Svg = SVGS[name]
         let customSvg
 
         if (!Svg && children) {
@@ -390,9 +399,10 @@ Icon.propTypes = {
     children: SvgElementType,
     className: PropTypes.string,
     iconRef: PropTypes.func,
-    name: PropTypes.oneOf(Object.keys(ICONS)),
+    name: PropTypes.oneOf(Object.keys(SVGS)),
     style: PropTypes.object,
     svgClassName: PropTypes.string,
 }
 
+export {SVGS as Svgs}
 export default Icon

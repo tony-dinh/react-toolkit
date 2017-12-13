@@ -8,14 +8,19 @@
             "polyfill": false,
             "regenerator": false
         }],
-        "transform-object-rest-spread"
+        "transform-object-rest-spread",
+        "transform-class-properties"
     ],
     "env": {
         "commonjs": {
             "presets": [
                 "es2015",
                 "react"
+            ],
+            "plugins": [
+                "transform-class-properties"
             ]
+
         }
     }
 }

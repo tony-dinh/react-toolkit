@@ -20,14 +20,8 @@ class Form extends React.PureComponent {
         super(props)
 
         this.id = `form-${uuid()}`
-        this.change = this.change.bind(this)
-        this.submit = this.submit.bind(this)
-        this.update = this.update.bind(this)
-        this.validate = this.validate.bind(this)
-        this.onValidateField = this.onValidateField.bind(this)
-
         this.state = {
-            data: props.data === undefined ? {} : props.data,
+            data: {},
             error: {}
         }
     }
@@ -45,11 +39,11 @@ class Form extends React.PureComponent {
         })
     }
 
-    change({name, value}) {
+    change = ({name, value}) => {
         const data = {...this.getData()}
 
         if (!value) {
-            delete data[name]
+            data[name] = ''
         } else {
             data[name] = value
         }
@@ -57,13 +51,13 @@ class Form extends React.PureComponent {
         this.setData(data, () => this.props.onChange(data))
     }
 
-    getData() {
+    getData = () => {
         return this.props.data === undefined
             ? this.state.data
             : this.props.data
     }
 
-    setData(data, callback = noop) {
+    setData = (data, callback = noop) => {
         if (this.props.data !== undefined) {
             callback()
             return
@@ -72,10 +66,32 @@ class Form extends React.PureComponent {
         this.setState({data}, callback)
     }
 
-    submit(e) {
+    getError = () => {
+        return this.props.error === undefined
+            ? this.state.error
+            : this.props.error
+    }
+
+    setError = (error, callback = noop) => {
+        if (this.props.error !== undefined) {
+            callback()
+            return
+        }
+
+        this.setState({error}, callback)
+    }
+
+    submit = (e) => {
+        const {
+            onSubmit,
+            onValidationFail
+        } = this.props
+
         e && e.preventDefault()
 
-        if (!this.validate()) {
+        const errors = this.validate()
+        if (Object.keys(errors).length !== 0) {
+            onValidationFail(errors)
             return
         }
 
@@ -84,14 +100,14 @@ class Form extends React.PureComponent {
         if (!Object.keys(data).length) {
             console.warn('[ Form ] Submitting a form without data.')
         }
-        this.props.onSubmit(data)
+        onSubmit(data)
     }
 
-    update({name, value}) {
+    update = ({name, value}) => {
         const data = {...this.getData()}
 
         if (!value) {
-            delete data[name]
+            data[name] = ''
             this.setData(data, () => this.props.onUpdate(data))
         } else if (data[name] !== value) {
             data[name] = value
@@ -99,14 +115,15 @@ class Form extends React.PureComponent {
         }
     }
 
-    validate() {
+    validate = () => {
         const data = this.getData()
 
         const {
-            validate
+            validate,
+            onError
         } = this.props
 
-        const error = {...this.state.error}
+        const error = {...this.getError()}
 
         const validateEl = (element) => {
             if (!element) {
@@ -114,7 +131,6 @@ class Form extends React.PureComponent {
             }
             // Do requirement validation on form fields (ignore buttons)
             // by checking if we have the data for that field name in our state.
-            // TODO: support default values
             if (element.type === FormField) {
                 const fieldName = element.props.name
 
@@ -135,13 +151,14 @@ class Form extends React.PureComponent {
         }
 
         this.FormElements.forEach(validateEl)
-        this.setState({error})
+        this.setError(error, () => { onError(error) })
 
-        return Object.keys(error).length === 0
+        return error
     }
 
-    onValidateField({name, error}) {
-        const newError = {...this.state.error}
+    onValidateField = ({name, error}) => {
+        const newError = {...this.getError()}
+        const {onError} = this.props
 
         if (!error) {
             delete newError[name]
@@ -149,16 +166,10 @@ class Form extends React.PureComponent {
             newError[name] = error
         }
 
-        this.setState({
-            error: newError
-        })
+        this.setError(newError, () => { onError(newError) })
     }
 
     render() {
-        const {
-            error
-        } = this.state
-
         const {
             children,
             className,
@@ -169,6 +180,7 @@ class Form extends React.PureComponent {
 
         const classes = classNames('td-form', className)
         const data = this.getData()
+        const error = this.getError()
 
         this.FormElements = React.Children.map(children, (element, index) => {
             switch (element.type) {
@@ -229,20 +241,25 @@ Form.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
     data: PropTypes.object,
+    error: PropTypes.object,
     submitOnEnter: PropTypes.bool,
     validate: PropTypes.func,
     validateOnUpdate: PropTypes.bool,
     onChange: PropTypes.func,
+    onError: PropTypes.func,
     onSubmit: PropTypes.func,
     onUpdate: PropTypes.func,
+    onValidationFail: PropTypes.func,
 }
 
 Form.defaultProps = {
     submitOnEnter: true,
     validateOnUpdate: false,
     onChange: noop,
+    onError: noop,
     onSubmit: noop,
-    onUpdate: noop
+    onUpdate: noop,
+    onValidationFail: noop,
 }
 
 export {FormField, FormFieldGroup, FormButton}

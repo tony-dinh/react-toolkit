@@ -28,16 +28,12 @@ class Accordion extends React.Component {
         super(props)
 
         this.accordionId = `accordion-${uuid()}`
-        this.onItemClick = this.onItemClick.bind(this)
-        this.updateItem = this.updateItem.bind(this)
-        this.renderItem = this.renderItem.bind(this)
-
         this.state = {
             openItems: [...this.props.initialOpenItems]
         }
     }
 
-    updateItem(index, opening) {
+    updateItem = (index, opening) => {
         if (index < 0 || index >= React.Children.count(this.props.children)) {
             return
         }
@@ -62,7 +58,7 @@ class Accordion extends React.Component {
         this.setState({openItems})
     }
 
-    onItemClick(index) {
+    onItemClick = (index) => {
         const {
             openItems
         } = this.state
@@ -71,13 +67,13 @@ class Accordion extends React.Component {
         this.updateItem(index, isOpening)
     }
 
-    closeAll() {
+    closeAll = () => {
         this.setState({
             openItems: []
         })
     }
 
-    renderItem(index, key) {
+    renderItem = (index, key) => {
         const child = this.AccordionItems[index]
 
         if (!child) {
