@@ -2,9 +2,9 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
-import FormButton from './partials/form-button'
+import connector from './connector'
+import FormSubmit from './partials/form-submit'
 import FormField from './partials/form-field'
-import FormFieldGroup from './partials/form-field-group'
 
 const noop = () => {}
 
@@ -15,16 +15,15 @@ const uuid = (() => {
     }
 })()
 
-class Form extends React.PureComponent {
-    constructor(props) {
-        super(props)
+const CONTEXT = '__rt-form__'
+const withForm = connector(CONTEXT)
 
-        this.id = `form-${uuid()}`
-        this.state = {
-            data: {},
-            error: {}
-        }
-    }
+class Form extends React.PureComponent {
+    static Field = withForm(FormField)
+    static SubmitTrigger = withForm(FormSubmit)
+
+    id = `form-${uuid()}`
+    state = {data: {}, error: {}}
 
     componentDidMount() {
         if (!this.props.submitOnEnter) {
@@ -39,6 +38,33 @@ class Form extends React.PureComponent {
         })
     }
 
+    getChildContext() {
+        const {
+            validate,
+            validateOnUpdate
+        } = this.props
+
+        const data = this.getData()
+        const error = this.getError()
+
+        return {
+            [CONTEXT]: {
+                formData: data,
+                formError: error,
+                formId: this.id,
+                submit: this.submit,
+                validate,
+                validateOnUpdate,
+                onChange: this.change,
+                onUpdate: this.update,
+                onValidate: this.onValidateField,
+            }
+        }
+    }
+
+    isErrorControlled = () => this.props.error !== undefined
+    isDataControlled = () => this.props.data !== undefined
+
     change = ({name, value}) => {
         const data = {...this.getData()}
 
@@ -52,13 +78,13 @@ class Form extends React.PureComponent {
     }
 
     getData = () => {
-        return this.props.data === undefined
-            ? this.state.data
-            : this.props.data
+        return this.isDataControlled()
+            ? this.props.data
+            : this.state.data
     }
 
     setData = (data, callback = noop) => {
-        if (this.props.data !== undefined) {
+        if (this.isDataControlled()) {
             callback()
             return
         }
@@ -67,13 +93,13 @@ class Form extends React.PureComponent {
     }
 
     getError = () => {
-        return this.props.error === undefined
-            ? this.state.error
-            : this.props.error
+        return this.isErrorControlled()
+            ? this.props.error
+            : this.state.error
     }
 
     setError = (error, callback = noop) => {
-        if (this.props.error !== undefined) {
+        if (this.isErrorControlled()) {
             callback()
             return
         }
@@ -109,7 +135,7 @@ class Form extends React.PureComponent {
         if (!value) {
             data[name] = ''
             this.setData(data, () => this.props.onUpdate(data))
-        } else if (data[name] !== value) {
+        } else {
             data[name] = value
             this.setData(data, () => this.props.onUpdate(data))
         }
@@ -119,6 +145,7 @@ class Form extends React.PureComponent {
         const data = this.getData()
 
         const {
+            children,
             validate,
             onError
         } = this.props
@@ -131,7 +158,7 @@ class Form extends React.PureComponent {
             }
             // Do requirement validation on form fields (ignore buttons)
             // by checking if we have the data for that field name in our state.
-            if (element.type === FormField) {
+            if (element.type === Form.Field) {
                 const fieldName = element.props.name
 
                 if (element.props.required && !data[fieldName]) {
@@ -145,12 +172,24 @@ class Form extends React.PureComponent {
                     }
                 }
 
-            } else if (element.type === FormFieldGroup) {
-                React.Children.forEach(element.props.children, validateEl)
             }
         }
 
-        this.FormElements.forEach(validateEl)
+        const formFields = (arr) => {
+            let result = []
+            arr.forEach((element) => {
+                if (element.type === Form.Field) {
+                    result.push(element)
+                } else {
+                    result = element.props
+                        ? result.concat(formFields(React.Children.toArray(element.props.children)))
+                        : result
+                }
+            })
+            return result
+        }
+
+        formFields(React.Children.toArray(children)).forEach(validateEl)
         this.setError(error, () => { onError(error) })
 
         return error
@@ -174,63 +213,16 @@ class Form extends React.PureComponent {
             children,
             className,
             name,
-            validate,
-            validateOnUpdate
         } = this.props
 
         const classes = classNames('td-form', className)
-        const data = this.getData()
-        const error = this.getError()
-
-        this.FormElements = React.Children.map(children, (element, index) => {
-            switch (element.type) {
-                case FormField:
-                    return React.cloneElement(element, {
-                        ...element.props,
-                        key: `${name}-${this.id}__${element.props.name}`,
-                        error: error && error[element.props.name] || null,
-                        formId: this.id,
-                        validate,
-                        validateOnUpdate: element.props.validateOnUpdate || validateOnUpdate,
-                        value: data[element.props.name],
-                        onChange: this.change,
-                        onUpdate: this.update,
-                        onValidate: this.onValidateField,
-                    })
-
-                case FormFieldGroup:
-                    return React.cloneElement(element, {
-                        ...element.props,
-                        key: `${name}-${this.id}__field-group-${index}`,
-                        data,
-                        error: error || null,
-                        formId: this.id,
-                        validate,
-                        validateOnUpdate: element.props.validateOnUpdate || validateOnUpdate,
-                        onChange: this.change,
-                        onUpdate: this.update,
-                        onValidate: this.onValidateField,
-                    })
-
-                case FormButton:
-                    return React.cloneElement(element, {
-                        ...element.props,
-                        key: `${name}-${this.id}__button-${index}`,
-                        formId: this.id,
-                    })
-
-                default:
-                    return element
-            }
-        })
-
         return (
             <form id={this.id} className={classes}
                 name={name}
                 ref={(el) => { this._form = el }}
                 onSubmit={this.submit}
             >
-                {this.FormElements}
+                {children}
             </form>
         )
     }
@@ -262,5 +254,9 @@ Form.defaultProps = {
     onValidationFail: noop,
 }
 
-export {FormField, FormFieldGroup, FormButton}
+Form.childContextTypes = {
+    [CONTEXT]: PropTypes.object.isRequired
+}
+
+export {withForm}
 export default Form

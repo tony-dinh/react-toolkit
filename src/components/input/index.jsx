@@ -80,9 +80,7 @@ class Input extends React.Component {
             onUpdate
         } = this.props
 
-        this.setState({
-            focus: false
-        }, () => {
+        this.setState({focus: false}, () => {
             onBlur(e)
             onUpdate(this.getValue())
         })

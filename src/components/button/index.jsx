@@ -16,31 +16,22 @@ const noop = () => {}
 */
 
 class Button extends React.PureComponent {
-    constructor(props) {
-        super(props)
-
-        this._mouseEnter = this._mouseEnter.bind(this)
-        this._mouseLeave = this._mouseLeave.bind(this)
-        this.mouseEnter = debounce(this.mouseEnter.bind(this), 250)
-        this.mouseLeave = debounce(this.mouseLeave.bind(this), 250)
-    }
-
-    _mouseEnter(e) {
+    _mouseEnter = (e) => {
         e.persist()
-        this.mouseEnter(e)
-    }
-
-    _mouseLeave(e) {
-        e.persist()
-        this.mouseLeave(e)
-    }
-
-    mouseEnter(e) {
         this.props.onMouseEnter(e)
     }
 
-    mouseLeave(e) {
+    _mouseLeave = (e) => {
+        e.persist()
         this.props.onMouseLeave(e)
+    }
+
+    mouseEnter = debounce(this._mouseEnter, 250)
+    mouseLeave = debounce(this._mouseLeave, 250)
+
+    click = (e) => {
+        e.persist()
+        this.props.onClick(e)
     }
 
     render() {
@@ -59,7 +50,6 @@ class Button extends React.PureComponent {
             type,
             text,
             textClassName,
-            onClick,
             onMouseEnter,
             onMouseLeave
         } = this.props
@@ -85,9 +75,9 @@ class Button extends React.PureComponent {
                 style={style}
                 tabIndex={disabled ? -1 : tabIndex}
                 title={title || text}
-                onClick={onClick}
-                onMouseEnter={onMouseEnter && this._mouseEnter}
-                onMouseLeave={onMouseLeave && this._mouseLeave}
+                onClick={this.click}
+                onMouseEnter={onMouseEnter && this.mouseEnter}
+                onMouseLeave={onMouseLeave && this.mouseLeave}
             >
                 {children ?
                     children

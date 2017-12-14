@@ -1,9 +1,5 @@
 ### Example
 ```
-const FormField = require('./partials/form-field').default
-const FormFieldGroup = require('./partials/form-field-group').default
-const FormButton = require('./partials/form-button').default
-
 const validate = ({name, value}) => {
     switch(name) {
         case 'nonDigitInput':
@@ -40,45 +36,46 @@ const onSubmit = (data) => {
 };
 
 
-<Form name="test form" onSubmit={onSubmit} validate={validate}>
-    <FormFieldGroup style={{display: 'flex'}}>
-        <FormField name="firstName"
+<Form name="test form" onSubmit={onSubmit} validate={validate} validateOnUpdate>
+    <div style={{display: 'flex'}}>
+        <Form.Field name="firstName"
             label="First Name"
             component={Input}
+            required
         />
 
-        <FormField name="lastName"
+        <Form.Field name="lastName"
             label="Last name"
             component={Input}
             required
         />
-    </FormFieldGroup>
+    </div>
 
-    <FormField name="nonDigitInput"
+    <Form.Field name="nonDigitInput"
         label="Enter non-digits"
         maxLength={10}
         component={Input}
     />
 
-    <FormField name="digitInput"
+    <Form.Field name="digitInput"
         label="Enter digits"
         maxLength={10}
         component={(props) => <Input {...props} />}
     />
 
-    <FormField name="date"
+    <Form.Field name="date"
         label="Select a Date"
         dateFormat="F Y"
         component={(props) => <InputDate {...props} />}
         required
     />
 
-    <FormField name="file"
+    <Form.Field name="file"
         label="Upload a file"
         component={InputFile}
         required
     />
 
-    <FormButton type="submit" text="Submit" button={Button} />
+    <Form.SubmitTrigger text="Submit" />
 </Form>
 ```
