@@ -62,6 +62,7 @@ class FormField extends React.PureComponent {
             <Component
                 {...rest}
                 error={error[name] || null}
+                name={name}
                 value={data[name]}
                 onChange={this.change}
                 onUpdate={this.update}
