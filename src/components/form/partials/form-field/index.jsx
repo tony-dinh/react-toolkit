@@ -74,6 +74,7 @@ class FormField extends React.PureComponent {
 FormField.propTypes = {
     component: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
+    contexts: PropTypes.array,
     formData: PropTypes.object,
     formError: PropTypes.object,
     formId: PropTypes.string,

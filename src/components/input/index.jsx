@@ -6,7 +6,7 @@ import './_base.scss'
 
 const noop = () => {}
 
-class Input extends React.Component {
+class Input extends React.PureComponent {
     constructor(props) {
         super(props)
 
@@ -31,7 +31,12 @@ class Input extends React.Component {
 
     componentDidMount() {
         this.setInitialBounds()
-        this.props.onUpdate(this.getValue())
+
+        const initialValue = this.getValue()
+
+        if (initialValue) {
+            this.props.onUpdate(initialValue)
+        }
     }
 
     setInitialBounds() {

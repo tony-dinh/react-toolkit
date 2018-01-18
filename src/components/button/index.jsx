@@ -173,6 +173,7 @@ Button.defaultProps = {
     iconPosition: 'start',
     tabIndex: 0,
     type: 'button',
+    onClick: noop,
     onMouseEnter: noop,
     onMouseLeave: noop
 }

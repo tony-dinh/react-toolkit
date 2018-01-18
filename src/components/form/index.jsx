@@ -68,13 +68,13 @@ class Form extends React.PureComponent {
     change = ({name, value}) => {
         const data = {...this.getData()}
 
-        if (!value) {
+        if (!value && data[name] !== '') {
             data[name] = ''
-        } else {
+            this.setData(data, () => this.props.onChange(data))
+        } else if (data[name] !== value) {
             data[name] = value
+            this.setData(data, () => this.props.onChange(data))
         }
-
-        this.setData(data, () => this.props.onChange(data))
     }
 
     getData = () => {
@@ -131,11 +131,11 @@ class Form extends React.PureComponent {
 
     update = ({name, value}) => {
         const data = {...this.getData()}
-
-        if (!value) {
+        if (!value && data[name] !== '') {
             data[name] = ''
             this.setData(data, () => this.props.onUpdate(data))
-        } else {
+
+        } else if (data[name] !== value) {
             data[name] = value
             this.setData(data, () => this.props.onUpdate(data))
         }
@@ -199,13 +199,13 @@ class Form extends React.PureComponent {
         const newError = {...this.getError()}
         const {onError} = this.props
 
-        if (!error) {
+        if (!error && newError[name]) {
             delete newError[name]
-        } else {
+            this.setError(newError, () => { onError(newError) })
+        } else if (newError[name] !== error) {
             newError[name] = error
+            this.setError(newError, () => { onError(newError) })
         }
-
-        this.setError(newError, () => { onError(newError) })
     }
 
     render() {
@@ -246,6 +246,7 @@ Form.propTypes = {
 
 Form.defaultProps = {
     submitOnEnter: true,
+    validate: noop,
     validateOnUpdate: false,
     onChange: noop,
     onError: noop,
