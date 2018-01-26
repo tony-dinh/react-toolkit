@@ -9,19 +9,20 @@ const RectLoader = ({className, color, count, duration}) => {
     const classes = classNames('td-rect-loader', className)
     const rectClass = 'td-rect-loader__rect'
 
-    const rectangles = Array(count).fill().map((_, index) => {
-        const rectClasses = classNames(rectClass, `td--rect-${index}`)
-        const delay = index !== 0
-            ? - (duration) + (index * 100)
-            : 0
+    const rectangles = Array(count).fill()
+        .map((_, index) => {
+            const rectClasses = classNames(rectClass, `td--rect-${index}`)
+            const delay = index !== 0
+                ? -(duration) + (index * 100)
+                : 0
 
-        const rectStyle = prefixAll({
-            animationDuration: `${duration}ms`,
-            animationDelay: `${delay}ms`,
-            backgroundColor: color
+            const rectStyle = prefixAll({
+                animationDuration: `${duration}ms`,
+                animationDelay: `${delay}ms`,
+                backgroundColor: color
+            })
+            return <div key={`rect-loader__rect-${index}`} className={rectClasses} style={rectStyle} />
         })
-        return <div key={`rect-loader__rect-${index}`} className={rectClasses} style={rectStyle}></div>
-    })
 
     return (
         <div className={classes}>
@@ -30,33 +31,22 @@ const RectLoader = ({className, color, count, duration}) => {
     )
 }
 
+RectLoader.propTypes = {
+    className: PropTypes.string,
+    color: PropTypes.string,
+    count: PropTypes.number,
+    duration: PropTypes.number
+}
+
 const LOADERS = {
     rect: RectLoader
 }
 
-class Loader extends React.PureComponent {
-    constructor(props) {
-        super(props)
-    }
-
-    render() {
-        const {
-            className,
-            color,
-            count,
-            duration,
-            name
-        } = this.props
-
-        const Loader = LOADERS[name]
-        return (
-            <Loader className={className}
-                color={color}
-                count={count}
-                duration={duration}
-            />
-        )
-    }
+const Loader = ({className, color, count, duration, name}) => {
+    const Loader = LOADERS[name]
+    return (
+        <Loader className={className} color={color} count={count} duration={duration} />
+    )
 }
 
 Loader.propTypes = {

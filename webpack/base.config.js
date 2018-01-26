@@ -16,7 +16,7 @@ const config = {
     },
     resolve: {
         alias: {
-            components: path.resolve(ROOT_DIR, 'dist/components')
+            components: path.resolve(ROOT_DIR, 'dist/es6/components')
         },
         extensions: ['.js', '.jsx']
     },
@@ -29,6 +29,11 @@ const config = {
                 options: {
                     cacheDirectory: `${__dirname}/tmp`
                 }
+            },
+            {
+                loader: 'eslint-loader',
+                test: /\.js(x?)$/,
+                exclude: /(dist|build|node_modules)/,
             },
             {
                 test: /\.s?css$/,

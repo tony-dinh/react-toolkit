@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 
@@ -32,8 +31,7 @@ class IconLabel extends React.PureComponent {
             return
         }
 
-        const icon = ReactDOM.findDOMNode(this._icon)
-        const iconSize = icon.getBoundingClientRect().height
+        const iconSize = this._icon.getBoundingClientRect().height
 
         if (iconSize === this.state.iconSize) {
             return
@@ -42,10 +40,10 @@ class IconLabel extends React.PureComponent {
         this.setState({
             iconSize,
             labelStyle: {
-                height: `${iconSize/2}px`,
+                height: `${iconSize / 2}px`,
                 width: `${iconSize}px`,
-                lineHeight: `${iconSize/2}px`,
-                fontSize: `${iconSize/3}px`
+                lineHeight: `${iconSize / 2}px`,
+                fontSize: `${iconSize / 3}px`
             }
         })
     }
@@ -75,7 +73,7 @@ class IconLabel extends React.PureComponent {
                 <Icon className={iconClasses}
                     style={iconStyle}
                     name={icon}
-                    ref={ el => this._icon = el }
+                    iconRef={(el) => { this._icon = el }}
                 />
                 <span className={labelClasses} style={labelStyle}>
                     {label}
@@ -86,8 +84,9 @@ class IconLabel extends React.PureComponent {
 }
 
 IconLabel.propTypes = {
-    icon: PropTypes.string,
     label: PropTypes.string.isRequired,
+    className: PropTypes.string,
+    icon: PropTypes.string,
     iconSize: PropTypes.number,
 }
 

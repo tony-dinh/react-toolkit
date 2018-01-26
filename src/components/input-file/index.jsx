@@ -39,7 +39,6 @@ class InputFile extends React.Component {
 
         const componentHeight = this._component.getBoundingClientRect().height
         const inputHeight = this._input.getBoundingClientRect().height
-        const verticalPadding = this._input.style.paddingTop
 
         this.setState({
             componentHeight,
@@ -133,9 +132,7 @@ class InputFile extends React.Component {
             multiple,
             name,
             placeholder,
-            readOnly,
             tabIndex,
-            type,
         } = this.props
 
         const {
@@ -170,7 +167,7 @@ class InputFile extends React.Component {
             : null
 
         return (
-            <div className={classes} aria-disabled={disabled} ref={el => this._component = el}>
+            <div className={classes} aria-disabled={disabled} ref={(el) => { this._component = el }}>
                 <div className={innerClasses}>
 
                     {/* Input, Error, MaxLength Labels */}
@@ -182,7 +179,7 @@ class InputFile extends React.Component {
                                 {label}
                             </label>
                         }
-                        <div className={phantomInputClasses} style={inputStyles}></div>
+                        <div className={phantomInputClasses} style={inputStyles} />
 
                         <div className={decorationWrapperClasses}>
                             {error && error.length &&
@@ -202,7 +199,7 @@ class InputFile extends React.Component {
                         onBlur={this.blur}
                         onClick={this.click}
                         onKeyPress={this.keypress}
-                        ref={el => this._input = el}
+                        ref={(el) => { this._input = el }}
                     />
 
                     <input
@@ -214,7 +211,7 @@ class InputFile extends React.Component {
                         tabIndex={-1}
                         type="file"
                         onChange={this.change}
-                        ref={el => this._fileInput = el}
+                        ref={(el) => { this._fileInput = el }}
                     />
                 </div>
             </div>

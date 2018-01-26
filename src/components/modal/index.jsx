@@ -50,7 +50,7 @@ class Modal extends React.Component {
             ? this._headerContainer.clientHeight
             : 0
 
-            const contentContainerHeight = cardHeight - headerContainerHeight
+        const contentContainerHeight = cardHeight - headerContainerHeight
 
         this.setState({
             contentContainerStyle: {
@@ -100,11 +100,11 @@ class Modal extends React.Component {
             >
                 <div className={classes} style={style} onClick={this.hide}>
                     <div className={modalClasses}
-                        ref={el => this._card = el}
+                        ref={(el) => { this._card = el }}
                     >
                         {!!headerText &&
                             <div className={headerContainerClasses}
-                                ref={el => this._headerContainer = el}
+                                ref={(el) => { this._headerContainer = el }}
                             >
                                 <h2 className={headerClasses}>
                                     {headerText}
@@ -128,6 +128,7 @@ Modal.propTypes = {
     animationDuration: PropTypes.number,
     children: PropTypes.element,
     className: PropTypes.string,
+    headerClassName: PropTypes.string,
     headerText: PropTypes.string,
     modalClassName: PropTypes.string,
     showing: PropTypes.bool,

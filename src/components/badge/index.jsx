@@ -21,7 +21,7 @@ class Badge extends React.PureComponent {
         const badgeHeight = this._badge.getBoundingClientRect().height
         this.setState({
             style: {
-                borderRadius: `${badgeHeight/2}px`,
+                borderRadius: `${badgeHeight / 2}px`,
                 minWidth: `${badgeHeight}px`
             }
         })
@@ -43,7 +43,7 @@ class Badge extends React.PureComponent {
             <span className={classes}
                 style={style}
                 title={title}
-                ref={(el) => { this._badge = el} }
+                ref={(el) => { this._badge = el }}
             >
                 {text}
             </span>

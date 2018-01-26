@@ -1,5 +1,6 @@
 **/tmp/*
 dist/
+.vscode
 
 ### macOS ###
 *.DS_Store

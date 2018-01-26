@@ -27,12 +27,10 @@ class InputDate extends React.PureComponent {
     componentDidMount() {
         const {
             dateFormat,
-            defaultDate,
             disabledDates,
             maxDate,
             minDate,
             mode,
-            onChange
         } = this.props
 
         this.fp = flatpickr(this._inputComponent.getInput(), {
@@ -80,7 +78,7 @@ class InputDate extends React.PureComponent {
         return value
     }
 
-    setValue(value, valueString, instance) {
+    setValue(value, valueString) {
         this.setState({
             value,
             valueString
@@ -90,7 +88,7 @@ class InputDate extends React.PureComponent {
         })
     }
 
-    blur(selectedDates, dateString, instance) {
+    blur() {
         this._inputComponent.blur()
         this.props.onBlur()
     }
@@ -126,7 +124,7 @@ class InputDate extends React.PureComponent {
                 disabled={disabled}
                 value={value}
                 readonly
-                ref={el => this._inputComponent = el}
+                ref={(el) => { this._inputComponent = el }}
             />
         )
     }
@@ -139,9 +137,20 @@ InputDate.propTypes = {
     className: PropTypes.string,
 
     /**
+     * Specifies the date format that will be displayed in the input.
+     * [Check supported formats](https://chmln.github.io/flatpickr/formatting/)
+     */
+    dateFormat: PropTypes.string,
+
+    /**
      * User-defined default selected date.
      */
     defaultDate: PropTypes.instanceOf(Date),
+
+    /**
+     *  Sets the disable state of the input.
+     */
+    disabled: PropTypes.bool,
 
     /**
      * Defines an array of dates that are not be selectable.
@@ -150,17 +159,6 @@ InputDate.propTypes = {
         PropTypes.arrayOf(PropTypes.instanceOf(Date)),
         PropTypes.arrayOf(PropTypes.func)
     ]),
-
-    /**
-     * Specifies the date format that will be displayed in the input.
-     * [Check supported formats](https://chmln.github.io/flatpickr/formatting/)
-     */
-    dateFormat: PropTypes.string,
-
-    /**
-     *  Sets the disable state of the input.
-     */
-    disabled: PropTypes.bool,
 
     /**
      * Provide an error message to display under the input.
@@ -178,14 +176,14 @@ InputDate.propTypes = {
     label: PropTypes.string,
 
     /**
-     * Specifies a lower bound for displayed dates.
-     */
-    minDate: PropTypes.instanceOf(Date),
-
-    /**
      * Defines an upper bound for displayed dates.
      */
     maxDate: PropTypes.instanceOf(Date),
+
+    /**
+     * Specifies a lower bound for displayed dates.
+     */
+    minDate: PropTypes.instanceOf(Date),
 
     /**
      * Specifies the date selection mode.

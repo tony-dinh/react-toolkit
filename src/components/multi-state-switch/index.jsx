@@ -26,7 +26,8 @@ class MultiStateSwitch extends React.PureComponent {
         }
 
         if (this.props.selectedIndex) {
-            return this.props.onStateChange(index)
+            this.props.onStateChange(index)
+            return
         }
 
         this.setState({
@@ -77,9 +78,10 @@ class MultiStateSwitch extends React.PureComponent {
 }
 
 MultiStateSwitch.propTypes = {
-    className: PropTypes.string,
     states: PropTypes.arrayOf(PropTypes.string).isRequired,
+    className: PropTypes.string,
     selectedIndex: PropTypes.number,
+    switchClassName: PropTypes.string,
     onStateChange: PropTypes.func
 }
 

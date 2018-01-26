@@ -4,7 +4,6 @@ import classNames from 'classnames'
 import Transition from 'react-transition-group/Transition'
 
 import Icon from '../icon'
-import Button from '../button'
 
 import './_base.scss'
 
@@ -51,7 +50,7 @@ class Alert extends React.PureComponent {
         const iconClasses = 'td-alert__icon'
         const iconWrapperClasses = 'td-alert__icon-wrapper'
 
-        let alertIconName = iconName
+        const alertIconName = iconName
 
         const style = {
             animationDuration: `${animationDuration}ms`,
@@ -80,7 +79,7 @@ class Alert extends React.PureComponent {
                                 <Icon className={iconClasses}
                                     style={themeStyle}
                                     name={alertIconName}
-                                    reference={(el) => { this._icon = el }}
+                                    iconRef={(el) => { this._icon = el }}
                                 />
                             </div>
                         }
@@ -96,24 +95,19 @@ class Alert extends React.PureComponent {
 
 Alert.propTypes = {
     /**
-     * The body of the alert modal.
-     */
-    children: PropTypes.element,
-
-    /**
      * Specifies the duration (milliseconds) of the fade-in/out animation.
      */
     animationDuration: PropTypes.number,
 
     /**
+     * The body of the alert modal.
+     */
+    children: PropTypes.element,
+
+    /**
      *  Adds a user-defined class to the root element.
      */
     className: PropTypes.string,
-
-    /**
-     *  Adds a user-defined class to the inner card element.
-     */
-    innerClassName: PropTypes.string,
 
     /**
      *  Defines the color of the icon.
@@ -124,6 +118,11 @@ Alert.propTypes = {
      *  Defines an icon for the alert.
      */
     iconName: PropTypes.string,
+
+    /**
+     *  Adds a user-defined class to the inner card element.
+     */
+    innerClassName: PropTypes.string,
 
     /**
      *  Specifies whether the alert is showing or not.

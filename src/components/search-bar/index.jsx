@@ -67,7 +67,7 @@ class SearchBar extends React.PureComponent {
         this.setState({
             focus: false
         })
-        this.props.onBlur()
+        this.props.onBlur(e)
     }
 
     change(e) {
@@ -89,8 +89,7 @@ class SearchBar extends React.PureComponent {
     render() {
         const {
             focus,
-            height,
-            wrapperHeight
+            height
         } = this.state
 
         const {
@@ -143,7 +142,7 @@ class SearchBar extends React.PureComponent {
                 {/* Search Icon */}
                 <Icon className={iconClasses} name="search" style={iconStyle} />
 
-                <div className={inputWrapperClasses} ref={el => this._inputWrapper = el}>
+                <div className={inputWrapperClasses} ref={(el) => { this._inputWrapper = el }}>
                     {/* Placeholder Label */}
                     <div className={inputAccessoryWrapperClasses}>
                         <label className={inputLabelClasses} style={labelStyle} htmlFor={name}>
@@ -161,10 +160,10 @@ class SearchBar extends React.PureComponent {
                         onChange={this.change}
                         onClick={this.click}
                         onFocus={this.focus}
-                        ref={el => this._input = el}
+                        ref={(el) => { this._input = el }}
                     />
 
-                     <Transition
+                    <Transition
                         in={value.length !== 0}
                         timeout={animationDuration}
                         unmountOnExit={true}
@@ -193,19 +192,19 @@ SearchBar.propTypes = {
     animationDuration: PropTypes.number,
 
     /**
-     *  Adds a user-defined class to the root element.
+     * Adds a user-defined class to the root element.
      */
     className: PropTypes.string,
 
     /**
-     *  Sets the disable state of the input.
+     * Sets the disable state of the input.
      */
     disabled: PropTypes.bool,
 
     /**
-     * Specifies the text for the placeholder label which is visible when the input is empty.
+     * Adds a user-defined class to the input element.
      */
-    placeholder: PropTypes.string,
+    inputClassName: PropTypes.string,
 
     /**
      * Specifies a name for the input field.
@@ -213,9 +212,19 @@ SearchBar.propTypes = {
     name: PropTypes.string,
 
     /**
+     * Specifies the text for the placeholder label which is visible when the input is empty.
+     */
+    placeholder: PropTypes.string,
+
+    /**
      * Specifies the tab index of the input
      */
     tabIndex: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+
+    /**
+     * Specifies the value of the input
+     */
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
     /**
      * User-defined function which triggers when the search input loses focus.

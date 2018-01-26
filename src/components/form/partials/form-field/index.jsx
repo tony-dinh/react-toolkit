@@ -4,45 +4,55 @@ import PropTypes from 'prop-types'
 const noop = () => {}
 
 class FormField extends React.PureComponent {
-    constructor(props){
-        super(props)
-
-        this.update = this.update.bind(this)
-        this.validate = this.validate.bind(this)
-    }
-
-    update(value) {
+    change = (value) => {
         const {
             name,
-            validate,
-            onUpdate,
-            onValidate
+            onChange
         } = this.props
 
-        const error = this.validate({name, value})
+        onChange({name, value})
+    }
 
-        onValidate({name, error})
+    update = (value) => {
+        const {
+            name,
+            validateOnUpdate,
+            onUpdate,
+        } = this.props
+
+        if (validateOnUpdate) {
+            this.validate({name, value})
+        }
+
         onUpdate({name, value})
     }
 
-    validate({name, value}) {
+    validate = ({name, value}) => {
         const {
             validate,
-            required
+            required,
+            onValidate
         } = this.props
 
+        let error = null
+
         if (required && !value) {
-            return 'Required'
+            error = 'Required'
+        } else {
+            error = validate({name, value})
         }
 
-        return validate({name, value})
+        onValidate({name, error})
     }
 
     render() {
         const {
             component: Component,
-            error,
+            formError: error,
+            formData: data,
+            name,
             validate,
+            onChange,
             onUpdate,
             onValidate,
             ...rest
@@ -51,27 +61,38 @@ class FormField extends React.PureComponent {
         return (
             <Component
                 {...rest}
-                error={error}
+                error={error[name] || null}
+                name={name}
+                value={data[name]}
+                onChange={this.change}
                 onUpdate={this.update}
             />
         )
     }
 }
 
-FormField.PropTypes = {
+FormField.propTypes = {
     component: PropTypes.func.isRequired,
-    error: PropTypes.string,
-    formId: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
+    contexts: PropTypes.array,
+    formData: PropTypes.object,
+    formError: PropTypes.object,
+    formId: PropTypes.string,
     required: PropTypes.bool,
     validate: PropTypes.func,
-    onUpdate: PropTypes.func
+    validateOnUpdate: PropTypes.bool,
+    onChange: PropTypes.func,
+    onUpdate: PropTypes.func,
+    onValidate: PropTypes.func
 }
 
 FormField.defaultProps = {
     required: false,
     validate: noop,
-    onUpdate: noop
+    validateOnUpdate: false,
+    onChange: noop,
+    onUpdate: noop,
+    onValidate: noop
 }
 
 export default FormField

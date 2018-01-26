@@ -32,14 +32,12 @@ class VideoPlayer extends React.PureComponent {
         const {
             animationDuration,
             className,
-            collasped,
             showing,
             src,
             onDismiss
         } = this.props
 
         const classes = classNames('td-video-player', className, {
-            'td-video-player--collapsed': collasped,
             'td-video-player--fade-in': showing,
             'td-video-player--fade-out': !showing
         })
@@ -59,7 +57,7 @@ class VideoPlayer extends React.PureComponent {
                 unmountOnExit={true}
             >
                 <div className={classes} style={style} onClick={this.onClick}>
-                    <video className={videoClasses} autoPlay controls src={src}></video>
+                    <video className={videoClasses} autoPlay controls src={src} />
                 </div>
             </Transition>
         )
@@ -73,22 +71,22 @@ VideoPlayer.propTypes = {
     animationDuration: PropTypes.number,
 
     /**
-     *  Adds a user-defined class to the root element.
+     * Adds a user-defined class to the root element.
      */
     className: PropTypes.string,
 
     /**
-     *  Specifies the video source of the video player.
-     */
-    src: PropTypes.string,
-
-    /**
-     *  Specifies whether or not the video player is showing.
+     * Specifies whether or not the video player is showing.
      */
     showing: PropTypes.bool,
 
     /**
-     *  User-defined function for dismissing video player.
+     * Specifies the video source of the video player.
+     */
+    src: PropTypes.string,
+
+    /**
+     * User-defined function for dismissing video player.
      */
     onDismiss: PropTypes.func
 }

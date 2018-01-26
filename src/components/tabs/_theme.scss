@@ -1,0 +1,15 @@
+.td-tabs {
+    color: $grey-80;
+}
+
+.td-tab {
+    color: currentColor;
+}
+
+.td-tab.td-tab--active {
+    color: $primary-color;
+}
+
+.td-tabs__slider {
+    background-color: $primary-color;
+}

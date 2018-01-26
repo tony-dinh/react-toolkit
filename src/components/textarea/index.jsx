@@ -1,5 +1,5 @@
 import React from 'react'
-import PropTypes  from 'prop-types'
+import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import debounce from 'lodash/debounce'
 
@@ -37,9 +37,9 @@ class TextArea extends React.PureComponent {
     }
 
     getValue() {
-        return typeof this.props.value === 'undefined'
-            ? this.state.value
-            : this.props.value
+        return this.props.value
+            ? this.props.value
+            : this.state.value
     }
 
     setValue(value) {
@@ -48,13 +48,13 @@ class TextArea extends React.PureComponent {
             onChange
         } = this.props
 
-        if (propValue !== null && typeof propValue !== 'undefined') {
+        if (propValue !== null && propValue !== undefined) {
             onChange(value)
             return
         }
 
         this.setState({
-            value: value
+            value
         })
     }
 
@@ -128,6 +128,7 @@ class TextArea extends React.PureComponent {
             formId,
             maxLength,
             name,
+            nodeRef,
             placeholder,
             readOnly,
             tabIndex
@@ -152,7 +153,10 @@ class TextArea extends React.PureComponent {
                 onBlur={this.onBlur}
                 onChange={this.onChange}
                 onFocus={this.onFocus}
-                ref={el => this._textarea = el}
+                ref={(el) => {
+                    this._textarea = el
+                    nodeRef(el)
+                }}
             />
         )
     }
@@ -165,6 +169,7 @@ TextArea.propTypes = {
     formId: PropTypes.string,
     maxLength: PropTypes.number,
     name: PropTypes.string,
+    nodeRef: PropTypes.func,
     placeholder: PropTypes.string,
     readOnly: PropTypes.bool,
     resize: PropTypes.bool,
@@ -179,6 +184,7 @@ TextArea.propTypes = {
 TextArea.defaultProps = {
     autoFocus: false,
     disabled: false,
+    nodeRef: noop,
     readOnly: false,
     resize: false,
     tabIndex: 0,

@@ -6,7 +6,7 @@ import './_base.scss'
 
 const noop = () => {}
 
-class Input extends React.Component {
+class Input extends React.PureComponent {
     constructor(props) {
         super(props)
 
@@ -23,12 +23,20 @@ class Input extends React.Component {
         this.state = {
             focus: false,
             height: 0,
-            value: typeof props.value === 'undefined' ? '' : props.value
+            value: props.value === undefined
+                ? ''
+                : props.value
         }
     }
 
     componentDidMount() {
         this.setInitialBounds()
+
+        const initialValue = this.getValue()
+
+        if (initialValue) {
+            this.props.onUpdate(initialValue)
+        }
     }
 
     setInitialBounds() {
@@ -38,7 +46,6 @@ class Input extends React.Component {
 
         const componentHeight = this._component.getBoundingClientRect().height
         const inputHeight = this._input.getBoundingClientRect().height
-        const verticalPadding = this._input.style.paddingTop
 
         this.setState({
             componentHeight,
@@ -51,15 +58,19 @@ class Input extends React.Component {
     }
 
     getValue() {
-        return typeof this.props.value === 'undefined'
+        return this.props.value === undefined
             ? this.state.value
             : this.props.value
     }
 
     setValue(value) {
-        this.props.onChange(value)
+        if (this.state.focus) {
+            this.props.onChange(value)
+        } else {
+            this.props.onUpdate(value)
+        }
 
-        if (typeof this.props.value !== 'undefined') {
+        if (this.props.value !== undefined) {
             return
         }
 
@@ -74,12 +85,10 @@ class Input extends React.Component {
             onUpdate
         } = this.props
 
-        this.setState({
-            focus: false
+        this.setState({focus: false}, () => {
+            onBlur(e)
+            onUpdate(this.getValue())
         })
-
-        onBlur(e)
-        onUpdate(this.getValue())
     }
 
     change(e) {
@@ -105,6 +114,10 @@ class Input extends React.Component {
 
     keypress(e) {
         this.props.onKeyPress(e)
+
+        if (e.key === 'Enter') {
+            this._input.blur()
+        }
     }
 
     render() {
@@ -114,6 +127,8 @@ class Input extends React.Component {
             disabled,
             error,
             formId,
+            icon,
+            id,
             label,
             name,
             maxLength,
@@ -139,12 +154,13 @@ class Input extends React.Component {
             'td-input--disabled': disabled,
             'td-input--blur': !focus,
             'td-input--focus': focus,
-            'td-input--error': error
+            'td-input--error': error,
+            'td-input--with-icon': icon
         })
         const innerClasses = 'td-input__inner'
         const inputClasses = 'td-input__input'
         const countClasses = classNames('td-input__count', {
-            'td-input--invisible': maxLength == null
+            'td-input--invisible': maxLength === null || maxLength === undefined
         })
         const accessoryWrapperClasses = 'td-input__input-accessories'
         const decorationWrapperClasses = 'td-input__decorations'
@@ -160,8 +176,15 @@ class Input extends React.Component {
             ? {height: `${inputHeight}px`}
             : null
 
+        let IconComponent
+
+        if (icon) {
+            const iconClasses = classNames('td-input__icon', icon.props.className)
+            IconComponent = React.cloneElement(icon, {className: iconClasses})
+        }
+
         return (
-            <div className={classes} aria-disabled={disabled} ref={el => this._component = el}>
+            <div className={classes} aria-disabled={disabled} ref={(el) => { this._component = el }}>
                 <div className={innerClasses}>
 
                     {/* Input, Error, MaxLength Labels */}
@@ -173,7 +196,7 @@ class Input extends React.Component {
                                 {label}
                             </label>
                         }
-                        <div className={phantomInputClasses} style={inputStyles}></div>
+                        <div className={phantomInputClasses} style={inputStyles} />
 
                         <div className={decorationWrapperClasses}>
                             {error && error.length &&
@@ -188,7 +211,10 @@ class Input extends React.Component {
                         </div>
                     </div>
 
+                    {IconComponent}
+
                     <input className={inputClasses}
+                        id={id}
                         form={formId}
                         readOnly={readOnly}
                         tabIndex={disabled ? -1 : tabIndex}
@@ -206,7 +232,7 @@ class Input extends React.Component {
                         onChange={this.change}
                         onClick={this.click}
                         onKeyPress={this.keypress}
-                        ref={el => this._input = el}
+                        ref={(el) => { this._input = el }}
                     />
                 </div>
             </div>
@@ -241,14 +267,19 @@ Input.propTypes = {
     formId: PropTypes.string,
 
     /**
+     * Specifies an icon
+     */
+    icon: PropTypes.element,
+
+    /**
+     * Specifies the ID of the input element.
+     */
+    id: PropTypes.string,
+
+    /**
      * Defines the text for the input's label.
      */
     label: PropTypes.string,
-
-    /**
-     * Defines the name of the input.
-     */
-    name: PropTypes.string,
 
     /**
      * Defines the maximum length for the input.
@@ -266,9 +297,9 @@ Input.propTypes = {
     minNum: PropTypes.number,
 
     /**
-     * Defines the step value for a `number` input type.
+     * Defines the name of the input.
      */
-    stepValue: PropTypes.number,
+    name: PropTypes.string,
 
     /**
      * Defines a placeholder for the input.
@@ -279,6 +310,11 @@ Input.propTypes = {
      * Specifies whether the input is read-only
      */
     readOnly: PropTypes.bool,
+
+    /**
+     * Defines the step value for a `number` input type.
+     */
+    stepValue: PropTypes.number,
 
     /**
      * Specifies the tab index of the input
@@ -292,6 +328,7 @@ Input.propTypes = {
         'text',
         'email',
         'number',
+        'password',
         'telephone'
     ]),
 

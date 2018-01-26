@@ -19,13 +19,21 @@ $transitions-label-height: 1.2rem;
     }
 }
 
+.td-input__inner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    border-width: 0 0 1px 0;
+    border-style: solid;
+}
+
 .td-input__input {
     padding: map-get($spacing-map, small) 0;
     height: calc(#{map-get($spacing-map, small)} * 2 + 1.2rem);
 
-    border-width: 0 0 1px 0;
-    border-style: solid;
-
+    border-width: 0;
     background: none;
     cursor: pointer;
     z-index: $z-1;
@@ -172,4 +180,16 @@ $transitions-label-height: 1.2rem;
 
 .td-input__count.td-input--invisible {
     opacity: 0;
+}
+
+.td-input__icon {
+    height: 1rem;
+    width: 1rem;
+    margin: 0 map-get($spacing-map, large);
+    transition: all $transition-duration;
+}
+
+.td-input--with-icon .td-input__label,
+.td-input--with-icon .td-input__error {
+    margin-left: calc(1rem + #{map-get($spacing-map, large) * 2});
 }
