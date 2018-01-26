@@ -199,10 +199,10 @@ class Form extends React.PureComponent {
         const newError = {...this.getError()}
         const {onError} = this.props
 
-        if (!error && newError[name]) {
+        if (!error && newError.hasOwnProperty(name)) {
             delete newError[name]
             this.setError(newError, () => { onError(newError) })
-        } else if (newError[name] !== error) {
+        } else if (error && newError[name] !== error) {
             newError[name] = error
             this.setError(newError, () => { onError(newError) })
         }
