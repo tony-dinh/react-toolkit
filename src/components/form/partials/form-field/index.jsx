@@ -4,6 +4,14 @@ import PropTypes from 'prop-types'
 const noop = () => {}
 
 class FormField extends React.PureComponent {
+    componentDidMount() {
+        this.props.register(this, this.props.name)
+    }
+
+    componentWillUnmount() {
+        this.props.unregister(this.props.name)
+    }
+
     change = (value) => {
         const {
             name,
@@ -39,7 +47,7 @@ class FormField extends React.PureComponent {
         if (required && !value) {
             error = 'Required'
         } else {
-            error = validate({name, value})
+            error = validate({name, value, isRequred: required})
         }
 
         onValidate({name, error})
@@ -74,6 +82,8 @@ class FormField extends React.PureComponent {
 FormField.propTypes = {
     component: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
+    register: PropTypes.func.isRequired,
+    unregister: PropTypes.func.isRequired,
     contexts: PropTypes.array,
     formData: PropTypes.object,
     formError: PropTypes.object,

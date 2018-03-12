@@ -22,6 +22,7 @@ class Form extends React.PureComponent {
     static Field = withForm(FormField)
     static SubmitTrigger = withForm(FormSubmit)
 
+    fields = {}
     id = `form-${uuid()}`
     state = {data: {}, error: {}}
 
@@ -52,7 +53,9 @@ class Form extends React.PureComponent {
                 formData: data,
                 formError: error,
                 formId: this.id,
+                register: this.registerField,
                 submit: this.submit,
+                unregister: this.unregisterField,
                 validate,
                 validateOnUpdate,
                 onChange: this.change,
@@ -62,8 +65,8 @@ class Form extends React.PureComponent {
         }
     }
 
-    isErrorControlled = () => this.props.error !== undefined
-    isDataControlled = () => this.props.data !== undefined
+    isErrorControlled = () => this.props.hasOwnProperty('error')
+    isDataControlled = () => this.props.hasOwnProperty('data')
 
     change = ({name, value}) => {
         const data = {...this.getData()}
@@ -107,6 +110,14 @@ class Form extends React.PureComponent {
         this.setState({error}, callback)
     }
 
+    registerField = (component, name) => {
+        this.fields[name] = component
+    }
+
+    unregisterField = (name) => {
+        delete this.fields[name]
+    }
+
     submit = (e) => {
         const {
             onSubmit,
@@ -145,7 +156,6 @@ class Form extends React.PureComponent {
         const data = this.getData()
 
         const {
-            children,
             validate,
             onError
         } = this.props
@@ -153,43 +163,32 @@ class Form extends React.PureComponent {
         const error = {...this.getError()}
 
         const validateEl = (element) => {
-            if (!element) {
+            if (!element || !element.props) {
                 return
             }
             // Do requirement validation on form fields (ignore buttons)
             // by checking if we have the data for that field name in our state.
-            if (element.type === Form.Field) {
-                const fieldName = element.props.name
+            const fieldName = element.props.name
 
-                if (element.props.required && !data[fieldName]) {
-                    error[fieldName] = 'Required'
+            if (element.props.required && !data[fieldName]) {
+                error[fieldName] = 'Required'
+
+            } else {
+                const fieldError = validate({name: fieldName, value: data[fieldName]})
+                if (fieldError) {
+                    error[fieldName] = fieldError
                 } else {
-                    const fieldError = validate({name: fieldName, value: data[fieldName]})
-                    if (fieldError) {
-                        error[fieldName] = fieldError
-                    } else {
-                        delete error[fieldName]
-                    }
+                    delete error[fieldName]
                 }
-
             }
         }
 
-        const formFields = (arr) => {
-            let result = []
-            arr.forEach((element) => {
-                if (element.type === Form.Field) {
-                    result.push(element)
-                } else {
-                    result = element.props
-                        ? result.concat(formFields(React.Children.toArray(element.props.children)))
-                        : result
-                }
-            })
-            return result
+        for (const fieldName in this.fields) {
+            if (this.fields.hasOwnProperty(fieldName)) {
+                validateEl(this.fields[fieldName])
+            }
         }
 
-        formFields(React.Children.toArray(children)).forEach(validateEl)
         this.setError(error, () => { onError(error) })
 
         return error

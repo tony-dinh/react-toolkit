@@ -374,15 +374,13 @@ class Icon extends React.PureComponent {
         const classes = classNames('td-icon', className)
         const svgClasses = classNames('td-icon__svg', svgClassName)
         const Svg = SVGS[name]
-        let customSvg
-
-        if (!Svg && children) {
-            customSvg = React.cloneElement(React.Children.toArray(children)[0], {className: svgClasses})
-        }
+        const customSvg = children
+            ? React.cloneElement(React.Children.toArray(children)[0], {className: svgClasses})
+            : null
 
         return (
             <div ref={iconRef} style={style} className={classes}>
-                {Svg ? <Svg className={svgClasses} /> : customSvg}
+                {children ? <Svg className={svgClasses} /> : customSvg}
             </div>
         )
     }
