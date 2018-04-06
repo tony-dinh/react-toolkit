@@ -114,10 +114,6 @@ class Input extends React.PureComponent {
 
     keypress(e) {
         this.props.onKeyPress(e)
-
-        if (e.key === 'Enter') {
-            this._input.blur()
-        }
     }
 
     render() {

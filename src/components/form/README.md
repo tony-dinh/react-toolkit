@@ -36,7 +36,13 @@ const onSubmit = (data) => {
 };
 
 
-<Form name="test form" onSubmit={onSubmit} validate={validate} validateOnUpdate>
+<Form
+    name="test form"
+    submitOnEnter
+    validate={validate}
+    validateOnUpdate
+    onSubmit={onSubmit}
+>
     <div style={{display: 'flex'}}>
         <Form.Field name="firstName"
             label="First Name"
@@ -76,6 +82,14 @@ const onSubmit = (data) => {
         required
     />
 
-    <Form.SubmitTrigger text="Submit" />
+    <Form.SubmitTrigger
+        render={({submit}) => (
+            <Button
+                text="Submit"
+                type="submit"
+                onClick={submit}
+            />
+        )}
+    />
 </Form>
 ```

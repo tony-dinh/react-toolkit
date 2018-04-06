@@ -26,15 +26,6 @@ class Form extends React.PureComponent {
     id = `form-${uuid()}`
     state = {data: {}, error: {}}
 
-    componentDidMount() {
-        this._form.addEventListener('keyup', (e) => {
-            if (e.key === 'Enter' && this.props.submitOnEnter) {
-                e.preventDefault()
-                this.submit()
-            }
-        })
-    }
-
     getChildContext() {
         const {
             validate,
@@ -106,6 +97,15 @@ class Form extends React.PureComponent {
         this.setState({error}, callback)
     }
 
+    keyup = (e) => {
+        const key = e.key || e.keyCode
+        const isEnterKey = key === 'Enter' || key === 13
+
+        if (isEnterKey && this.props.submitOnEnter) {
+            this.submit()
+        }
+    }
+
     registerField = (component, name) => {
         this.fields[name] = component
     }
@@ -167,7 +167,7 @@ class Form extends React.PureComponent {
             const fieldName = element.props.name
 
             if (element.props.required && !data[fieldName]) {
-                error[fieldName] = 'Required'
+                error[fieldName] = 'This field is required'
 
             } else {
                 const fieldError = validate({name: fieldName, value: data[fieldName]})
@@ -214,7 +214,7 @@ class Form extends React.PureComponent {
         return (
             <form id={this.id} className={classes}
                 name={name}
-                ref={(el) => { this._form = el }}
+                onKeyUp={this.keyup}
                 onSubmit={this.submit}
             >
                 {children}

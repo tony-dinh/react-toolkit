@@ -30,7 +30,12 @@ class Button extends React.PureComponent {
     mouseLeave = debounce(this._mouseLeave, 250)
 
     click = (e) => {
-        e.persist()
+        if (this.props.disabled) {
+            e && e.preventDefault() && e.stopPropagation()
+            return
+        }
+
+        e && e.persist()
         this.props.onClick(e)
     }
 
