@@ -15,6 +15,11 @@ const uuid = (() => {
     }
 })()
 
+const pauseEvent = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+}
+
 const CONTEXT = '__rt-form__'
 const withForm = connector(CONTEXT)
 
@@ -53,19 +58,8 @@ class Form extends React.PureComponent {
     }
 
     isErrorControlled = () => this.props.hasOwnProperty('error')
+
     isDataControlled = () => this.props.hasOwnProperty('data')
-
-    change = ({name, value}) => {
-        const data = {...this.getData()}
-
-        if (!value && data[name] !== '') {
-            data[name] = ''
-            this.setData(data, () => this.props.onChange(data))
-        } else if (data[name] !== value) {
-            data[name] = value
-            this.setData(data, () => this.props.onChange(data))
-        }
-    }
 
     getData = () => {
         return this.isDataControlled()
@@ -95,6 +89,18 @@ class Form extends React.PureComponent {
         }
 
         this.setState({error}, callback)
+    }
+
+    change = ({name, value}) => {
+        const data = {...this.getData()}
+
+        if (!value && data[name] !== '') {
+            data[name] = ''
+            this.setData(data, () => this.props.onChange(data))
+        } else if (data[name] !== value) {
+            data[name] = value
+            this.setData(data, () => this.props.onChange(data))
+        }
     }
 
     keyup = (e) => {
@@ -215,7 +221,7 @@ class Form extends React.PureComponent {
             <form id={this.id} className={classes}
                 name={name}
                 onKeyUp={this.keyup}
-                onSubmit={this.submit}
+                onSubmit={pauseEvent}
             >
                 {children}
             </form>
