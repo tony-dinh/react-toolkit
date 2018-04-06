@@ -27,12 +27,8 @@ class Form extends React.PureComponent {
     state = {data: {}, error: {}}
 
     componentDidMount() {
-        if (!this.props.submitOnEnter) {
-            return
-        }
-
         this._form.addEventListener('keyup', (e) => {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && this.props.submitOnEnter) {
                 e.preventDefault()
                 this.submit()
             }
