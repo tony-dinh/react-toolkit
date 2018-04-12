@@ -94,10 +94,7 @@ class Form extends React.PureComponent {
     change = ({name, value}) => {
         const data = {...this.getData()}
 
-        if (!value && data[name] !== '') {
-            data[name] = ''
-            this.setData(data, () => this.props.onChange(data))
-        } else if (data[name] !== value) {
+        if (data[name] !== value) {
             data[name] = value
             this.setData(data, () => this.props.onChange(data))
         }
