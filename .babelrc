@@ -1,6 +1,6 @@
 {
     "presets": [
-        ["es2015", {"modules": false}],
+        ["env", {"modules": false}],
         "react"
     ],
     "plugins": [
@@ -14,7 +14,7 @@
     "env": {
         "commonjs": {
             "presets": [
-                "es2015",
+                "env",
                 "react"
             ],
             "plugins": [
